@@ -1,0 +1,7 @@
+{
+    "post_types": {
+    "broker_seccion": {},
+    "broker_servicios": {},
+    "broker_contacto": {}
+    }
+}

@@ -1,0 +1,25 @@
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+php_value upload_max_filesize 228M
+php_value post_max_size 228M
+php_value memory_limit 512M
+php_value max_execution_time 3000
+php_value max_input_time 3000
+</IfModule>
+<IfModule mod_security.c>
+SecFilterEngine Off
+SecFilterScanPOST Off
+</IfModule>
+<IfModule mod_fcgid.c>
+  # 20MB
+  MaxRequestLen 20000000
+</IfModule>
+
+# END WordPress
