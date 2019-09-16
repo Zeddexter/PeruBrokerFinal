@@ -115,6 +115,11 @@ $(function () {
     return false;
   });
 
+
+/** Quitar clase de imagen de nosotros - visiones */
+$('#item5 .col-lg-12').removeClass("col-xl-9");
+
+
 // STAF
   
   var swiper = new Swiper('.content-item', {
