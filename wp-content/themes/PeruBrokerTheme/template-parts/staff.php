@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col">
                 <h3>Staff</h3>
-                <div class="content-item swiper-container">
-                    <div class="swiper-wrapper">
+                <div class="content-staff">
+                 
                        <?php mostrar_staff(); ?>
-                    </div>
+                  
                 </div>
                 
 
