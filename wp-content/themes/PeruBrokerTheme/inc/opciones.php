@@ -2,7 +2,7 @@
 <?php
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','administrator','rp_estadisticas','rp_estadisticas','',20);
-add_submenu_page('rp_estadisticas','Estadisticas','Estadisticas','administrator','rp_estadisticas','rp_estadisticas');
+add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','administrator','rp_estadisticas','rp_estadisticas');
 add_submenu_page('rp_estadisticas','Nuevo registro','Nuevo registro','administrator','rp_nuevos_registros','rp_nuevos_registros');
 //add_submenu_page('rp_estadisticas','Reportes','Reportes','administrator','rp_reportes','rp_reportes');
 }
@@ -38,7 +38,7 @@ function rp_estadisticas (){
     <div id="wpwrap"></div>
         <h1>Reportes</h1>
         
-        <form id="category-select" class="category-select" action="http://localhost/perubrokerfinal/wp-admin/admin.php?page=rp_estadisticas" method="post">
+        <form id="category-select" class="category-select" action="" method="post">
         <label for="tipo_reporte">Tipo de reporte:</label>
             <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" onchange="this.form.submit()">
                <?php echo get_options($selectedTipo); ?>
