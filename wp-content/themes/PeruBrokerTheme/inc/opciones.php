@@ -99,9 +99,9 @@ function rp_estadisticas (){
         <div id="lista" style="list-style-type: disc;">
             <ul id = "menu_arbol" class="nav nav-tabs">
                 <li class="sub_lista">Año: 2019 </li>
-                <ul>
+                <ul style="margin-left: 8px;">
                     <li>Mes: Septiembre
-                    <ul>
+                    <ul style="margin-left: 8px;">
                         <li>Primera Quincena</li>
                     </ul>
                     </li>
