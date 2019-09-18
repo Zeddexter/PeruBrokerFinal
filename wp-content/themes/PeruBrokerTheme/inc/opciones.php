@@ -1,7 +1,5 @@
 
 <?php
-
-
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','administrator','rp_estadisticas','rp_estadisticas','',20);
 add_submenu_page('rp_estadisticas','Estadisticas','Estadisticas','administrator','rp_estadisticas','rp_estadisticas');
@@ -12,42 +10,75 @@ add_submenu_page('rp_estadisticas','Estadisticas','Estadisticas','administrator'
 add_action('admin_menu','perubroker_reportes');
 
 function rp_estadisticas (){
-    ?>
+    $selectedTipo = 0;
+        ?>
+ <?php function get_options($select){
+     $opciones = array('Estadisticas'=>0,'Fishing Report'=>1,'Reportes'=>2);
+     $options = '';
+     while (list($k,$v)=each($opciones))
+     {
+         if($select ==$v)
+         {
+            $options.='<option value="'.$v.'" selected>'.$k.'</option>';
+         }
+         else
+         {
+            $options.='<option value="'.$v.'">'.$k.'</option>';
+         }
+          
+     }
+     return $options;
+ }
+ if(isset($_POST['tipo_reporte']))
+ {
+    $selectedTipo = $_POST['tipo_reporte'];
+ }
  
+?>
     <div id="wpwrap"></div>
-        <h1>Estadísticas</h1>
-        <div>
+        <h1>Reportes</h1>
+        
+        <form id="category-select" class="category-select" action="http://localhost/perubrokerfinal/wp-admin/admin.php?page=rp_estadisticas" method="post">
+        <label for="tipo_reporte">Tipo de reporte:</label>
+            <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" onchange="this.form.submit()">
+               <?php echo get_options($selectedTipo); ?>
+            </select>
             
-            <label for="Anio">Año:</label>
-           <input type="text" name="Anio" id="Anio" style="width:50px;">
+                                <noscript>
+                                <input type="submit" name="Selection" value="view" />
+                                </noscript>
+            </form>
+            <form action = "" method = "POST">
+        <input type="button" value="Nuevo" name="BtnNuevo" id="BtnNuevo" class= "button button primary">
+        <input type="hidden" id="ipaddr" name="ipaddr" value="<?php echo $selectedTipo ?>">
+        <div id="DvFormulario" style="Display:None" >
+        <label for="Anio">Año:</label>
+           <input type="text" name="Anio" id="Anio" style="width:50px;" value = <?php echo date("Y");?> />
             <br>
             <label for="mes">Mes:</label>
-            <select name="" id="">
-               <option value="1">Enero</option>
-                <option value="2">Febrero</option>
-                <option value="3">Marzo</option>
-                <option value="4">Abril</option>
-                <option value="5">Mayo</option>
-                <option value="6">Junio</option>
-                <option value="7">julio</option>
-                <option value="8">Agosto</option>
-                <option value="9">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-            </select><br>
-            <label for="tipo_reporte">Tipo de reporte:</label>
-            <select name="tipo_reporte" id="">
-               <option value="1">Estadisticas</option>
-                <option value="2">Fishing Reports</option>
-                <option value="3">Reportes</option>
+            <select name='mes' id='mes'>
+    <?php
+        $months = array(
+            1=>'Enero','Febrero','Marzo','Abril',
+            'Mayo','Junio','Julio','Agosto','Septiembre',
+            'Octubre','Noviembre','Diciembre',
+        );
+
+        $key = date("n"); //$_GET['page'];     // Month number
+        $default = $months[$key]; // Month name
+
+        foreach ($months as $num => $name) {
+            $selected = ($name == $default) ? "selected='selected'" : "";
+            printf('<option value="%s" %s>%s</option>', $num, $selected, $name);
+        }
+    ?>
 </select>
-            <div class="container">
+<div class="container">
                 <ul>
                         <li><label><input type="checkbox" class="subOption" id="ChkQuincenal"> Quincenal</label><br>
                         <div id = "dvRadioButton" style="display: none">
-                        <label for="PrimeraQuincena"><input type="radio" name="Quincena" id="PrimeraQuincena"> Primera Quincena</label>
-                        <label for="SegundaQuincena"><input type="radio" name="Quincena" id="SegundaQuincena"> Segunda Quincena</label>
+                        <label for="PrimeraQuincena"><input type="radio" name="Quincena" value="1" id="PrimeraQuincena"> Primera Quincena</label>
+                        <label for="SegundaQuincena"><input type="radio" name="Quincena" value="2" id="SegundaQuincena"> Segunda Quincena</label>
                         </div>
                     </li>
                         <li><label><input type="checkbox" class="subOption" id= "ChkNumSem"> Semanal</label></li>
@@ -56,25 +87,30 @@ function rp_estadisticas (){
             <div id = "dvNumSem" style = "display: none">
             <label for="NumSemana">Número de semana:</label>
             <?php $numero_semana = date("W"); ?>
-            <input type="text" name="Weeknumber" id="weeknumber" style="width:50px;" value = "<?php echo $numero_semana; ?>">    
+            <input type="text" name="NumeroSemana" id="NumeroSemana" style="width:50px;" value = "<?php echo $numero_semana; ?>">    
             </div>
-            <h3>Cargar archivo PDF ó Excel</h3>
-            <?php 
-            
-            
-      $upload_fil =  wp_upload_dir();
-       
-      $uploadFileDir = $upload_fil['baseurl'].'/Reportes/';
-            echo $uploadFileDir;
-            ?>
-<form action="upload_filespb.php" method="post" enctype="multipart/form-data">
-<input type="file" name="uploadedFile" size="50" class="custom-file-input"  accept="application/pdf, application/vnd.ms-excel" />
-
-<input type="submit" value="Upload" name = "uploadBtn" class="button button primary" />
-<br>
-<br>
-</form>
-    </div>
+            <div><label for="Titulo">Título:</label>
+            <input type="text" name="Titulo" id="Titulo" required></div>
+            <br>
+            <div><input type="submit" name="submit" value="Agregar" class= "button button primary"></div>
+            </form>  
+        </div>    
+        <br>
+        <div id="lista" style="list-style-type: disc;">
+            <ul id = "menu_arbol" class="nav nav-tabs">
+                <li class="sub_lista">Año: 2019 </li>
+                <ul>
+                    <li>Mes: Septiembre
+                    <ul>
+                        <li>Primera Quincena</li>
+                    </ul>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+        
+     
+        
         <table class= "wp-list-table widefat striped">
             <thead>
             <tr>
@@ -88,9 +124,11 @@ function rp_estadisticas (){
             </tr>
             </thead>
             <tbody> 
-                <?php global $wpdb;
-                      $tbl_estadisticas = $wpdb->prefix.'reportespb';
-                      $registros = $wpdb->get_results("select * from $tbl_estadisticas where typerep = 0 ",ARRAY_A);
+
+                <?php 
+                        global $wpdb;
+                        $tbl_estadisticas = $wpdb->prefix.'reportespb';     
+                      $registros = $wpdb->get_results("select * from $tbl_estadisticas where typerep = $selectedTipo ",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
                             <td><?php echo $registro['id']; ?></td>
@@ -102,20 +140,19 @@ function rp_estadisticas (){
                             <td><?php echo $registro['files']; ?></td>
                         </tr>
                       <?php }
+                      
+              
                 ?>
             </tbody>
         </table>
+        <?php 
+//require_once('/wp-config.php');
+
+    if(isset($_POST['submit'])){
+        
+        echo $selectedTipo;
+    }
+
+?>
     <?php
-}
-function rp_fishing_report(){
-    ?>
-    <div id="wpwrap"></div>
-        <h1>Fishing Report</h1>
-    <?php
-}
-function rp_reportes(){
-    ?>
-    <div id="wpwrap"></div>
-        <h1>Reportes</h1>
-    <?php
-}
+ }
