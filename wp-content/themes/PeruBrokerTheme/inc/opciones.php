@@ -7,6 +7,7 @@ add_submenu_page('rp_estadisticas','Nuevo registro','Nuevo registro','administra
 //add_submenu_page('rp_estadisticas','Reportes','Reportes','administrator','rp_reportes','rp_reportes');
 }
 
+
 add_action('admin_menu','perubroker_reportes');
 
 function rp_estadisticas (){
