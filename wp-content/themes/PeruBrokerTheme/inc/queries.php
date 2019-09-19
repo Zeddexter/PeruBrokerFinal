@@ -106,14 +106,23 @@ function mostrar_staff(){ ?>
             while ($clases->have_posts() ): $clases -> the_post();
            
             ?>
-            
-            <div class="item-staff swiper-slide">
-                <figure class="img-staff">
-                    <?php the_post_thumbnail('full'); ?>
-                </figure>
-                <p><?php the_field('nombre') ?></p>
-                <span><?php the_field('puesto') ?></span>
+            <div class="row">
+                <div class="col-12">
+                    
+                        <figure class="img-staff">
+                            <?php the_post_thumbnail('full'); ?>
+                        </figure>
+                 
+                </div>
+                <div class="col-12">
+                    <div class="text-staff">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
+                
             </div>
+            
+            
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
 }

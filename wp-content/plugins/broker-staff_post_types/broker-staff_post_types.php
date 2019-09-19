@@ -47,7 +47,7 @@ function brokerstaff_post_type() {
 		'label'                 => __( 'Staff', 'broker-staff' ),
 		'description'           => __( 'Staffes para el Sitio Web', 'broker-staff' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title',  'thumbnail' ),
+		'supports'              => array( 'title', 'editor', 'thumbnail' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
