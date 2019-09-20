@@ -3,7 +3,7 @@
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','administrator','rp_estadisticas','rp_estadisticas','',20);
 add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','administrator','rp_estadisticas','rp_estadisticas');
-add_submenu_page('rp_estadisticas','Nuevo registro','Nuevo registro','administrator','rp_nuevos_registros','rp_nuevos_registros');
+add_submenu_page('rp_estadisticas','Nuevo reporte','Nuevo reporte','administrator','rp_nuevos_registros','rp_nuevos_registros');
 //add_submenu_page('rp_estadisticas','Reportes','Reportes','administrator','rp_reportes','rp_reportes');
 }
 
@@ -73,6 +73,7 @@ function rp_estadisticas (){
                         case when typerep = 0 then 'Estadisticas' 
                              when typerep = 1 then 'Fishing report'
                              when typerep = 2 then 'reportes' end as typerep,
+                             typerep as typerep_id,
                         case when months = 1 then 'Enero'
                              when months = 2 then 'Febrero'
                              when months = 3 then 'Marzo'
@@ -92,7 +93,8 @@ function rp_estadisticas (){
                              else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = $selectedTipo ",ARRAY_A);
+                        from $tbl_estadisticas where typerep = $selectedTipo  order by years,
+                        case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
                             
@@ -113,16 +115,14 @@ function rp_estadisticas (){
                             <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/>
                             <input type="hidden" name="IdKey" value="<?php echo $registro['id']; ?>"  >
                             <input type="hidden" name="Nombre" value="<?php echo $registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']; ?>"  >
+                            <input type="hidden" name="tipo_reportes" value ="<?php echo $registro['typerep_id']; ?>">
                             <input type="submit" value="Adjuntar" name="uploadBtn" class="button button primary">
                             </form>
                                     <?php
                             } ?>
                            </td>
                            <td><a href="http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Editar</a></td>
-                            <td>
-                           <input type="button" value="" onclick="alerta()">
-                             <!-- <a href="Eliminar?id=<?php echo $registro['id']; ?>" onclick="return Confirmation()"><span class="fa fa-trash"></span>Eliminar</a> -->
-                            </td>
+                         
                             </tr>
                       <?php }
                       
@@ -146,7 +146,7 @@ function rp_estadisticas (){
                          
                           // sanitize file-name
                          // $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                         $newFileName = $_POST['Nombre'].'.'.$fileExtension;
+                         $newFileName = sanitize_text_field($_POST['Nombre']).'.'.$fileExtension;
 
                       
                           // check if file has one of the following extensions
@@ -164,7 +164,7 @@ function rp_estadisticas (){
                                 global $wpdb;
                                 $tbl_estadisticas = $wpdb->prefix.'reportespb'; 
                                 $wpdb->update( $tbl_estadisticas, array( 'files' => $newFileName,'route_file'=>$dest_path),array('id'=>$_POST['IdKey']));
-                              header('Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas ');
+                              header('Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep='.$_POST["tipo_reportes"]);
                             }
                             else 
                             {
@@ -225,9 +225,9 @@ function rp_estadisticas (){
         from $tbl_estadisticas where id = ".$_GET['id'] ."",ARRAY_A);
       foreach($registros as $registro){ 
            ?>
-            <form action="" method= "POST">
+            <form action="" method= "POST" enctype="multipart/form-data">
             <div id="wpwrap"></div>
-               <h1>Nuevo reporte</h1>
+               <h1>Modificar reporte</h1>
            <br>
            <div class="row">
            <label for="anio" style="font-weight: bold;">Año:</label>
@@ -351,12 +351,32 @@ function rp_estadisticas (){
                                } ?>  
                                </table>
                            </li>
+                           
+                           <!-- Descargar  <input type="submit" name ="Guardar" value="Quitar Adjunto" class="button button-primary button-large"> -->
                        </ul>
                        </li>
                    </ul>  
-                   </div>
+                   </div> Archivo adjunto: 
+                   <?php if(isset($registro['files'])){
+                                //echo $registro['files'];
+                                ?> 
+                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a>
+                                <!-- <form action="" method="post"> -->
+                                <input type="submit" name ="Quitaradjunto" value="Quitar Adjunto" class="">
+                                <!-- </form> -->
+                                 <?php
+                            }else {
+                                    ?>
+                                    <!-- <form action="" method="post" enctype="multipart/form-data"> -->
+                            <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/>
+                            <input type="hidden" name="IdKey" value="<?php echo $registro['id']; ?>"  >
+                            <input type="hidden" name="Nombre" value="<?php echo $registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']; ?>"  >
+                            <input type="submit" value="Adjuntar" name="uploadBtn" class="button button primary">
+                            <!-- </form> -->
+                                    <?php
+                            } ?>
                  <hr>
-                       <input type="submit" name ="registrar" value="Guardar cambios" class="button button-primary button-large">
+                       <input type="submit" name ="Guardar" value="Guardar cambios" class="button button-primary button-large">
                        <input type="submit" name ="Eliminar" value="Eliminar registro" class="button button-primary button-large">
                  <hr>
                </form>
@@ -365,7 +385,8 @@ function rp_estadisticas (){
                  <form action="upload_filespb.php" method="post" enctype="multipart/orm-data"><input type="file" name="uploadedFile" size="50" class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/><input type="submit"value="Upload" name="uploadBtn"class="button button primary"/></form></li></ul> -->
            </div>
            <?php 
-           if(isset($_POST["Guardar cambios"]))
+
+           if(isset($_POST["Guardar"]))
            {
                $quincena = "0";
                $num_semana = "0";
@@ -381,16 +402,14 @@ function rp_estadisticas (){
                // Insertar registros
                global $wpdb;
                $table = $wpdb->prefix.'reportespb';
-               $data = array('typerep' => $_POST["SelTipRep"], 
-                             'years' =>  $_POST["anio"],
-                             'months' => $_POST["Selmes"],
-                             'biweeklys'=> $quincena,
-                             'weeknumbers' => $num_semana,
-                             'title' => $_POST["titulo"]
-                           );
-               $wpdb->insert($table,$data);
-               $my_id = $wpdb->insert_id;
-               echo $my_id;
+               $wpdb->update( $table,array('typerep' => $_POST["SelTipRep"], 
+               'years' =>  $_POST["anio"],
+               'months' => $_POST["Selmes"],
+               'biweeklys'=> $quincena,
+               'weeknumbers' => sanitize_text_field($num_semana),
+               'title' => sanitize_text_field($_POST["titulo"])
+             ),array('id'=>$_GET["id"]));
+              
                Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
                // $result = $wpdb->update($table, array('officerOrder' => $memberOrder,
                //         'officerTitle' => $memberTitle, 'officerName' => $memberName, 'officerPhone' => 
@@ -398,7 +417,83 @@ function rp_estadisticas (){
                //         array('%d'));            
                
            }
-           
+           if(isset($_POST["Eliminar"]))
+           {
+
+            //Quitar archivo adjunto
+            unlink($registro["route_file"]);
+            global $wpdb;
+            $table = $wpdb->prefix.'reportespb';
+            $wpdb->delete($table, array('id' =>$_GET["id"] ));
+            Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
+           }
+           if(isset($_POST["Quitaradjunto"]))
+           {
+            unlink($registro["route_file"]);
+            //Actualizar file y ruta 
+            global $wpdb;
+            $table = $wpdb->prefix.'reportespb';
+            $wpdb->update( $table, array( 'files' => null,'route_file'=>null),array('id'=>$_GET["id"]));
+            Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
+            
+           }
+           session_start();
+                      $message = ''; 
+                      $paso1 = '0';
+                      $paso2 = '';
+                      if(isset($_POST['uploadBtn'])&&$_POST['uploadBtn']=='Adjuntar')
+                      {
+                        if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK)
+                        {
+                        //   $paso1 = $registro['id'];
+                        //   echo  "Data";
+                          // get details of the uploaded file
+                          $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+                          $fileName = $_FILES['uploadedFile']['name'];
+                          $fileSize = $_FILES['uploadedFile']['size'];
+                          $fileType = $_FILES['uploadedFile']['type'];
+                          $fileNameCmps = explode(".", $fileName);
+                          $fileExtension = strtolower(end($fileNameCmps));
+                         
+                          // sanitize file-name
+                         // $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                         $newFileName = $_POST['Nombre'].'.'.$fileExtension;
+
+                      
+                          // check if file has one of the following extensions
+                          $allowedfileExtensions = array('pdf','jpg', 'gif', 'png', 'zip', 'txt', 'xls', 'doc');
+                          if (in_array($fileExtension, $allowedfileExtensions))
+                          {
+                            // directory in which the uploaded file will be moved
+                            
+                            $uploadFileDir = './uploaded_files/';
+                            $dest_path = $uploadFileDir . $newFileName;
+                            if(move_uploaded_file($fileTmpPath, $dest_path)) 
+                            {
+                              $message ='File is successfully uploaded.';
+                                 //Evento guardar ID
+                                global $wpdb;
+                                $tbl_estadisticas = $wpdb->prefix.'reportespb'; 
+                                $wpdb->update( $tbl_estadisticas, array( 'files' => $newFileName,'route_file'=>$dest_path),array('id'=>$_POST['IdKey']));
+                                Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
+                            }
+                            else 
+                            {
+                              $message = 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.';
+                            }
+                          }
+                          else
+                          {
+                            $message = 'Upload failed. Allowed file types: ' . implode(',', $allowedfileExtensions);
+                          }
+                        }
+                        else
+                        {
+                          $message = 'There is some error in the file upload. Please check the following error.<br>';
+                          $message .= 'Error:' . $_FILES['uploadedFile']['error'];
+                        }
+                      }
+                      echo $message;
            ?>
            <?php
         }
@@ -552,7 +647,7 @@ function rp_estadisticas (){
                       'months' => $_POST["Selmes"],
                       'biweeklys'=> $quincena,
                       'weeknumbers' => $num_semana,
-                      'title' => $_POST["titulo"]
+                      'title' => sanitize_text_field($_POST["titulo"])
                     );
         $wpdb->insert($table,$data);
         $my_id = $wpdb->insert_id;
