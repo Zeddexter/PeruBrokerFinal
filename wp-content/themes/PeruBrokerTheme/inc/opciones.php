@@ -1,5 +1,6 @@
 
 <?php
+
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','administrator','rp_estadisticas','rp_estadisticas','',20);
 add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','administrator','rp_estadisticas','rp_estadisticas');
@@ -121,7 +122,8 @@ function rp_estadisticas (){
                                     <?php
                             } ?>
                            </td>
-                           <td><a href="http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Editar</a></td>
+                           
+                           <td><a href="<?php echo esc_url(home_url( '/' )); ?>wp-admin/admin.php?page=rp_nuevos_registros&id=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Editar</a></td>
                          
                             </tr>
                       <?php }
@@ -164,7 +166,7 @@ function rp_estadisticas (){
                                 global $wpdb;
                                 $tbl_estadisticas = $wpdb->prefix.'reportespb'; 
                                 $wpdb->update( $tbl_estadisticas, array( 'files' => $newFileName,'route_file'=>$dest_path),array('id'=>$_POST['IdKey']));
-                              header('Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep='.$_POST["tipo_reportes"]);
+                              header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["tipo_reportes"]);
                             }
                             else 
                             {
@@ -409,8 +411,8 @@ function rp_estadisticas (){
                'weeknumbers' => sanitize_text_field($num_semana),
                'title' => sanitize_text_field($_POST["titulo"])
              ),array('id'=>$_GET["id"]));
-              
-               Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
+              $url = esc_url(home_url( '/' ));
+               Header("Location: ".$url."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
                // $result = $wpdb->update($table, array('officerOrder' => $memberOrder,
                //         'officerTitle' => $memberTitle, 'officerName' => $memberName, 'officerPhone' => 
                //         $memberPhone), array('officerId' => $memberId), array('%d','%s', '%s', '%s'),
@@ -425,7 +427,8 @@ function rp_estadisticas (){
             global $wpdb;
             $table = $wpdb->prefix.'reportespb';
             $wpdb->delete($table, array('id' =>$_GET["id"] ));
-            Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
+            $url = esc_url(home_url( '/' ));
+            Header("Location: ".$url."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
            }
            if(isset($_POST["Quitaradjunto"]))
            {
@@ -434,7 +437,8 @@ function rp_estadisticas (){
             global $wpdb;
             $table = $wpdb->prefix.'reportespb';
             $wpdb->update( $table, array( 'files' => null,'route_file'=>null),array('id'=>$_GET["id"]));
-            Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
+            $url = esc_url(home_url( '/' ));
+            Header("Location: ".$url."wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
             
            }
            session_start();
@@ -475,7 +479,8 @@ function rp_estadisticas (){
                                 global $wpdb;
                                 $tbl_estadisticas = $wpdb->prefix.'reportespb'; 
                                 $wpdb->update( $tbl_estadisticas, array( 'files' => $newFileName,'route_file'=>$dest_path),array('id'=>$_POST['IdKey']));
-                                Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
+                                $url = esc_url(home_url( '/' ));
+                                Header("Location: ".$url."wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
                             }
                             else 
                             {
@@ -652,7 +657,8 @@ function rp_estadisticas (){
         $wpdb->insert($table,$data);
         $my_id = $wpdb->insert_id;
         echo $my_id;
-        Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
+        $url =  $url = esc_url(home_url( '/' ));
+        Header("Location: ".$url."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
         // $result = $wpdb->update($table, array('officerOrder' => $memberOrder,
         //         'officerTitle' => $memberTitle, 'officerName' => $memberName, 'officerPhone' => 
         //         $memberPhone), array('officerId' => $memberId), array('%d','%s', '%s', '%s'),

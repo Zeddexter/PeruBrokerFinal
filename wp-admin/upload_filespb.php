@@ -48,8 +48,7 @@ if(isset($_GET['uploadBtn'])&&$_GET['uploadBtn']=='Adjuntar')
 }
 $_SESSION['message'] = $message;
 echo $paso1."  ".$paso2;
-//header("Location: http://localhost/perubrokerfinal/wp-admin/admin.php?page=rp_estadisticas");
-// echo $_SESSION['message'];
+
 //       ?>  <?php 
 // //require_once('/wp-config.php');
 
