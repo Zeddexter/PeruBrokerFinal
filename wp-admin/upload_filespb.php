@@ -1,10 +1,14 @@
 <?php
 session_start();
 $message = ''; 
-if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload')
+$paso1 = '0';
+$paso2 = '';
+if(isset($_GET['uploadBtn'])&&$_GET['uploadBtn']=='Adjuntar')
 {
   if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK)
   {
+    $paso2 = 'B';
+    echo  "Data";
     // get details of the uploaded file
     $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
     $fileName = $_FILES['uploadedFile']['name'];
@@ -20,7 +24,7 @@ if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload')
     {
       // directory in which the uploaded file will be moved
       
-      $uploadFileDir = 'C:/inetpub/wwwroot/PeruBroker/wp-content/themes/PeruBrokerTheme/uploaded_files/';
+      $uploadFileDir = './uploaded_files/';
       $dest_path = $uploadFileDir . $newFileName;
       if(move_uploaded_file($fileTmpPath, $dest_path)) 
       {
@@ -43,4 +47,15 @@ if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload')
   }
 }
 $_SESSION['message'] = $message;
-header("Location: www.perubroker.com.pe/wp-admin/admin.php?page=rp_estadisticas");
+echo $paso1."  ".$paso2;
+//header("Location: http://localhost/perubrokerfinal/wp-admin/admin.php?page=rp_estadisticas");
+// echo $_SESSION['message'];
+//       ?>  <?php 
+// //require_once('/wp-config.php');
+
+//     if(isset($_POST['submit'])){
+        
+//         echo $selectedTipo;
+//     }
+    //header("Location: index.php");
+?>
