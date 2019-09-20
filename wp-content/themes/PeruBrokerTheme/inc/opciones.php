@@ -60,6 +60,7 @@ function rp_estadisticas (){
                 <th class="manage-column">Descripción</th>
                 <th class="manage-column">adjunto</th>
                 <th class="manage-column"></th>
+                <th class="manage-columgit pn"></th>
             </tr>
             </thead>
             <tbody> 
@@ -94,11 +95,13 @@ function rp_estadisticas (){
                         from $tbl_estadisticas where typerep = $selectedTipo ",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
+                            
                             <td><?php echo $registro['years']; ?></td>
                             <td><?php echo $registro['months']; ?></td>
                             <td><?php echo $registro['biweeklys']; ?></td>
                             <td><?php echo $registro['weeknumbers']; ?></td>
                             <td><?php echo $registro['title']; ?></td>
+
                             <td>  
                             <?php if(isset($registro['files'])){
                                 //echo $registro['files'];
@@ -115,6 +118,11 @@ function rp_estadisticas (){
                                     <?php
                             } ?>
                            </td>
+                           <td><a href="http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_nuevos_registros&id=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Editar</a></td>
+                            <td>
+                           <input type="button" value="" onclick="alerta()">
+                             <!-- <a href="Eliminar?id=<?php echo $registro['id']; ?>" onclick="return Confirmation()"><span class="fa fa-trash"></span>Eliminar</a> -->
+                            </td>
                             </tr>
                       <?php }
                       
@@ -183,9 +191,222 @@ function rp_estadisticas (){
     <?php
  }
  function rp_nuevos_registros(){
-    ?>
-   
-    <form action="" method= "POST">
+     if(isset($_GET["id"])){
+        global $wpdb;
+        $tbl_estadisticas = $wpdb->prefix.'reportespb';     
+      $registros = $wpdb->get_results("select 
+        id,
+        years,
+        case when typerep = 0 then 'Estadisticas' 
+             when typerep = 1 then 'Fishing report'
+             when typerep = 2 then 'reportes' end as typerep,
+             typerep as typerep_id,
+             months as months_id,
+        case when months = 1 then 'Enero'
+             when months = 2 then 'Febrero'
+             when months = 3 then 'Marzo'
+             when months = 4 then 'Abril'
+             when months = 5 then 'Mayo'
+             when months = 6 then 'Junio'
+             when months = 7 then 'Julio'
+             when months = 8 then 'Agosto'
+             when months = 9 then 'Septiembre'
+             when months = 10 then 'Octubre'
+             when months = 11 then 'Noviembre'
+             when months = 12 then 'Diciembre' end as months ,
+             biweeklys as biweeklys_id,
+        case when biweeklys  = 1 then 'Primera Quincena'
+             when biweeklys = 2 then 'Segunda Quincena'
+             else '' end biweeklys,
+        case when weeknumbers = 0 then ''
+             else weeknumbers end  as weeknumbers,
+        title,
+        files, route_file 
+        from $tbl_estadisticas where id = ".$_GET['id'] ."",ARRAY_A);
+      foreach($registros as $registro){ 
+           ?>
+            <form action="" method= "POST">
+            <div id="wpwrap"></div>
+               <h1>Nuevo reporte</h1>
+           <br>
+           <div class="row">
+           <label for="anio" style="font-weight: bold;">Año:</label>
+               <b><input type="text" id= "anio" name = "anio" style="width:60px;" value= "<?php echo  $registro["years"]; ?>"></b>
+               <br>
+               <br>
+               <div>
+               <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
+                   <select name="SelTipRep" id="SelTipRep">
+                   <?php $tipo_reportes = array('Estadistica','Fishing Report','Reportes');
+                         $conta_rep = 0;
+                         foreach ($tipo_reportes as $reporte) {
+                            
+                             ?>
+                            <option value="<?php echo $conta_rep;?>" 
+                            <?php if($conta_rep ==$registro["typerep_id"]){ echo "selected";} ?>
+                            ><?php echo $reporte; ?></option>
+                            <?php $conta_rep++;
+                         } ?>
+                       
+                   </select>
+               </div>
+               <br>
+               <div>  
+               <label for="Selmes" style="font-weight: bold;">Seleccione mes: </label>
+                   <select name="Selmes" id="Selmes">      
+             <?php   $meses = array(1=>"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"); 
+             $contador =0;
+             foreach ($meses as $mes ) {
+                 $contador++;
+                 ?>
+                 <option value ="<?php echo "$contador";?>" 
+                <?php   if($contador == $registro["months_id"]) { echo "selected"; } ?>
+                   ><?php echo $mes;?></option>
+                 <?php
+             }
+             ?>
+                   </select>
+               </div>
+               <ul>
+                 <li>
+                       <label for="titulo" style="font-weight: bold;">Descripción:</label>
+                       <input type="text" name="titulo" id="titulo" value="<?php echo $registro["title"];?>"  style="width:250px;" >
+                 </li>
+                 </ul>
+               <ul>
+                   
+                   <li>
+                   <input type="radio" name="Tipo" value="1" id="Tipo1" <?php if ($registro["biweeklys_id"]!= "0"){ echo "checked";}?>>    
+                   <label for="Tipo1" style="font-weight: bold;"  >Quincena:</label>
+                   </li>
+                   <ul style="margin-left:35px;">
+                       <li>
+                           <input type="radio" name="Quincena" value="1" id="PrimeraQuincena"  <?php if ($registro["biweeklys_id"]== "1"){ echo "checked";}?>>
+                           <label for="PrimeraQuincena">Primera Quincena</label><br>
+                           <input type="radio" name="Quincena" value="2" id="SegundaQuincena" <?php if ($registro["biweeklys_id"]== "2"){ echo "checked";}?>>
+                           <label for="SegundaQuincena">Segunda Quincena</label>
+                       </li>
+                   </ul>
+                   <li>
+                       <input type="radio" name="Tipo" value="2" id="Tipo2" <?php 
+                       if(isset($registro["weeknumbers"])&&$registro["weeknumbers"]!=''){
+                           echo "checked";
+                       }?> >  
+                       <label for="Tipo2" style="font-weight: bold;"  >Número de semana:</label><br><br>
+                   </li>
+                       <div id = "dNumSem" 
+                       <?php 
+                       if(isset($registro["weeknumbers"])&&$registro["weeknumbers"]!=''){
+                           echo "checked";
+                       }else { echo "style='display:none'"; }?>
+                       > 
+                       <ul style="margin-left:35px;">
+                               <li>
+                                   <label for="num_semana" style="font-weight: bold;">Número de semana:</label>
+                                   <input type="text" id="num_semana" name = "num_semana" value = "<?php echo $registro["weeknumbers"];?>" style="width:60px;">
+                               </li>
+                       </ul>    
+                       <ul style="margin-left:35px;">
+                       <li>
+                                 
+                               <?php           
+                               function semanasMes($year,$month)
+                               {
+                                   # Obtenemos el ultimo dia del mes
+                                   $ultimoDiaMes=date("t",mktime(0,0,0,$month,1,$year));
+                               
+                                   # Obtenemos la semana del primer dia del mes
+                                   $primeraSemana=date("W",mktime(0,0,0,$month,1,$year));
+                               
+                                   # Obtenemos la semana del ultimo dia del mes
+                                   $ultimaSemana=date("W",mktime(0,0,0,$month,$ultimoDiaMes,$year));
+       
+                                   if($month == 12 )
+                                   {
+                                       $ultimaSemana = 52;
+                                   }
+                                   $semanainicio = $primeraSemana;
+                                   $semanafin = $ultimaSemana;
+       
+                                   $nSena = [];
+                                   while ($semanainicio <=  $semanafin) {
+                                       $nSena[] = intval($semanainicio);
+                                       $semanainicio++;
+                                   }
+                                   
+                                   # Devolvemos en un array los dos valores
+                                   return array($primeraSemana,$ultimaSemana,$nSena);
+                               }
+                               $meses_ES = array(1=>"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                               $year=date("Y");
+                               echo "<table colspan = '1' rowspan = '0' border= '1' style = 'border-collapse: collapse;'>";
+                               echo "<th>Mes</th><th> Número de semana </th>";
+                               
+                               for($i=1;$i<=12;$i++)
+                               {
+                                   
+                                   list($primeraSemana,$ultimaSemana,$nSena)=semanasMes($year,$i);
+                               // echo "<br>Mes: ".$i." - ".$year." - Primera semana: ".$primeraSemana." - Ultima semana: ".$ultimaSemana;
+                                   echo  "<tr><td><b>".$meses_ES[$i]."</b></td><td>".json_encode($nSena)."</td></tr>";
+                               } ?>  
+                               </table>
+                           </li>
+                       </ul>
+                       </li>
+                   </ul>  
+                   </div>
+                 <hr>
+                       <input type="submit" name ="registrar" value="Guardar cambios" class="button button-primary button-large">
+                       <input type="submit" name ="Eliminar" value="Eliminar registro" class="button button-primary button-large">
+                 <hr>
+               </form>
+               <!-- <ul><li>
+                   <h3>Cargar archivo PDF ó Excel</h3>
+                 <form action="upload_filespb.php" method="post" enctype="multipart/orm-data"><input type="file" name="uploadedFile" size="50" class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/><input type="submit"value="Upload" name="uploadBtn"class="button button primary"/></form></li></ul> -->
+           </div>
+           <?php 
+           if(isset($_POST["Guardar cambios"]))
+           {
+               $quincena = "0";
+               $num_semana = "0";
+               if($_POST["Tipo"]=="1")
+               {
+                   $quincena =  $_POST["Quincena"];
+               }
+               elseif($_POST["Tipo"]=="2")
+               {
+                   $num_semana =  $_POST["num_semana"];
+               }
+               
+               // Insertar registros
+               global $wpdb;
+               $table = $wpdb->prefix.'reportespb';
+               $data = array('typerep' => $_POST["SelTipRep"], 
+                             'years' =>  $_POST["anio"],
+                             'months' => $_POST["Selmes"],
+                             'biweeklys'=> $quincena,
+                             'weeknumbers' => $num_semana,
+                             'title' => $_POST["titulo"]
+                           );
+               $wpdb->insert($table,$data);
+               $my_id = $wpdb->insert_id;
+               echo $my_id;
+               Header("Location: http://localhost/PerubrokerFinal/wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
+               // $result = $wpdb->update($table, array('officerOrder' => $memberOrder,
+               //         'officerTitle' => $memberTitle, 'officerName' => $memberName, 'officerPhone' => 
+               //         $memberPhone), array('officerId' => $memberId), array('%d','%s', '%s', '%s'),
+               //         array('%d'));            
+               
+           }
+           
+           ?>
+           <?php
+        }
+    }
+   else
+   {
+?>
+ <form action="" method= "POST">
      <div id="wpwrap"></div>
         <h1>Nuevo reporte</h1>
     <br>
@@ -223,7 +444,7 @@ function rp_estadisticas (){
         </div>
         <ul>
           <li>
-                <label for="titulo" style="font-weight: bold;">Titulo:</label>
+                <label for="titulo" style="font-weight: bold;">Descripción:</label>
                 <input type="text" name="titulo" id="titulo"  style="width:250px;" >
           </li>
           </ul>
@@ -345,5 +566,10 @@ function rp_estadisticas (){
     }
     
     ?>
+<?php
+   }
+    ?>
+   
+   
     <?php
  }
