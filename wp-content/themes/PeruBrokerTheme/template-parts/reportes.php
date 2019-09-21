@@ -245,7 +245,7 @@
                      <div class="col">
                         <div class="pop-up">
                             <div class="box">
-                                <p class="form-mensaje">Ingresar datos para que pueda ver los reportes.</p>
+                                <p class="form-mensaje">Regálanos tus datos para que puedas ver nuestros reportes.</p>
                                 <?php mostrar_contacto_reportes(); ?>
                             </div>
                         </div>   
