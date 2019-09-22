@@ -35,6 +35,5 @@
 <?php get_template_part('template-parts/servicios');?>
 <?php get_template_part('template-parts/clientes');?>
 <?php get_template_part('template-parts/reportes');?>
-<?php get_template_part('template-parts/contacto');?>
-                  
+<?php get_template_part('template-parts/contacto');?>              
 <?php get_footer();?>

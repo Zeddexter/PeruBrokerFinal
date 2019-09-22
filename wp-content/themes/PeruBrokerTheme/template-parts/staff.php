@@ -5,12 +5,8 @@
             <div class="col">
                 <h3>Staff</h3>
                 <div class="content-staff">
-                 
                        <?php mostrar_staff(); ?>
-                  
                 </div>
-                
-
             </div>
         </div>
         </div>

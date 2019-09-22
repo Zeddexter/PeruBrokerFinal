@@ -11,6 +11,16 @@
     <meta name="robots" content="index, follow">
     <link rel="icon"   href="<?php echo get_template_directory_uri(); ?>/img/favicon_logo_perubroker.png" type="image/png">
     <?php wp_head(); ?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148457351-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-148457351-1');
+</script>
+
 </head>
 <body>
 <!-- TOP - BARRA DE ARRIBA -->

@@ -268,7 +268,7 @@ function mostrar_contacto_formulario(){ ?>
             $clases = new WP_Query($args);
             while ($clases->have_posts() ): $clases -> the_post();
             ?>
-            <?php the_content(); ?>
+            <?php the_content(); ?>        
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
     }
@@ -276,6 +276,7 @@ function mostrar_contacto_formulario(){ ?>
 
 <?php 
 function mostrar_contacto_mapa(){ ?>
+  
     <?php 
             $args = array(
                     'post_type' => 'broker_contacto',
@@ -290,13 +291,20 @@ function mostrar_contacto_mapa(){ ?>
             <div class="content-mapa">
                 <?php the_content(); ?>
             </div>
-
-            <div class="content-info">
-                <p class="direccion" ><?php the_field('direccion');?></p>
-                <p class="telefono"><?php the_field('telefono');?></p>
-                <p class="correo"><?php the_field('correo');?></p>
-                <p class="fax"><?php the_field('fax');?></p>
-                <p class="facebook"><a href="<?php the_field('link_facebook');?>"><?php the_field('nombre_facebook');?></a></p>
+            <div class="row">
+            <div class="col-md-6">
+                <div class="content-info">
+                    <p class="direccion" ><?php the_field('direccion');?></p>
+                    <p class="telefono"><?php the_field('telefono');?></p>
+                    <p class="correo"><?php the_field('correo');?></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content-info">
+                    <p class="fax"><?php the_field('fax');?></p>
+                    <p class="facebook"><a href="<?php the_field('link_facebook');?>"><?php the_field('nombre_facebook');?></a></p>
+                </div>
+            </div>
             </div>
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
