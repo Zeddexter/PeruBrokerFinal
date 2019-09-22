@@ -360,10 +360,11 @@ function rp_estadisticas (){
                    </ul>  
                    </div> Archivo adjunto: 
                    <?php if(isset($registro['files'])){
+                       //echo "'".$registro['files']."'&route_file='".$registro["route_file"]."'";
                                 //echo $registro['files'];
                                 ?> 
-                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a>
                                 <!-- <form action="" method="post"> -->
+                                <a href="download_files.php.<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"].""; ?> name="link">Descargar</a>
                                 <input type="submit" name ="Quitaradjunto" value="Quitar Adjunto" class="">
                                 <!-- </form> -->
                                  <?php
@@ -474,7 +475,7 @@ function rp_estadisticas (){
                             $dest_path = $uploadFileDir . $newFileName;
                             if(move_uploaded_file($fileTmpPath, $dest_path)) 
                             {
-                              $message ='File is successfully uploaded.';
+                              $message ='File is successfully uploa ded.';
                                  //Evento guardar ID
                                 global $wpdb;
                                 $tbl_estadisticas = $wpdb->prefix.'reportespb'; 
