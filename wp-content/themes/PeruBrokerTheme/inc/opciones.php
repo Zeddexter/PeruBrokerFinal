@@ -113,7 +113,7 @@ function rp_estadisticas (){
                             }else {
                                     ?>
                                     <form action="" method="post" enctype="multipart/form-data">
-                            <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/>
+                            <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
                             <input type="hidden" name="IdKey" value="<?php echo $registro['id']; ?>"  >
                             <input type="hidden" name="Nombre" value="<?php echo $registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']; ?>"  >
                             <input type="hidden" name="tipo_reportes" value ="<?php echo $registro['typerep_id']; ?>">
@@ -370,7 +370,7 @@ function rp_estadisticas (){
                             }else {
                                     ?>
                                     <!-- <form action="" method="post" enctype="multipart/form-data"> -->
-                            <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel"/>
+                            <input type="file" name="uploadedFile"  class="custom-file-input" accept="application/pdf,application/vnd.ms-excel/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
                             <input type="hidden" name="IdKey" value="<?php echo $registro['id']; ?>"  >
                             <input type="hidden" name="Nombre" value="<?php echo $registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']; ?>"  >
                             <input type="submit" value="Adjuntar" name="uploadBtn" class="button button primary">
