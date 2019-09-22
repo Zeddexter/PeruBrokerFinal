@@ -109,7 +109,8 @@ function rp_estadisticas (){
                             <?php if(isset($registro['files'])){
                                 //echo $registro['files'];
                                 ?> 
-                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
+                                 <a href="download_files.php.<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"].""; ?>" name="link">Descargar</a>
+                                <?php
                             }else {
                                     ?>
                                     <form action="" method="post" enctype="multipart/form-data">
