@@ -150,10 +150,29 @@ function mostrar_servicios(){ ?>
                     <h3><?php the_title(); ?></h3>
                     <p><?php the_content();?>  </p>
                             
+                   
                     <figure class="productos">       
-                    <img src="<?php the_field('imagen_1'); ?>" alt="">
-                    <img src="<?php the_field('imagen_2'); ?>" alt="">
-                    <img src="<?php the_field('imagen_3'); ?>" alt="">
+                    <img src="<?php 
+                    //the_field('imagen_1');
+                    $attachment_id = get_field('imagen_1');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                    <img src="<?php 
+                    //the_field('imagen_2');
+                    $attachment_id = get_field('imagen_2');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                    <img src="<?php 
+                    //the_field('imagen_3');
+                    $attachment_id = get_field('imagen_3');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
                         
                     </figure>    
                 </div>
