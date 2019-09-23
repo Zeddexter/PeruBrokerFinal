@@ -35,5 +35,22 @@
 <?php get_template_part('template-parts/servicios');?>
 <?php get_template_part('template-parts/clientes');?>
 <?php get_template_part('template-parts/reportes');?>
-<?php get_template_part('template-parts/contacto');?>              
+<hr>
+<div class="content">
+    <table  cellspacing="50">
+    <?php
+     while(have_posts()): the_post(); ?>
+     <td valign="top">
+    <?php
+     get_template_part('template-parts/loop','contenido');
+    ?> </td>
+   
+    <?php endwhile; ?>
+    </table>
+</div>
+
+
+<hr>
+<?php get_template_part('template-parts/contacto');?>  
+          
 <?php get_footer();?>
