@@ -639,6 +639,13 @@ section.reportes .content-reportes figure img{
 }
 /* FIN REPORTES*/
 
+/* SECCION DE NOTICIAS*/
+section.noticias .content {
+    
+}
+
+/* FIN DE SECCION DE NOTICIAS*/
+
 /*SECCION DE CONTACTO*/
 section.contacto::before{
     content: '';
@@ -1353,38 +1360,3 @@ form.wpcf7-form .wpcf7-mail-sent-ok{
     text-align: center;
     padding-top: 20px;
 }
-/*
-.button {
-    margin: 0 auto;
-  background-color: #FF8566;
-    margin-bottom: 33px;
-}
-
-.button:hover {
-    background-color: #7CCF29;
-    -webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
-}
-
-.close-button {
-    transition: all 0.5s ease;
-    position: absolute;
-    background-color: #FF9980;
-    padding: 1.5px 7px;
-    left: 0;
-    margin-left: -10px;
-    margin-top: -9px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    color: white;
-    -webkit-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: -4px -2px 6px 0px rgba(0,0,0,0.1);
-    box-shadow: -3px 1px 6px 0px rgba(0,0,0,0.1);
-}
-
-.close-button:hover {
-    background-color: tomato;
-    color: #fff;
-}
-  */
