@@ -174,7 +174,7 @@ function mostrar_servicios(){ ?>
                     // echo $image[0];
                     ?>" alt="">
                          <img src="<?php 
-                    the_field('imagen_3');
+                    echo the_field('imagen_4');
                     // $attachment_id = get_field('imagen_4');
                     // $size = "medium"; // (thumbnail, medium, large, full or custom size)
                     // $image = wp_get_attachment_image_src( $attachment_id, $size );
