@@ -640,10 +640,39 @@ section.reportes .content-reportes figure img{
 /* FIN REPORTES*/
 
 /* SECCION DE NOTICIAS*/
-section.noticias .content {
-    
+section.noticias .content .item-noticia{
+    margin: 0 auto;
+margin-top: 20px;
+width: 98%;
+max-width: 416px;
+
+}
+section.noticias .content .item-noticia a{
+    text-decoration: none;
+    color: black;
+}
+section.noticias .content .item-noticia .img-noticia{
+width: 100%;
+}
+section.noticias .content .item-noticia .img-noticia img{
+ width: 100%;
+ height: auto;   
+}
+section.noticias .content .item-noticia .titulo-noticia{
+    margin: 10px 0 0 0;
+}
+section.noticias .content .item-noticia .titulo-noticia h4{
+ margin: 0;
+}
+section.noticias .content .item-noticia .extracto{
+    margin: 10px 0 0 0;
 }
 
+section.noticias .content .item-noticia .extracto p{
+ margin:  0; 
+ width: 90%;
+ text-align: justify;
+}
 /* FIN DE SECCION DE NOTICIAS*/
 
 /*SECCION DE CONTACTO*/

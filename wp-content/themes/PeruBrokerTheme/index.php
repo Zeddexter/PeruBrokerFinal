@@ -38,25 +38,24 @@
 
 
 
-<hr><section class="noticias">
-<div class="content">
-    <div class="row">
-       
-
-            <?php
-            while(have_posts()): the_post(); ?>
-        
-            <?php
-            get_template_part('template-parts/loop','contenido');
-            ?> 
-        
-            <?php endwhile; ?>
-        
+<section class="noticias">
+    <div class="content">
+        <div class="row">
+            <div class="col-12">
+                <h2>Noticias</h2>
+            </div>
+        </div>
+        <div class="row">
+                <?php
+                while(have_posts()): the_post(); ?>
+            
+                <?php
+                get_template_part('template-parts/loop','contenido');
+                ?> 
+            
+                <?php endwhile; ?>
+        </div> 
     </div>
-    
-</div>
-
-
 </section>
 
 <?php get_template_part('template-parts/contacto');?>  
