@@ -453,8 +453,10 @@ section.servicios .content figure.productos{
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.productos img{
-    display: inline;
-    max-width: 100%;
+    /* display: inline; */
+    /* width: 100%; */
+     max-width: 100%;
+     height:auto;
 }
 
 section.servicios .content figure.fletamento{
@@ -462,8 +464,10 @@ section.servicios .content figure.fletamento{
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.fletamento img{
-    display: inline;
-    max-width: 100%;
+    /* display: inline; */
+    /* width: 100%; */
+    /* max-width: 100%; */
+    height:auto;
 }
 
 
