@@ -678,7 +678,9 @@ section.noticias::before{
     height: 7px;
     background: #F7F7F7;
 }
-
+section.noticias{
+    margin-bottom: 80px;
+}
 section.noticias .content .item-noticia{
     margin: 0 auto;
 margin-top: 20px;
