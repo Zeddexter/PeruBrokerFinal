@@ -453,8 +453,22 @@ section.servicios .content figure.productos{
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.productos img{
-    display: inline;
-    max-width: 100%;
+    /* display: inline; */
+    /* width: 100%; */
+   
+     /* max-width: 100%;
+     height:auto; */
+    
+    /* width: 25%; 
+    height: 25%; 
+    object-fit: contain;  */
+    position: relative;
+    float: left;
+    width:  320px;
+    height: 250px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
 }
 
 section.servicios .content figure.fletamento{
@@ -462,8 +476,22 @@ section.servicios .content figure.fletamento{
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.fletamento img{
-    display: inline;
-    max-width: 100%;
+    /* display: inline; */
+    /* width: 100%; */
+    /* max-width: 100%; */
+    /* height:auto; */
+
+    /* width: 25%; 
+    height: 25%; 
+    object-fit: contain;  */
+
+    position: relative;
+    float: left;
+    width:  320px;
+    height: 250px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
 }
 
 
