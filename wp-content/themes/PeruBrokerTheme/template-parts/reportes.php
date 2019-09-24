@@ -98,7 +98,7 @@
                                 }
                                 if($row["typerep"]=="1")     
                                 { ?>
-                                <h4>Fishing Reports</h4>
+                                <h4>Reporte de pesca Anchoveta – Perú</h4>
                                 <div class="table-responsive fishing-report">
                                             <table class="table">
                                                                 <thead>
@@ -168,7 +168,7 @@
                                 <?php }
                                 if($row["typerep"]=="2")
                                 { ?>
-                                <h4>Reportes</h4>
+                                <h4>Reporte desenvolvimiento Anual de Captura – Anchoveta</h4>
                                 <div class="table-responsive fishing-report">
                                     <table class="table">
                                     <thead>

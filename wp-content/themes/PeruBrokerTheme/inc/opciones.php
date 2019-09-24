@@ -15,7 +15,10 @@ function rp_estadisticas (){
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
-     $opciones = array('Estadísticas de Harina de Pescado'=>0,'Reporte de pesca Anchoveta – Perú'=>1,'Reporte de pesca Anchoveta – Perú'=>2);
+     $opciones = array(
+    'Estadísticas de Harina de Pescado'=>0,
+     'Reporte de pesca Anchoveta – Perú'=>1,
+     'Reporte desenvolvimiento Anual de Captura – Anchoveta'=>2);
      $options = '';
      while (list($k,$v)=each($opciones))
      {
@@ -73,7 +76,7 @@ function rp_estadisticas (){
                         years,
                         case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
                              when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
-                             when typerep = 2 then 'eporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
+                             when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                              typerep as typerep_id,
                         case when months = 1 then 'Enero'
                              when months = 2 then 'Febrero'
@@ -240,7 +243,7 @@ function rp_estadisticas (){
                <div>
                <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
                    <select name="SelTipRep" id="SelTipRep">
-                   <?php $tipo_reportes = array('Estadistica','Fishing Report','Reportes');
+                   <?php $tipo_reportes = array('Estadísticas de Harina de Pescado','Reporte de pesca Anchoveta – Perú','Reporte desenvolvimiento Anual de Captura – Anchoveta');
                          $conta_rep = 0;
                          foreach ($tipo_reportes as $reporte) {
                             
