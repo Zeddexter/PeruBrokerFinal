@@ -455,8 +455,8 @@ section.servicios .content figure.productos{
 section.servicios .content figure.productos img{
     /* display: inline; */
     /* width: 100%; */
-    width: 30%; 
-    height: 30%; 
+    width: 25%; 
+    height: 25%; 
     object-fit: contain; 
      /* max-width: 100%;
      height:auto; */
@@ -471,8 +471,8 @@ section.servicios .content figure.fletamento img{
     /* width: 100%; */
     /* max-width: 100%; */
     /* height:auto; */
-    width: 30%; 
-    height: 30%; 
+    width: 25%; 
+    height: 25%; 
     object-fit: contain; 
 }
 
