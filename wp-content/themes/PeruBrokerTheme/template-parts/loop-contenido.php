@@ -11,7 +11,7 @@
             </div>
             <div class="extracto">
                 <p>
-                    <?php echo get_the_excerpt('20'); ?>
+                    <?php echo get_the_excerpt(get_the_ID()); ?>
                 </p>
             </div>
         </a>
