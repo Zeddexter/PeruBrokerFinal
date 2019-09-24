@@ -153,32 +153,32 @@ function mostrar_servicios(){ ?>
                    
                     <figure class="productos">       
                     <img src="<?php 
-                   echo the_field('imagen_1');
-                    // $attachment_id = get_field('imagen_1');
-                    // $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                    // $image = wp_get_attachment_image_src( $attachment_id, $size );
-                    // echo $image[0];
+                    //the_field('imagen_1');
+                    $attachment_id = get_field('imagen_1');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
                     ?>" alt="">
                     <img src="<?php 
-                    echo the_field('imagen_2');
-                    // $attachment_id = get_field('imagen_2');
-                    // $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                    // $image = wp_get_attachment_image_src( $attachment_id, $size );
-                    // echo $image[0];
+                    //the_field('imagen_2');
+                    $attachment_id = get_field('imagen_2');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
                     ?>" alt="">
                     <img src="<?php 
-                    echo the_field('imagen_3');
-                    // $attachment_id = get_field('imagen_3');
-                    // $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                    // $image = wp_get_attachment_image_src( $attachment_id, $size );
-                    // echo $image[0];
+                    //the_field('imagen_3');
+                    $attachment_id = get_field('imagen_3');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
                     ?>" alt="">
                          <img src="<?php 
-                    echo the_field('imagen_4');
-                    // $attachment_id = get_field('imagen_4');
-                    // $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                    // $image = wp_get_attachment_image_src( $attachment_id, $size );
-                    // echo $image[0];
+                    //the_field('imagen_3');
+                    $attachment_id = get_field('imagen_4');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
                     ?>" alt="">
                     </figure>    
                 </div>
@@ -334,6 +334,7 @@ function mostrar_contacto_mapa(){ ?>
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
     }
+
 ?>
 
 
