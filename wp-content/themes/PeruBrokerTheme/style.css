@@ -473,6 +473,8 @@ section.servicios .content figure.productos img{
 
 section.servicios .content figure.fletamento{
     text-align: center;
+    align-items: center;
+    justify-items: center;
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.fletamento img{
