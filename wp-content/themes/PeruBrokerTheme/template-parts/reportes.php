@@ -18,7 +18,7 @@
             <div class="col-md-8 col-lg-7 "  >
                   <div class="cover blur-in" id="overlay">  
                         
-                        <h4>Estadisticas</h4>
+                        <h4>Estadísticas de Harina de Pescado</h4>
                         <div class="table-responsive estadistica">
                         <?php 
                            // $_tipo_reporte = "0";
@@ -46,9 +46,9 @@
                                         $registros = $wpdb->get_results("select 
                                         id,
                                         years,
-                                        case when typerep = 0 then 'Estadisticas' 
-                                            when typerep = 1 then 'Fishing report'
-                                            when typerep = 2 then 'reportes' end as typerep,
+                                        case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
+                                            when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
+                                            when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                                             typerep as typerep_id,
                                         case when months = 1 then 'Enero'
                                             when months = 2 then 'Febrero'
@@ -117,9 +117,9 @@
                                         $registros = $wpdb->get_results("select 
                                         id,
                                         years,
-                                        case when typerep = 0 then 'Estadisticas' 
-                                            when typerep = 1 then 'Fishing report'
-                                            when typerep = 2 then 'reportes' end as typerep,
+                                        case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
+                                            when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
+                                            when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                                             typerep as typerep_id,
                                         case when months = 1 then 'Enero'
                                             when months = 2 then 'Febrero'
@@ -187,9 +187,9 @@
                         $registros = $wpdb->get_results("select 
                         id,
                         years,
-                        case when typerep = 0 then 'Estadisticas' 
-                            when typerep = 1 then 'Fishing report'
-                            when typerep = 2 then 'reportes' end as typerep,
+                        case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
+                            when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
+                            when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                             typerep as typerep_id,
                         case when months = 1 then 'Enero'
                             when months = 2 then 'Febrero'

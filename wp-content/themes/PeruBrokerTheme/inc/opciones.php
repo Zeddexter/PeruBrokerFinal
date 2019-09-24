@@ -15,7 +15,7 @@ function rp_estadisticas (){
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
-     $opciones = array('Estadisticas'=>0,'Fishing Report'=>1,'Reportes'=>2);
+     $opciones = array('Estadísticas de Harina de Pescado'=>0,'Reporte de pesca Anchoveta – Perú'=>1,'Reporte de pesca Anchoveta – Perú'=>2);
      $options = '';
      while (list($k,$v)=each($opciones))
      {
@@ -71,9 +71,9 @@ function rp_estadisticas (){
                       $registros = $wpdb->get_results("select 
                         id,
                         years,
-                        case when typerep = 0 then 'Estadisticas' 
-                             when typerep = 1 then 'Fishing report'
-                             when typerep = 2 then 'reportes' end as typerep,
+                        case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
+                             when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
+                             when typerep = 2 then 'eporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                              typerep as typerep_id,
                         case when months = 1 then 'Enero'
                              when months = 2 then 'Febrero'
@@ -200,9 +200,9 @@ function rp_estadisticas (){
       $registros = $wpdb->get_results("select 
         id,
         years,
-        case when typerep = 0 then 'Estadisticas' 
-             when typerep = 1 then 'Fishing report'
-             when typerep = 2 then 'reportes' end as typerep,
+        case when typerep = 0 then 'Estadísticas de Harina de Pescado' 
+             when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
+             when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
              typerep as typerep_id,
              months as months_id,
         case when months = 1 then 'Enero'
@@ -520,9 +520,9 @@ function rp_estadisticas (){
         <div>
         <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
             <select name="SelTipRep" id="SelTipRep">
-                <option value="0">Estadistica</option>
-                <option value="1">Fishing report</option>
-                <option value="2">Reportes</option>
+                <option value="0">Estadísticas de Harina de Pescado</option>
+                <option value="1">Reporte de pesca Anchoveta – Perú</option>
+                <option value="2">Reporte desenvolvimiento Anual de Captura – Anchoveta</option>
             </select>
         </div>
         <br>
