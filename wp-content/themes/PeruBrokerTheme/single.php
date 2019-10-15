@@ -73,7 +73,7 @@
                                 <h4><a href="<?php the_permalink(); ?>"> <?php the_title();?> </a></h4>
                             </div>
                             <div class="extracto">
-                                <p><?php echo excerpt('15');?></p>
+                                <p><?php echo get_the_excerpt(get_the_ID());?></p>
                             </div>
                         </div>
                     </div>

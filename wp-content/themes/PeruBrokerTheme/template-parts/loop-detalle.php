@@ -1,15 +1,15 @@
-
-<div class="hero">
-<h1><?php the_title();?></h1>
-        <div class="contenido-hero">
-            <?php the_post_thumbnail('large'); ?>
-        </div>
-   </div>
-       <div class="seccion contenedor">
-    <main class="contenido-principal">
+<!--IMPRIMO LA NOTICIA PRINCIPAL -->
+<h2><?php the_title();?></h2>
+    <div class="img-page-noticia">
+        <?php the_post_thumbnail('large'); ?>
+    </div>
+    
+    <div class="contenido-principal-page-noticia">
         <?php the_content();?>
-    </main>
-</div>
+    </div>
+
+
+
 
 
 
