@@ -450,50 +450,27 @@ section.servicios .content h3{
 }
 section.servicios .content figure.productos{
     text-align: center;
+    align-items: center;
+    justify-items: center;
     margin: 40px 0 0 0;
 }
 section.servicios .content figure.productos img{
-    /* display: inline; */
-    /* width: 100%; */
-   
-     /* max-width: 100%;
-     height:auto; */
-    
-    /* width: 25%; 
-    height: 25%; 
-    object-fit: contain;  */
-    position: relative;
-    float: left;
-    width:  320px;
+    display: inline;
+    width: 100%;
+    max-width: 400px;
+    /* max-width: 25%;*/
     height: 250px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+    
 }
 
 section.servicios .content figure.fletamento{
     text-align: center;
     align-items: center;
     justify-items: center;
-    margin: 40px 0 0 0;
+    /* margin: 40px 0 0 0; */
 }
 section.servicios .content figure.fletamento img{
-    /* display: inline; */
-    /* width: 100%; */
-    /* max-width: 100%; */
-    /* height:auto; */
-
-    /* width: 25%; 
-    height: 25%; 
-    object-fit: contain;  */
-
-    position: relative;
-    float: left;
-    width:  320px;
-    height: 250px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
+    
 }
 
 
@@ -692,6 +669,9 @@ section.noticias .content .item-noticia a{
     text-decoration: none;
     color: black;
 }
+section.noticias .content .item-noticia a.item:hover{
+    background:red;
+}
 section.noticias .content .item-noticia .img-noticia{
 width: 100%;
 }
@@ -874,6 +854,69 @@ footer .create p a{
 }
 
 /*FIN FOOTER*/
+
+/*PAGINA DE NOTICIAS*/
+section.page-noticia .img-page-noticia{
+text-align: center;
+}
+
+section.page-noticia .img-page-noticia img{
+width: 100%;
+height: auto;
+max-height: 470px;
+max-width: 800px;
+}
+section.page-noticia .contenido-principal-page-noticia{
+    padding: 0 15px 0 15px;
+    max-width: 1000px;
+    margin: 40px auto 60px auto;
+}
+section.page-noticia .contenido-principal-page-noticia p {
+    text-align: justify;
+}
+
+section.page-noticia .contenido-otras-noticias{
+    margin-top: 40px;
+}
+section.page-noticia .item-otras-noticias{
+    margin-top: 25px;
+}
+section.page-noticia .item-otras-noticias .img-otras-noticias{
+    width: 100%;
+    height: auto;
+}
+@supports(object-fit: cover){
+    .section.page-noticia .item-otras-noticias .img-otras-noticias img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+section.page-noticia .item-otras-noticias .img-otras-noticias img{
+    width: 100%;
+   
+}
+section.page-noticia .item-otras-noticias .title{
+    width: 100%;
+    /* Para que no se descuadre en caso el titulo sea demasiado largo */
+    height: 18.4px;
+    overflow: hidden;
+}
+section.page-noticia .item-otras-noticias .title h4{
+    margin-top: 0;
+    margin-bottom: 5px;
+    width: 100%;
+}
+section.page-noticia .item-otras-noticias .title h4 a{
+    text-decoration: none;
+    color: black;
+}
+section.page-noticia .item-otras-noticias .extracto p{
+    font-size: 14px;
+    /* text-align: justify; */
+    margin: 0 0 0 0;
+}
+/*FIN PAGINA DE NOTICIAS*/
 
 /* MEDIAS QUERIES */
 
