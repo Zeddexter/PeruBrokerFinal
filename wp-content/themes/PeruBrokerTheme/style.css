@@ -16,17 +16,25 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 h1{
-    font-family: 'Bookman Old Style', arial;;
+    font-family: 'Bookman Old Style', arial;
+    text-transform: uppercase;
     /* font-family: 'Raleway', sans-serif; */
 }
 h2
 {
     font-family: 'Raleway', sans-serif;
+    color:red;
+    text-transform:uppercase;
+}
+h3{
+    font-family: 'Raleway', sans-serif;
+    color:red;
+    text-transform:uppercase;
 }
 header a{
     font-family: 'Roboto', sans-serif;
 }
-h3,h4,p,a,span{
+h4,p,a,span{
     /* font-family: 'Roboto', sans-serif; */
     font-family: 'Raleway', sans-serif;
     /* color:grey; */
@@ -37,6 +45,7 @@ h2,h3{
 h2{
     font-size: 26px;
     text-align: center;
+text-transform: uppercase;
 }
 h3{
  font-size: 20px;
@@ -189,17 +198,19 @@ nav.lista-menu ul{
     background:#0A123A;
     margin: 0 0 0 0;
     padding: 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: regular;
     overflow-y: scroll;
     display: none;
 }
 
 nav.lista-menu ul li{
-margin: 35px auto 0  auto;
-width: 180px;
+margin: 30px auto 0  auto;
+width: 250px;
 text-align: center;
 padding: 10px;
+text-transform: uppercase;
+color:red;
 }
 
 nav.lista-menu ul li:first-child{
@@ -207,13 +218,15 @@ nav.lista-menu ul li:first-child{
 }
 
 nav.lista-menu ul li:last-child{
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 nav.lista-menu ul li a{
 text-decoration: none;
 color: white;
-padding: 20px;
+font-size: 19px;
+text-transform: uppercase;
+padding: 5px;
 }
 
 /* HERO */
@@ -357,6 +370,7 @@ section.nosotros .contenido-item{
         padding-left: 0;
     }
     .tabs-buttons .swiper-slide {
+        text-transform: uppercase;
         width: auto;
         height: auto;
         cursor: pointer;
@@ -364,6 +378,8 @@ section.nosotros .contenido-item{
     }
     .tabs-buttons .active-tab {
         opacity: 1;
+        color: red;
+        text-transform: uppercase;
         
         border-bottom: 1px solid red;
         /* background: blue; */
@@ -371,7 +387,7 @@ section.nosotros .contenido-item{
         opacity: 1!important;
     }
     .tabs-buttons .swiper-wrapper .swiper-slide a{
-        color: #05091D;
+        color: red;
         opacity: .25;
         padding: 10px 22.5px;
         /* background: green; */
@@ -384,7 +400,7 @@ section.nosotros .contenido-item{
         font-size: 22px;
         font-weight: medium;
         margin: 0 auto;
-        color: #111F65; 
+        color: red; 
     }
     .nosotros .swiper-container .swiper-wrapper .swiper-slide p{
        text-align: justify;
@@ -1033,7 +1049,7 @@ nav.lista-menu{
     left: 0;
     font-size: 18px;
     overflow-y: hidden;
-    width: 620px;
+    width: 650px;
     height: auto;
   }
   
@@ -1056,7 +1072,7 @@ nav.lista-menu{
       margin: 0;
   }
   nav.lista-menu ul li a{
-    padding: 10px 10px;
+    padding: 5px 5px;
   }
   nav.lista-menu ul li a:hover{
      
