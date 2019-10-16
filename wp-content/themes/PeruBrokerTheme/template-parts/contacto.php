@@ -8,7 +8,7 @@
                             $menu_id = absint($nav_menu_locations["menu-principal"]);
                             $menu_items = wp_get_nav_menu_items($menu_id);
                             if (!empty($menu_items)) {
-                                echo "<h2>".$menu_items[5]->title."</h2>";
+                                echo "<h2>".$menu_items[4]->title."</h2>";
                             }
             
                         ?>
