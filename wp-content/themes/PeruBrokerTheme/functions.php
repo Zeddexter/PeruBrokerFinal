@@ -5,7 +5,6 @@ require get_template_directory().'/inc/database.php';
 require get_template_directory().'/inc/queries.php';
 
 require get_template_directory().'/inc/opciones.php';
-//require get_template_directory().'/inc/registro_reportes.php';
 function perubroker_setup(){
     //Habiliar imagenes destacadas
     add_theme_support('post-thumbnails');

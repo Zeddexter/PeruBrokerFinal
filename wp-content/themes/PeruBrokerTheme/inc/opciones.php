@@ -161,7 +161,7 @@ function rp_estadisticas (){
                           {
                             // directory in which the uploaded file will be moved
                             
-                            $uploadFileDir = './uploaded_files/';
+                            $uploadFileDir =  WP_CONTENT_DIR.'/uploaded_files/'; //'./uploaded_files/';
                             $dest_path = $uploadFileDir . $newFileName;
                             if(move_uploaded_file($fileTmpPath, $dest_path)) 
                             {
@@ -475,7 +475,7 @@ function rp_estadisticas (){
                           {
                             // directory in which the uploaded file will be moved
                             
-                            $uploadFileDir = './uploaded_files/';
+                            $uploadFileDir =WP_CONTENT_DIR.'/uploaded_files/';  //'./uploaded_files/';
                             $dest_path = $uploadFileDir . $newFileName;
                             if(move_uploaded_file($fileTmpPath, $dest_path)) 
                             {

@@ -1,5 +1,6 @@
 <!-- SECCION DE REPORTES -->
 <?php
+
 // require_once( 'download_files.php' );
 $anio_seleccionado = date('Y');
 if(isset($_POST['anio'])){
@@ -110,8 +111,10 @@ if(isset($_POST['anio'])){
                                                 
                                                 ?> 
 
-                                                <button id="popup-informacion" onclick = "windows.location.href='<?php echo $registro['route_file']; ?>';"> Descargar</button>
-                                                <a  href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
+                                                <button id="popup-informacion" onclick = "windows.location.href='www.google.com.pe';"> Descargar</button>
+
+                                                <a href="download_files.php<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"].""; ?>" name="link">Descargar</a>
+                                                <?php
                                             }
                                                     ?>
                                         </td>
