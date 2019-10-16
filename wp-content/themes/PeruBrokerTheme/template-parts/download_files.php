@@ -1,5 +1,4 @@
 <?php 
-echo "ingreso";
 //echo $registro['route_file']; 
     $actual_file_name = $_GET['route_file'];
     $saved_file_name = $_GET['files'];
