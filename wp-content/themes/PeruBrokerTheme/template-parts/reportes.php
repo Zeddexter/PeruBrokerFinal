@@ -108,12 +108,12 @@ if(isset($_POST['anio'])){
                                             <td>  
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
-                                                
+                                                $url_down = "download_files.php?files=".$registro['files']."&route_file=".$registro['route_file'];
                                                 ?> 
+                                            
+                                                <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
 
-                                                <button id="popup-informacion" onclick = "windows.location.href='www.google.com.pe';"> Descargar</button>
-
-                                                <a href="download_files.php<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"].""; ?>" name="link">Descargar</a>
+                                              <a href='<?php echo $url_down ?>' >Descargar</a>
                                                 <?php
                                             }
                                                     ?>
@@ -272,12 +272,6 @@ if(isset($_POST['anio'])){
     </div>                       
  
                      <div class="col">
-                        <div class="pop-up">
-                            <div class="box">
-                                <p class="form-mensaje">Regálanos tus datos para que puedas ver nuestros reportes.</p>
-                                <?php mostrar_contacto_reportes(); ?>
-                            </div>
-                        </div>   
                         <figure>
                             <?php mostrar_imagen_reportes(); ?>
                         </figure>
