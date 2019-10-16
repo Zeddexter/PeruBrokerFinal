@@ -1,4 +1,10 @@
 <!-- SECCION DE REPORTES -->
+<?php
+// require_once( 'download_files.php' );
+$anio_seleccionado = date('Y');
+if(isset($_POST['anio'])){
+    $anio_seleccionado = $_POST['anio'];
+}?>
 <section class=" reportes tables-page-section" ="service" id="reportes" >
     <div class="content content-reportes">
                     <div class="section_title text-center">
@@ -15,8 +21,22 @@
                                         </div>
                     </div>
         <div class="row" data-aos="flip-right" data-aos-duration="1000">
+    
+
             <div class="col-md-8 col-lg-7 "  >
-                  <div class="cover blur-in" id="overlay">  
+            <div> <?php echo  "<label for='anio'><b>Año</b></label>";  ?>
+            <form name="myform" action="#reportes" method="post">
+            <select name="anio" onchange="this.form.submit()">
+            <?php  global $wpdb;
+                            $tbl_rep = $wpdb->prefix.'reportespb';
+                            $rows = $wpdb->get_results("select years FROM $tbl_rep where typerep is not null  group by years",ARRAY_A); 
+                            foreach($rows as $row){ ?>
+                                <option value= "<?php echo $row['years'];?>"<?php if($anio_seleccionado == $row['years']){ echo " selected"; }?>><?php echo $row['years'];?></option>
+                           <?php }
+                            ?>
+	    </select></form>
+        </div>
+                  <div >  
                         
                         <h4>Estadísticas de Harina de Pescado</h4>
                         <div class="table-responsive estadistica">
@@ -69,7 +89,8 @@
                                             else weeknumbers end  as weeknumbers,
                                         title,
                                         files, route_file 
-                                        from $tbl_estadisticas where typerep = ".$row["typerep"]."  order by years,
+                                        from $tbl_estadisticas where typerep = ".$row["typerep"]." and years = '".$anio_seleccionado."' 
+                                         order by years,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 
 
@@ -86,8 +107,11 @@
                                             <td>  
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
+                                                
                                                 ?> 
-                                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
+
+                                                <button id="popup-informacion" onclick = "windows.location.href='<?php echo $registro['route_file']; ?>';"> Descargar</button>
+                                                <a  href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
                                             }
                                                     ?>
                                         </td>
@@ -140,7 +164,8 @@
                                             else weeknumbers end  as weeknumbers,
                                         title,
                                         files, route_file 
-                                        from $tbl_estadisticas where typerep = ".$row["typerep"]."  order by years,
+                                        from $tbl_estadisticas where typerep = ".$row["typerep"]."  and years = '".$anio_seleccionado."' 
+                                        order by years,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 
 
@@ -210,7 +235,8 @@
                             else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = ".$row["typerep"]."  order by years,
+                        from $tbl_estadisticas where typerep = ".$row["typerep"]." 
+                        and years = '".$anio_seleccionado."'   order by years,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                         ?> 
 

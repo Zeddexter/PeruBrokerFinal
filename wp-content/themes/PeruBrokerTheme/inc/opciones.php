@@ -368,7 +368,7 @@ function rp_estadisticas (){
                                 //echo $registro['files'];
                                 ?> 
                                 <!-- <form action="" method="post"> -->
-                                <a href="download_files.php.<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"].""; ?> name="link">Descargar</a>
+                                <a href="download_files.php.<?php echo "?files=".$registro['files']."&route_file=".$registro["route_file"]; ?>" name="link">Descargar</a>
                                 <input type="submit" name ="Quitaradjunto" value="Quitar Adjunto" class="">
                                 <!-- </form> -->
                                  <?php

@@ -334,7 +334,17 @@ function mostrar_contacto_mapa(){ ?>
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
     }
-
+function descargar_archivos($ruta,$files)
+{
+    $actual_file_name = $ruta;
+    $saved_file_name = $files;
+//echo $actual_file_name." ".$saved_file_name;
+    header("Content-Type: application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=$saved_file_name");
+    header("Content-Length: " . filesize($actual_file_name));
+    readfile($actual_file_name);
+    exit; 
+}
 ?>
 
 
