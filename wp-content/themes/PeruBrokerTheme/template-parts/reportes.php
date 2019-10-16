@@ -182,8 +182,9 @@ if(isset($_POST['anio'])){
                                             <td>  
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
+                                                $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 ?> 
-                                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
+                                               <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button> <?php
                                             }
                                                     ?>
                                         </td>
@@ -253,8 +254,9 @@ if(isset($_POST['anio'])){
                             <td>  
                             <?php if(isset($registro['files'])){
                                 //echo $registro['files'];
+                                $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                 ?> 
-                                <a href="<?php echo $registro['route_file']; ?>">Descargar</a> <?php
+                                 <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button> <?php
                             }
                                     ?>
                         </td>
