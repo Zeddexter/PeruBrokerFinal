@@ -110,9 +110,9 @@ if(isset($_POST['anio'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 if(isset($_COOKIE['pum-283'])){
-                                                     echo  "<button id='Down' onclick = 'window.open(".$url_down.");'> Descargar</button>";
+                                                     echo  "<button id='Down' onclick = 'window.open('".$url_down."');'> Descargar</button>";
                                                 } else {
-                                                    echo  "<button  id='popup-informacion' onclick = 'window.open(".$url_down.");'> Descargar</button>";
+                                                    echo  "<button  id='popup-informacion' onclick = 'window.open('".$url_down."');'> Descargar</button>";
                                                 }
                                                     ?>
                                                    
