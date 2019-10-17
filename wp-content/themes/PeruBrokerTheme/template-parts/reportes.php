@@ -118,7 +118,9 @@ if(isset($_POST['anio'])){
                                                 }
                                                     ?>
                                                    <button <?php echo  $id; ?>
-                                                     onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                     onclick = "window.open('<?php echo $url_down ?>');"
+                                                     style="cursor: pointer;" 
+                                                     > Descargar</button>
                                                   <?php } ?>
                                         </td>
                                             </tr>
@@ -199,7 +201,8 @@ if(isset($_POST['anio'])){
                                                 }
                                                     ?>
                                                    <button <?php echo  $id; ?>
-                                                     onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                     onclick = "window.open('<?php echo $url_down ?>');"
+                                                     style="cursor: pointer;" > Descargar</button>
                                                <?php
                                             }
                                                     ?>
@@ -281,7 +284,8 @@ if(isset($_POST['anio'])){
                                                 }
                                                     ?>
                                                    <button <?php echo  $id; ?>
-                                                     onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button> <?php
+                                                     onclick = "window.open('<?php echo $url_down ?>');"
+                                                     style="cursor: pointer;" > Descargar</button> <?php
                             }
                                     ?>
                         </td>
