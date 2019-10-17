@@ -109,8 +109,17 @@ if(isset($_POST['anio'])){
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
+                                                if(isset($_COOKIE['pum-283'])){ 
+                                                    $cookie = $_COOKIE['pum-283']; ?>
+                                                    <button onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                    <?php
+                                                }
+                                                else{ ?>
+                                                    <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                <?php}
                                                 ?> 
-                                                <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                               
+                                                
                                                 <?php
                                             }
                                                     ?>
@@ -184,7 +193,17 @@ if(isset($_POST['anio'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 ?> 
-                                               <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button> <?php
+                                              <?php if(isset($_COOKIE['pum-283'])){ 
+                                                    $cookie = $_COOKIE['pum-283']; ?>
+                                                    <button onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                    <?php
+                                                }
+                                                else{ ?>
+                                                    <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                <?php}
+                                                ?> 
+                                               
+                                               <?php
                                             }
                                                     ?>
                                         </td>
@@ -256,7 +275,16 @@ if(isset($_POST['anio'])){
                                 //echo $registro['files'];
                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                 ?> 
-                                 <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button> <?php
+                            <?php  if(isset($_COOKIE['pum-283'])){ 
+                                                    $cookie = $_COOKIE['pum-283']; ?>
+                                                    <button onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                    <?php
+                                                }
+                                                else{ ?>
+                                                    <button id="popup-informacion" onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
+                                                <?php}
+                                                ?> 
+                                  <?php
                             }
                                     ?>
                         </td>
