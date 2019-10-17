@@ -109,9 +109,15 @@ if(isset($_POST['anio'])){
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
-                                                
+                                                $id_cookie = '';
+                                                if(isset($_COOKIE['pum-283'])) {
+                                                    $id = "id='popup-informacion'"; 
+                                                } 
+                                                else {
+                                                    $id = "id='ABC'";
+                                                }
                                                     ?>
-                                                   <button <?php  if(isset($_COOKIE['pum-283'])) return echo  "id='popup-informacion'"; ?>
+                                                   <button <?php echo  $id; ?>
                                                      onclick = "window.open('<?php echo $url_down ?>');"> Descargar</button>
                                                   <?php } ?>
                                         </td>
