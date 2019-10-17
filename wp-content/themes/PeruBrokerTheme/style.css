@@ -1133,6 +1133,7 @@ nav.lista-menu{
 
     /*FORMULARIO DE CONTACTO VISTA ESCRITORIO*/
     .wpcf7 form.sent p {
+        
         display: none;
     }
     form.wpcf7-form{

@@ -19,6 +19,20 @@ function perubroker_menus(){
 }
 add_action('init','perubroker_menus');
 
+add_action( 'wp_footer', 'contact_form_sent' );
+
+function contact_form_sent() {
+?>
+<script type="text/javascript">
+document.addEventListener( 'wpcf7mailsent', function( event ) {
+    if ( '#pum_popup_title_283' == event.detail.contactFormId ) { //Use this only when targeting specific form.
+         document.getElementById('#pum_popup_title_283').style.display = 'none';
+    } //Use this only when targeting specific form.
+}, false );
+</script>
+<?php
+}
+
 function excerpt($limit) {
     $excerpt = explode(' ', get_the_excerpt(), $limit);
     if (count($excerpt)>=$limit) {
