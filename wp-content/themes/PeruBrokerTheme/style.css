@@ -633,8 +633,8 @@ section.reportes .content-reportes .table-responsive{
     text-align: center;
 }
 .tables-page-section .table td {
-    border-bottom: 1px solid #ffffff;
-    border-right: 1px solid #ffffff;
+    /* border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #ffffff; */
     background: #f1f1f1;
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
