@@ -1,0 +1,32 @@
+# Translation of Plugins - mailgo - Development (trunk) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - mailgo - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-09-27 09:11:50+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - mailgo - Development (trunk)\n"
+
+#. Description of the plugin
+msgid "a different mailto and another tel"
+msgstr "un «mailto» distinto y otro «tel»"
+
+#. Plugin URI of the plugin
+msgid "https://mailgo.js.org"
+msgstr "https://mailgo.js.org"
+
+#. Author URI of the plugin
+msgid "https://matteomanzinello.com"
+msgstr "https://matteomanzinello.com"
+
+#. Author of the plugin
+msgid "Matteo Manzinello"
+msgstr "Matteo Manzinello"
+
+#. Plugin Name of the plugin
+msgid "mailgo"
+msgstr "mailgo"
