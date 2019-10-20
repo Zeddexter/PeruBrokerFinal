@@ -620,6 +620,7 @@ section.reportes .content-reportes .table-responsive{
 .tables-page-section .table {
     text-align: center;
     margin-bottom: 20px;
+    border: 1px solid navy; border-collapse: collapse;
 }
 .tables-page-section .table th {
     border-bottom: 1px solid #ffffff;
@@ -637,6 +638,7 @@ section.reportes .content-reportes .table-responsive{
     background: #f1f1f1;
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
+    border: 1px solid navy; padding: 5px 10px;
     color: #666666;
     padding: 10px 20px;
 }
