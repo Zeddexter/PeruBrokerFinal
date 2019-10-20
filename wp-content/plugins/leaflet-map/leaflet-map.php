@@ -5,10 +5,10 @@
  * Plugin URI: https://wordpress.org/plugins/leaflet-map/
  * Description: A plugin for creating a Leaflet JS map with a shortcode. Boasts two free map tile services and three free geocoders.
  * Author: bozdoz
- * Author URI: https://twitter.com/bozdoz/
+ * Author URI: https://bozdoz.com/
  * Text Domain: leaflet-map
  * Domain Path: /languages/
- * Version: 2.15.0
+ * Version: 2.16.0
  * License: GPL2
  * Leaflet Map is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
     exit; 
 }
 
-define('LEAFLET_MAP__PLUGIN_VERSION', '2.15.0');
+define('LEAFLET_MAP__PLUGIN_VERSION', '2.16.0');
 define('LEAFLET_MAP__PLUGIN_FILE', __FILE__);
 define('LEAFLET_MAP__PLUGIN_DIR', plugin_dir_path(__FILE__));
 

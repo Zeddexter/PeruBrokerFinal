@@ -4,7 +4,7 @@
 *		Plugin Name: WP Custom Admin Interface
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Customise the WordPress admin and login interfaces and customize the WordPress dashboard menu.  
-*		Version: 7.13
+*		Version: 7.15
 *		Author: Martin Gibson
 *		Developer: Northern Beaches Websites
 *		Developer URI:  https://www.northernbeacheswebsites.com.au
@@ -98,16 +98,42 @@ function wp_custom_admin_interface_settings_page_content ($submenu) {
         <div id="poststuff">
             <!--main heading-->
             <h1 style="margin-bottom: 15px;">
-                <i class="fa fa-sliders options-page-header-icon" aria-hidden="true"></i> WP Custom Admin Interface<a target="_blank" class="donate-button" href="https://northernbeacheswebsites.com.au/product/donate-to-northern-beaches-websites/">Donate now</a>
+                <i class="fa fa-sliders options-page-header-icon" aria-hidden="true"></i> WP Custom Admin Interface
             </h1>
+
+            <?php
+                //only show notice is transient doesnt exist
+                if(!get_transient('wpcai_pro_notice_disable')){
+            ?>
+
+            <!--pro message-->
+            <div style="border-radius: 4px; background-color: #ef4534;" data-dismissible="disable-done-notice-forever" class="notice is-dismissible custom-admin-interface-pro-notice">
             
+                <img style="width: 500px; margin: 0 auto; display: block; margin-top: 20px;" src="<?php echo plugins_url('/inc/images/custom-admin-interface-pro-logo.png', __FILE__ ); ?>" />
+                <p style="font-size: 18px;font-weight: 300;color: white;text-align: center;"><?php _e( 'Customise the Wordpress admin interface more with Custom Admin Interface Pro. The plugin offers the ability to create multiple designs for various modules and comes with a revision system so you can easily restore changes. The plugin has been redesigned from the ground up and comes with priority email support.', 'wp-custom-admin-interface' ); ?></p>
+                <a target="_blank" style="display: table;margin: 0 auto; background-color: white; text-decoration: none; color: #ef4534; font-weight: 700; padding: 15px 20px;font-size: 18px;border-radius: 4px;margin-top: 20px; margin-bottom: 20px; text-align: center;" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/"><?php _e( 'Learn more', 'wp-custom-admin-interface' ); ?></a>
+            </div>
+
+            <?php
+                }
+            ?>
+
+            <?php
+                //only show notice is transient doesnt exist
+                if(!get_transient('wpcai_welcome_notice_disable')){
+            ?>  
             <!--notice message-->
             <div style="border-radius: 4px;" data-dismissible="disable-done-notice-forever" class="notice is-dismissible please-hide-that-annoying-notice">
-            <p><h3><?php _e( 'A Message from the Developer', 'wp-custom-admin-interface' ); ?></h3><p><?php _e('Hi there! Thanks for using my plugin. I wrote this plugin because at the moment I use a few different little plugins to customise the admin interface and I thought it would be great to put it all into one and make things easy to use. I appreciate that customising the WordPress admin is a bit of a pandora\'s box as everyone has their own way they like to do things! If you like the plugin please consider rating it', 'wp-custom-admin-interface' ); ?> <a href="https://wordpress.org/support/plugin/wp-custom-admin-interface/reviews/?rate=5#new-post" target="_blank"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></a>'s.</p>
-            
-            <p><?php _e('Sick of seeing this notice and my ugly face at the bottom of this settings page?', 'wp-custom-admin-interface' ); ?> <i style="color: #d14032; font-weight: 900;" class="fa fa-frown-o" aria-hidden="true"></i> <?php _e('Why not hide it using this plugin with the following', 'wp-custom-admin-interface' ); ?> <a href="admin.php?page=wpcai_custom_code#customCodePage"><?php _e('CSS code', 'wp-custom-admin-interface' ); ?></a>:</p>
-            <code><strong>.please-hide-that-annoying-notice {display:none}</strong></code></p>
+
+                <p><h3><?php _e( 'A Message from the Developer', 'wp-custom-admin-interface' ); ?></h3><p><?php _e('Hi there! Thanks for using my plugin. I wrote this plugin because at the moment I use a few different little plugins to customise the admin interface and I thought it would be great to put it all into one and make things easy to use. I appreciate that customising the WordPress admin is a bit of a pandora\'s box as everyone has their own way they like to do things! If you like the plugin please consider rating it', 'wp-custom-admin-interface' ); ?> <a href="https://wordpress.org/support/plugin/wp-custom-admin-interface/reviews/?rate=5#new-post" target="_blank"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></a>'s.</p>
+
+                <p><strong><?php _e( 'Want to customise the WordPress admin interface more. Check out <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a> to create multiple menus, toolbars, notices, admin/frontend code, dashboard widgets, hidden plugins, hidden metaboxes, hidden sidebars and hidden users and much more! Learn more <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">here</a>.', 'wp-custom-admin-interface' ); ?></strong></p>
+
             </div>
+
+            <?php
+                }
+            ?>
             
             <!--start form-->
             <form id='custom_admin_interface_settings_form' action='options.php' method='post'>
@@ -145,11 +171,11 @@ function wp_custom_admin_interface_settings_page_content ($submenu) {
             <?php
 
 
-                if ( ! function_exists( 'northernbeacheswebsites_information' ) ) {
-                    require('inc/nbw.php');  
-                }
+                // if ( ! function_exists( 'northernbeacheswebsites_information' ) ) {
+                //     require('inc/nbw.php');  
+                // }
 
-                echo northernbeacheswebsites_information();
+                // echo northernbeacheswebsites_information();
 
             ?>
 
@@ -2415,7 +2441,28 @@ if('admin.php' == $pagenow && isset($_GET['page']) && ($_GET['page'] == 'wpcai_c
         add_action('admin_print_scripts', 'mfn_builder_scripts');
         
 }
+/**
+* 
+*
+*
+* Hides notices from showing
+*/
+function wpcai_welcome_notice_disable() {
 
+    set_transient('wpcai_welcome_notice_disable', true, YEAR_IN_SECONDS*1);
+          
+    wp_die(); 
+    
+}
+add_action( 'wp_ajax_wpcai_welcome_notice', 'wpcai_welcome_notice_disable' );
 
+function wpcai_pro_notice_disable() {
+
+    set_transient('wpcai_pro_notice_disable', true, YEAR_IN_SECONDS*1);
+          
+    wp_die(); 
+    
+}
+add_action( 'wp_ajax_wpcai_pro_notice', 'wpcai_pro_notice_disable' );
 
 ?>

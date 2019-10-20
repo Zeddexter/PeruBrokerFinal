@@ -1,7 +1,32 @@
 jQuery(document).ready(function ($) {
     
+
+    //save dismiss notice
+    $('.wrap').on("click",".please-hide-that-annoying-notice button",function() {
+         
+        // console.log('hello world');
+
+        jQuery.ajax({
+            url: ajaxurl,
+            data: {
+                action: 'wpcai_welcome_notice'
+            }
+        })
     
+    });
+
+    $('.wrap').on("click",".custom-admin-interface-pro-notice button",function() {
+         
+        console.log('hello world');
+
+        jQuery.ajax({
+            url: ajaxurl,
+            data: {
+                action: 'wpcai_pro_notice'
+            }
+        })
     
+    });
 
     //hides and then shows on click help tooltips
     $(".hidden").hide();

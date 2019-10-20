@@ -649,9 +649,15 @@ function wp_custom_admin_interface_manage_settings_callback(){
 
     <tr valign="top">
         <td scope="row" colspan="2">
+
+
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Please click on an option below to show further options for the export, import or delete procedure.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to export the settings as a file? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
             
         </td>
     </tr>
@@ -1032,6 +1038,10 @@ function wp_custom_admin_interface_custom_css_code_render() {
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'The custom code section enables you to implement custom code on the backend of Wordpress.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple admin menus? Check out <a target="_blank" target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
             
         </td>
     </tr>
@@ -1265,6 +1275,10 @@ function wp_custom_admin_interface_enable_custom_widget_render() {
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'This section enables you to create a custom widget which will display on your dashboard.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple dashboard widgets? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
             
         </td>
     </tr>
@@ -1537,6 +1551,11 @@ function wp_custom_admin_interface_top_level_menu_render() {
 	?>
     <tr valign="top">
         <td scope="row" colspan="2">
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple admin menus? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Modify the main menu of WordPress. <em>Please note if you are moving a sub-level menu item to the top level menu you may get the following error message when trying to access the page: "Sorry, you are not allowed to access this page." To get around this for the moment I recommend firstly restoring your menu back to the WordPress default and instead of moving the menu item, keep it where it is and hide it, and then create a new menu item on the top level that goes to the same link as the hidden child menu item.</em>', 'wp-custom-admin-interface' ); ?></p>
             </div>    
@@ -1581,9 +1600,11 @@ function wp_custom_admin_interface_top_level_menu_render() {
                 
                 $savedTopLevelMenu = json_decode($options['wp_custom_admin_interface_top_level_menu']);
                 $tempTopLevelMenu = array();
-
-                foreach($savedTopLevelMenu as $menuItem){
-                    array_push($tempTopLevelMenu,$menuItem[2]);   
+                
+                if ( is_array($savedTopLevelMenu) || is_object($savedTopLevelMenu) ){
+                    foreach($savedTopLevelMenu as $menuItem){
+                        array_push($tempTopLevelMenu,$menuItem[2]);   
+                    }
                 }
 
                 $originalTopLevelMenu = $wp_custom_admin_interface_original_top_level_menu;
@@ -1814,7 +1835,11 @@ function wp_custom_admin_interface_hide_these_plugins_render() {
     <tr valign="top">
         <td scope="row" colspan="2">
             <div class="notice notice-info inline" >
-                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Hide these plugins from showing on the <a target="_blank" href="plugins.php">plugins page</a>.', 'wp-custom-admin-interface' ); ?></p>
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to hide multiple plugins to different roles and users? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Hide these plugins from showing on the <a target="_blank" target="_blank" href="plugins.php">plugins page</a>.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
             
         </td>
@@ -1896,6 +1921,10 @@ function wp_custom_admin_interface_hide_these_users_render() {
     
     <tr valign="top">
         <td scope="row" colspan="2">
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to hide multiple users to different roles and users? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Hide these users from showing on the <a target="_blank" href="users.php">users page</a>. Please note if you hide yourself you will still see yourself in the user listing, however other people won\'t be able to see you.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
@@ -2008,6 +2037,10 @@ function wp_custom_admin_interface_hide_these_sidebars_render() {
     <tr valign="top">
         <td scope="row" colspan="2">
             <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to hide multiple sidebars to different roles and users? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
+            <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Hide these sidebars from showing on the <a target="_blank" href="widgets.php">widgets page</a>.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
             
@@ -2100,6 +2133,10 @@ function wp_custom_admin_interface_primary_toolbar_menu_render() {
 
     <tr valign="top">
         <td scope="row" colspan="2">
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple admin toolbars? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Modify the main toolbar of WordPress. This is the bar that displays at the top of the admin screen.', 'wp-custom-admin-interface' ); ?></p>
             </div>  
@@ -2238,7 +2275,11 @@ function wp_custom_admin_interface_custom_frontend_css_code_render() {
         <td scope="row" colspan="2">
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'The custom code section enables you to implement custom code on the frontend of Wordpress.', 'wp-custom-admin-interface' ); ?></p>
-            </div>    
+            </div>  
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple custom codes? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>     
             
         </td>
     </tr>
@@ -2302,6 +2343,11 @@ function wp_custom_admin_interface_hide_this_meta_render() {
     
     <tr valign="top">
         <td scope="row" colspan="2">
+
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to hide multiple metaboxes to different roles and users? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'This will hide meta boxes which are shown on different parts of WordPress.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
@@ -2447,6 +2493,10 @@ function wp_custom_admin_interface_notice_message_render() {
 
     <tr valign="top">
         <td scope="row" colspan="2">
+            <div class="notice notice-info inline" >
+                <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'Want to create multiple admin notices? Check out <a target="_blank" href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a>!', 'wp-custom-admin-interface' ); ?></p>
+            </div>   
+
             <div class="notice notice-info inline" >
                 <p><i class="fa fa-info-circle information-icon" aria-hidden="true"></i> <?php _e( 'The admin notice creates a custom message that displays at the top of all admin pages.', 'wp-custom-admin-interface' ); ?></p>
             </div>    
