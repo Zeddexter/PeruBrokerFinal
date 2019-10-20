@@ -648,7 +648,13 @@ section.reportes .content-reportes .table-responsive{
 .tables-page-section .table tr th {
     background: #f1f1f1;
 }
-
+table
+{
+    border: 1px solid navy; border-collapse: collapse;
+}
+td{
+    border: 1px solid navy; padding: 5px 10px;
+}
 section.reportes .content-reportes figure{
     margin: 0 auto;
     position: relative;
