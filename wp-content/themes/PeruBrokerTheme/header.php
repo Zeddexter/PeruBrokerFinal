@@ -25,17 +25,10 @@
 <body>
 <!-- TOP - BARRA DE ARRIBA -->
    <header  id="inicio">
-<<<<<<< HEAD
-       <figure>
-   <img src="<?php echo get_template_directory_uri(); ?>/img/EnConstruccion.png"  style="z-index: 999;">
-          
-          </figure>
-=======
    <img src="<?php echo get_template_directory_uri(); ?>/img/EnConstruccion.png" alt="En construccion" style="z-index: 999;cursor: pointer;
     max-width: 541px;
     position:absolute;
     margin-left:calc(50% - 230px);">
->>>>>>> e07180a6523e89920b4f64af2c576c42145763b8
        <div class="menu" id="menu">
            <div class="content-menu" >
 
