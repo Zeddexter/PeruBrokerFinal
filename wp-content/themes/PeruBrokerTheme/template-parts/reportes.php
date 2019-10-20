@@ -301,7 +301,7 @@ if(isset($_POST['anio'])){
  
                      <div class="col">
                         <figure>
-                            <?php mostrar_imagen_reportes(); ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/507-768x768.jpg">
                         </figure>
                     </div>
                     </div>
