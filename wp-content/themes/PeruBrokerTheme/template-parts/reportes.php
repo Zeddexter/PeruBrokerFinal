@@ -111,7 +111,7 @@ if(isset($_POST['anio'])){
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 $id_cookie = '';
                                                 if(isset($_COOKIE['pum-283'])) {
-                                                    $id = "id='ABC'  onclick = \"window.open(\'". $url_down."\');\"";
+                                                    $id = "id='ABC'  onclick = \"window.open('". $url_down."');\"";
                                                 } 
                                                 else {
                                                     $id = "id='popup-informacion'";
@@ -193,7 +193,7 @@ if(isset($_POST['anio'])){
                                                 
                                                 $id_cookie = '';
                                                 if(isset($_COOKIE['pum-283'])) {
-                                                    $id = "id='ABC'  onclick = \"window.open(\'". $url_down."\');\"";
+                                                    $id = "id='ABC'  onclick = \"window.open('". $url_down."');\"";
                                                 } 
                                                 else {
                                                     $id = "id='popup-informacion'";
@@ -275,7 +275,7 @@ if(isset($_POST['anio'])){
                                
                                   $id_cookie = '';
                                                 if(isset($_COOKIE['pum-283'])) {
-                                                    $id = "id='ABC'  onclick = \"window.open(\'". $url_down."\');\""; 
+                                                    $id = "id='ABC'  onclick = \"window.open('". $url_down."');\""; 
                                                 } 
                                                 else {
                                                     $id = "id='popup-informacion'";
