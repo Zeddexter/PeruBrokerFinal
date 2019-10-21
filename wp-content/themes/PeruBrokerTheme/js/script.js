@@ -148,7 +148,7 @@ $(function() {
     var wpcf7Elm = document.querySelector('#wpcf7-f196-o1');
 
     wpcf7Elm.addEventListener( 'wpcf7mailsent', function( event ) {
-      location.href = "http://www.perubroker.com.pe/#reportes" 
+      location.reload();
       // $('.pop-up').fadeOut(700);
       // $('#overlay').removeClass('blur-in');
       // $('#overlay').addClass('blur-out');
