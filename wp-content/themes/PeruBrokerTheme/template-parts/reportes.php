@@ -21,8 +21,8 @@ if(isset($_POST['anio'])){
                                             <?php mostrar_mensaje_reportes(); ?>
                                         </div>
                     </div>
-        <div class="row" data-aos="flip-right" data-aos-duration="1000">
-    
+        <div class="row" >
+    <!-- data-aos="flip-right" data-aos-duration="1000" -->
 
             <div class="col-md-8 col-lg-7 "  >
             <div> <?php echo  "<label for='anio'><b>Año</b></label>";  ?>
