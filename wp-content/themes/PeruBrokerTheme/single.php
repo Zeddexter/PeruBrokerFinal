@@ -1,18 +1,18 @@
-
-<style>
-
-</style>
-    <?php get_header(); ?>
-
-    <style>
-        header .menu{
-        top:"40px"!important;
-        }
-    </style>
-    
+<?php wp_head(); ?>
 <div class="row" >
         <div class="col">
-            <section class="hero" style="background-color:rgba(23, 41, 131,1); height: 155px;">
+            <!-- MENU -->
+            <section class="hero" style="background-color:rgba(23, 41, 131,1); height: 80px;">
+            
+            <nav class="lista-menu">
+                    <div class="bar"></div>
+                    <?php
+                        $args = array(
+                            'menu' => 'Menu2'
+                            );
+                            wp_nav_menu($args);
+                        ?>
+                </nav>
                         <div class="idioma">
                             <?php if ( function_exists ( 'wpm_language_switcher' ) ) wpm_language_switcher (); ?>
                         </div>
