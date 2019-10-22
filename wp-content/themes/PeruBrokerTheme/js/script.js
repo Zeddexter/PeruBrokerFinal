@@ -159,4 +159,11 @@ $(function() {
 
  });
 
+ $(document).ready(function () {
+  $('img').each(function () {
+      if($(this).attr('src')=="") {
+         $(this).attr('display', 'none');
+      }
+  });
+});
  
