@@ -473,9 +473,9 @@ section.servicios .content figure.productos{
 section.servicios .content figure.productos img{
     display: inline;
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
     /* max-width: 25%;*/
-    height: 250px;
+    height: 220px;
     
 }
 img[src=""] {
