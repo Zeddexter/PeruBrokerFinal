@@ -91,7 +91,7 @@ if(isset($_POST['anio'])){
                                         title,
                                         files, route_file 
                                         from $tbl_estadisticas where typerep = ".$row["typerep"]." and years = '".$anio_seleccionado."' 
-                                         order by years,
+                                         order by years,months,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 
 
@@ -172,7 +172,7 @@ if(isset($_POST['anio'])){
                                         title,
                                         files, route_file 
                                         from $tbl_estadisticas where typerep = ".$row["typerep"]."  and years = '".$anio_seleccionado."' 
-                                        order by years,
+                                        order by years,months,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 
 
@@ -254,7 +254,7 @@ if(isset($_POST['anio'])){
                         title,
                         files, route_file 
                         from $tbl_estadisticas where typerep = ".$row["typerep"]." 
-                        and years = '".$anio_seleccionado."'   order by years,
+                        and years = '".$anio_seleccionado."'   order by years,months,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                         ?> 
 
