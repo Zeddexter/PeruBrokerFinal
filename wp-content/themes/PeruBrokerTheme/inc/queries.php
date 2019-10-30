@@ -89,22 +89,7 @@ function broker_lista_contenido_secciones(){ ?>
             </div>
             <!-- <div class="row">
                 <div class="col-sm-12"> -->
-                    <figure class="productos">       
-                        <img src="<?php 
-                        //the_field('imagen_1');
-                        $attachment_id = get_field('img_001');
-                        $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                        $image = wp_get_attachment_image_src( $attachment_id, $size );
-                        echo $image[0];
-                        ?>" alt="">
-                        <img src="<?php 
-                        //the_field('imagen_2');
-                        $attachment_id = get_field('img_002');
-                        $size = "medium"; // (thumbnail, medium, large, full or custom size)
-                        $image = wp_get_attachment_image_src( $attachment_id, $size );
-                        echo $image[0];
-                        ?>" alt="">
-                    </figure>
+                
                 <!-- </div>
            </div> -->
         <?php endwhile; wp_reset_postdata(); ?> 
