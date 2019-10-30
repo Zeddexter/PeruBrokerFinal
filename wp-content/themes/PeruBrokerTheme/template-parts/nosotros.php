@@ -42,7 +42,7 @@
                         while ($clases->have_posts() ): $clases -> the_post();
                         //$contador +=1;
                         ?>      
-                         <figure class="productos">       
+                         <figure class="resumen">       
                         <img src="<?php 
                         //the_field('imagen_1');
                         $attachment_id = get_field('img_001');

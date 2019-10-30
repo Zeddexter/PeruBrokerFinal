@@ -478,13 +478,13 @@ section.servicios .content figure.productos img{
     height: 220px;
     
 }
-section.nosotros .content figure.productos{
+section.nosotros .content figure.resumen{
     text-align: center;
     align-items: center;
     justify-items: center;
     margin: 40px 0 0 0;
 }
-section.nosotros .content figure.productos img
+section.nosotros .content figure.resumen img
 {
     display: inline;
     width: 100%;
