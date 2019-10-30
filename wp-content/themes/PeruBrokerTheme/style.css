@@ -478,6 +478,21 @@ section.servicios .content figure.productos img{
     height: 220px;
     
 }
+section.nosotros .content figure.productos{
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    margin: 40px 0 0 0;
+}
+section.nosotros .content figure.productos img
+{
+    display: inline;
+    width: 100%;
+    max-width: 350px;
+    /* max-width: 25%;*/
+    height: 220px;
+}
+
 img[src=""] {
     display: none;
 }

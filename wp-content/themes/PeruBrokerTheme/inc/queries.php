@@ -77,8 +77,8 @@ function broker_lista_contenido_secciones(){ ?>
             ?>
             <div id="item<?php echo $contador;?>" class="item ocultar">
                 <div class="row align-items-center">
-                    <div class="col-lg-12 col-xl-9">
-                        <?php the_content();?>  
+                        <div class="col-lg-12 col-xl-9">
+                            <?php the_content();?>  
                         </div>
                         <div class="col">
                             <figure>
@@ -93,14 +93,14 @@ function broker_lista_contenido_secciones(){ ?>
                         <img src="<?php 
                         //the_field('imagen_1');
                         $attachment_id = get_field('img_001');
-                        $size = "thumbnail"; // (thumbnail, medium, large, full or custom size)
+                        $size = "medium"; // (thumbnail, medium, large, full or custom size)
                         $image = wp_get_attachment_image_src( $attachment_id, $size );
                         echo $image[0];
                         ?>" alt="">
                         <img src="<?php 
                         //the_field('imagen_2');
                         $attachment_id = get_field('img_002');
-                        $size = "thumbnail"; // (thumbnail, medium, large, full or custom size)
+                        $size = "medium"; // (thumbnail, medium, large, full or custom size)
                         $image = wp_get_attachment_image_src( $attachment_id, $size );
                         echo $image[0];
                         ?>" alt="">
