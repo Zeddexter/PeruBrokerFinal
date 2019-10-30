@@ -87,8 +87,8 @@ function broker_lista_contenido_secciones(){ ?>
                         </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
+            <!-- <div class="row">
+                <div class="col-sm-12"> -->
                     <figure class="productos">       
                         <img src="<?php 
                         //the_field('imagen_1');
@@ -105,8 +105,8 @@ function broker_lista_contenido_secciones(){ ?>
                         echo $image[0];
                         ?>" alt="">
                     </figure>
-                </div>
-           </div>
+                <!-- </div>
+           </div> -->
         <?php endwhile; wp_reset_postdata(); ?> 
 <?php
     }
