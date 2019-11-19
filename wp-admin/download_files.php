@@ -9,6 +9,6 @@
     header('Content-Transfer-Encoding: binary');
     header('Accept-Ranges: bytes');
     header("Content-Length: " . filesize($actual_file_name));
-    @readfile($actual_file_name);
+    @readfile($saved_file_name);
     exit;
 ?>
