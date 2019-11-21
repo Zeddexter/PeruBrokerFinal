@@ -122,6 +122,7 @@ if(isset($_POST['anio'])){
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
+                                                $url_down2 = 
                                                 $id_cookie = '';
                                                 $descarga = "  onclick = \"window.open('". $url_down."');\"";
                                                 if(isset($_COOKIE['pum-283'])) {
@@ -132,6 +133,7 @@ if(isset($_POST['anio'])){
                                                    
                                                 }
                                                 ?>
+                                               
                                                 <button id="Ver" <?php echo $descarga; ?>>Ver PDF</button>
                                                    <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
