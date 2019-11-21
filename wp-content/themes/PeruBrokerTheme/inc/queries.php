@@ -348,7 +348,7 @@ function descargar_archivos($ruta,$files)
     header("Content-Disposition: attachment; filename=$saved_file_name");
     header("Content-Length: " . filesize($actual_file_name));
     readfile($actual_file_name);
-    exit; 
+    //exit; 
 }
 ?>
 

@@ -12,5 +12,5 @@ echo "Datos";
     header('Accept-Ranges: bytes');
     header("Content-Length: " . filesize($actual_file_name));
     @readfile($saved_file_name);
-    exit;
+    //exit;
 ?>

@@ -1,6 +1,19 @@
 <!-- SECCION DE REPORTES -->
 <?php
 
+//  function Ver_PDF($archivo_reporte,$ruta_reporte){
+//     if(isset($archivo_reporte) && isset($ruta_reporte)){
+//         if(isset($_GET['Ver'])){
+//         $file1 = 'Example.pdf';
+//         header('Content-type: application/pdf');
+//         header('Content-Disposition: inline; filename="'.$ruta_reporte.'"');
+//         header('Content-Transfer-Encoding: binary');
+//         header('Accept-Ranges: bytes');
+//         @readfile($ruta_reporte); 
+//     }   
+//     }    
+//  }
+
 // require_once( 'download_files.php' );
 $anio_seleccionado = date('Y');
 if(isset($_POST['anio'])){
@@ -115,8 +128,10 @@ if(isset($_POST['anio'])){
                                                 } 
                                                 else {
                                                     $id = "id='popup-informacion'";
+                                                    $descarga = "  onclick = \"window.open('". $url_down."');\"";
                                                 }
-                                                    ?>
+                                                ?>
+                                                <button id="Ver" <?php echo $descarga; ?>>Ver PDF</button>
                                                    <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
                                                      > Descargar</button>
