@@ -122,9 +122,9 @@ if(isset($_POST['anio'])){
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
                                                 $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
-                                                $url_down2 = 
+                                                $url_down2 = site_url()."/wp-admin/ViewPDF.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 $id_cookie = '';
-                                                $descarga = "  onclick = \"window.open('". $url_down."');\"";
+                                                $descarga = "  onclick = \"window.open('". $url_down2."');\"";
                                                 if(isset($_COOKIE['pum-283'])) {
                                                     $id = "id='ABC'  onclick = \"window.open('". $url_down."');\"";
                                                 } 
