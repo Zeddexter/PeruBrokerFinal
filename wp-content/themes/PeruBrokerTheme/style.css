@@ -786,7 +786,21 @@ section.contacto .content-info p.direccion::before{
     margin-right: 15px;
     top: 5px;
 }
+.content-info p.direccion::before{
+    content: url(./img/icon-direc.svg);
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+    top: 5px;
+}
 section.contacto .content-info p.telefono::before{
+    content: url(./img/icon-telef.svg);
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+    top: 5px;
+}
+.content-info p.telefono::before{
     content: url(./img/icon-telef.svg);
     position: relative;
     display: inline-block;
@@ -800,6 +814,13 @@ section.contacto .content-info p.correo::before{
     margin-right: 15px;
     top: 5px;
 }
+.content-info p.correo::before{
+    content: url(./img/icon-correo.svg);
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+    top: 5px;
+}
 section.contacto .content-info p.fax::before{
     content: url(./img/icon-fax.svg);
     position: relative;
@@ -807,7 +828,21 @@ section.contacto .content-info p.fax::before{
     margin-right: 15px;
     top: 5px;
 }
+.content-info p.fax::before{
+    content: url(./img/icon-fax.svg);
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+    top: 5px;
+}
 section.contacto .content-info p.facebook::before{
+    content: url(./img/icon-facebook.svg);
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+    top: 5px;
+}
+.content-info p.facebook::before{
     content: url(./img/icon-facebook.svg);
     position: relative;
     display: inline-block;
@@ -870,8 +905,14 @@ form.wpcf7-form .wpcf7-mail-sent-ok{
 
 /*FOOTER*/
 footer{
-    background: #05091D;
+    background: rgb(181, 183, 185);
     padding: 25px 0 20px 0;
+}
+footer .row .col{
+    display: block;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 }
 footer p{
     margin: 0;
@@ -892,6 +933,9 @@ font-size: 12px;
 }
 footer .create p a{
     color: white;
+}
+footer  p a{
+    color: navy;
 }
 
 /*FIN FOOTER*/
