@@ -4,7 +4,7 @@
         <a href="<?php the_permalink(); ?>" class="item">
             
             <div class="img-noticia">
-                <?php the_post_thumbnail('thumbnail'); ?>
+                <?php the_post_thumbnail('medium'); ?>
             </div>
             <div class="titulo-noticia">
                 <h4><?php the_title();?></h4>
