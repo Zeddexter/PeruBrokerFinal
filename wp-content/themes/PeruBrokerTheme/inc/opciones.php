@@ -5,11 +5,66 @@ function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','administrator','rp_estadisticas','rp_estadisticas','',20);
 add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','administrator','rp_estadisticas','rp_estadisticas');
 add_submenu_page('rp_estadisticas','Nuevo reporte','Nuevo reporte','administrator','rp_nuevos_registros','rp_nuevos_registros');
-//add_submenu_page('rp_estadisticas','Reportes','Reportes','administrator','rp_reportes','rp_reportes');
+add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','administrator','rp_tipo_reportes','rp_tipo_reportes');
 }
 
 
 add_action('admin_menu','perubroker_reportes');
+function rp_tipo_reportes(){
+    ?>
+    <div id="wpwrap"></div>
+    <div>
+        <!-- <label for="CodigoTip">Código
+        <input type="text" name="" id="CodigoTip"></label> -->
+        <label for="DescripcionTip">Descripción
+        <input type="text" name="" id="DescripcionTip"></label>
+        <input type="button" value="Registrar">
+    </div>
+    <form action="" method= "POST">
+    <table class= "wp-list-table widefat striped">
+            <thead>
+            <tr>
+
+                <th class="manage-column">Código</th>
+                <th class="manage-column">Descripción</th>
+                <th class="manage-column"></th>
+                <th class="manage-column"></th>
+            </tr>
+            </thead>
+            <tbody> 
+            <?php 
+                        global $wpdb;
+                        $tbl_tipo_reportes = $wpdb->prefix.'tipo_reportes';     
+                      $registros = $wpdb->get_results("select 
+                        id,
+                        descripcion
+                        from $tbl_tipo_reportes",ARRAY_A);
+                      foreach($registros as $registro){ ?>
+                       <tr>
+                           <td><?php echo $registro['id']; ?></td>
+                           <td><input type="text" name="Descr" id="<?php echo $registro['id']; ?>" value="<?php echo $registro['descripcion']; ?>" size="80" ></td>
+                           <td><a href="edit_tiporeporte&codigo=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Guardar</a></td>
+                           <td><a>Eliminar</a></td>
+                    </tr>
+                      <?php } ?>     
+            </tbody></table>
+    <?php
+if(isset($_POST["reg_tipo"]))
+{
+
+    global $wpdb;
+    $table = $wpdb->prefix.'reportespb';
+    $wpdb->update( $table,array('typerep' => $_POST["SelTipRep"], 
+    'years' =>  $_POST["anio"],
+    'months' => $_POST["Selmes"],
+    'biweeklys'=> $quincena,
+    'weeknumbers' => sanitize_text_field($num_semana),
+    'title' => sanitize_text_field($_POST["titulo"])
+  ),array('id'=>$_GET["id"]));
+}
+
+
+}
 
 function rp_estadisticas (){
     $selectedTipo = 0;
@@ -43,7 +98,8 @@ function rp_estadisticas (){
         $selectedTipo = $_GET["tipo_rep"];
      }
 ?><div id="wpwrap"></div>
-        <h1>Reportes</h1>
+        <div><h1>Reportes</h1></div> 
+        <div>
         <form id="category-select" class="category-select" action="" method="post">
         <label for="tipo_reporte">Tipo de reporte:</label>
             <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" onchange="this.form.submit()">
@@ -53,7 +109,10 @@ function rp_estadisticas (){
                                 <noscript>
                                 <input type="submit" name="Selection" value="view" />
                                 </noscript>
-        </form>      
+                                <?php $URL_TIPOREP =  esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"; ?>
+                                <input type="button" value="Tipo reporte" onclick="window.location.href='<?php echo $URL_TIPOREP ?>'" />
+        </form> 
+          </div>
         <br> <table class= "wp-list-table widefat striped">
             <thead>
             <tr>
