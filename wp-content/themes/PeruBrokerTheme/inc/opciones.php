@@ -6,21 +6,30 @@ function perubroker_reportes(){
 add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','administrator','rp_estadisticas','rp_estadisticas');
 add_submenu_page('rp_estadisticas','Nuevo reporte','Nuevo reporte','administrator','rp_nuevos_registros','rp_nuevos_registros');
 add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','administrator','rp_tipo_reportes','rp_tipo_reportes');
+// add_submenu_page('rp_estadisticas','Modificar Tipo','Modificar Tipo','administrator','rp_edit_tipo_reportes','rp_edit_tipo_reportes');
 }
 
+
+// function rp_edit_tipo_reportes()
+// {
+//    
+
+// }
 
 add_action('admin_menu','perubroker_reportes');
 function rp_tipo_reportes(){
     ?>
     <div id="wpwrap"></div>
+    
+    <form action="" method= "POST">
     <div>
         <!-- <label for="CodigoTip">Código
         <input type="text" name="" id="CodigoTip"></label> -->
         <label for="DescripcionTip">Descripción
-        <input type="text" name="" id="DescripcionTip"></label>
-        <input type="button" value="Registrar">
+        <input type="text" name="DescripcionTip" id="DescripcionTip"></label>
+        <input type="submit" id="Nuevo_Tip" value="Registrar">
     </div>
-    <form action="" method= "POST">
+   
     <table class= "wp-list-table widefat striped">
             <thead>
             <tr>
@@ -39,30 +48,31 @@ function rp_tipo_reportes(){
                         id,
                         descripcion
                         from $tbl_tipo_reportes",ARRAY_A);
-                      foreach($registros as $registro){ ?>
+                       $_url_adm =  esc_url(home_url( '/' ))."wp-admin/";
+
+                      foreach($registros as $registro){ 
+                        
+                          ?>
                        <tr>
                            <td><?php echo $registro['id']; ?></td>
-                           <td><input type="text" name="Descr" id="<?php echo $registro['id']; ?>" value="<?php echo $registro['descripcion']; ?>" size="80" ></td>
-                           <td><a href="edit_tiporeporte&codigo=<?php echo $registro['id']; ?>" ><span class="fa fa-trash"></span>Guardar</a></td>
-                           <td><a>Eliminar</a></td>
+                           <td><?php echo $registro['descripcion']; ?></td>
+                           <input type="hidden" name="id_tip" value="<?php echo $registro['id']; ?>">
+                           <td><a href="<?php echo esc_url(home_url( '/' )) ?>wp-admin/edit_tiporeporte.php?codigo=<?php echo $registro['id']; ?>"> <span class="fa fa-trash"></span>Editar</a></td>
+                           <td><a href="<?php echo esc_url(home_url( '/' )) ?>wp-admin/delete_tiporeporte.php?codigo=<?php echo $registro['id']; ?>"> <span class="fa fa-trash"></span>Eliminar</a></td>
+                           <!-- <td><input type="submit" name ="Eliminar" value="Eliminar" id="BtnEliminar"></td> -->
                     </tr>
                       <?php } ?>     
-            </tbody></table>
+            </tbody></table></form>
     <?php
-if(isset($_POST["reg_tipo"]))
+if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 {
-
+    echo "Paso";
     global $wpdb;
-    $table = $wpdb->prefix.'reportespb';
-    $wpdb->update( $table,array('typerep' => $_POST["SelTipRep"], 
-    'years' =>  $_POST["anio"],
-    'months' => $_POST["Selmes"],
-    'biweeklys'=> $quincena,
-    'weeknumbers' => sanitize_text_field($num_semana),
-    'title' => sanitize_text_field($_POST["titulo"])
-  ),array('id'=>$_GET["id"]));
+    $table = $wpdb->prefix.'tipo_reportes';
+    $wpdb->insert($table, array('descripcion' => sanitize_text_field($_POST["DescripcionTip"]))); 
+    
+    header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 }
-
 
 }
 
@@ -70,23 +80,23 @@ function rp_estadisticas (){
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
-     $opciones = array(
-    'Estadísticas de Harina de Pescado'=>0,
-     'Reporte de pesca Anchoveta – Perú'=>1,
-     'Reporte desenvolvimiento Anual de Captura – Anchoveta'=>2);
-     $options = '';
-     while (list($k,$v)=each($opciones))
-     {
-         if($select ==$v)
+       global $wpdb;
+       $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
+     $opciones = $wpdb->get_results("select 
+       id, descripcion
+       from $tbl_tipo_reporte order by id",ARRAY_A);
+       $options = '';
+       echo $select ;
+       foreach($opciones as $registro){ 
+        if($select ==$registro["id"])
+        {
+           $options.='<option value="'.$registro["id"].'" selected>'.$registro["descripcion"].'</option>';
+        }
+        else
          {
-            $options.='<option value="'.$v.'" selected>'.$k.'</option>';
+            $options.='<option value="'.$registro["id"].'">'.$registro["descripcion"].'</option>';
          }
-         else
-         {
-            $options.='<option value="'.$v.'">'.$k.'</option>';
-         }
-          
-     }
+       }
      return $options;
  }
  if(isset($_POST['tipo_reporte']))
@@ -256,6 +266,29 @@ function rp_estadisticas (){
     <?php
  }
  function rp_nuevos_registros(){
+    $selectedTipo = 0;
+    function get_options($select){
+        global $wpdb;
+        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
+      $opciones = $wpdb->get_results("select 
+        id, descripcion
+        from $tbl_tipo_reporte order by id",ARRAY_A);
+        $options = '';
+        echo $select ;
+        foreach($opciones as $registro){ 
+         if($select ==$registro["id"])
+         {
+            $options.='<option value="'.$registro["id"].'" selected>'.$registro["descripcion"].'</option>';
+         }
+         else
+          {
+             $options.='<option value="'.$registro["id"].'">'.$registro["descripcion"].'</option>';
+          }
+        }
+      return $options;
+  }
+
+
      if(isset($_GET["id"])){
         global $wpdb;
         $tbl_estadisticas = $wpdb->prefix.'reportespb';     
@@ -302,9 +335,15 @@ function rp_estadisticas (){
                <div>
                <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
                    <select name="SelTipRep" id="SelTipRep">
-                   <?php $tipo_reportes = array('Estadísticas de Harina de Pescado','Reporte de pesca Anchoveta – Perú','Reporte desenvolvimiento Anual de Captura – Anchoveta');
+                   <?php 
+                        global $wpdb;
+                        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
+                      $opciones = $wpdb->get_results("select 
+                        id, descripcion
+                        from $tbl_tipo_reporte order by id",ARRAY_A);
+                   //$tipo_reportes = array('Estadísticas de Harina de Pescado','Reporte de pesca Anchoveta – Perú','Reporte desenvolvimiento Anual de Captura – Anchoveta');
                          $conta_rep = 0;
-                         foreach ($tipo_reportes as $reporte) {
+                         foreach ($opciones as $reporte) {
                             
                              ?>
                             <option value="<?php echo $conta_rep;?>" 
@@ -570,6 +609,7 @@ function rp_estadisticas (){
    else
    {
 ?>
+
  <form action="" method= "POST">
      <div id="wpwrap"></div>
         <h1>Nuevo reporte</h1>
@@ -580,12 +620,23 @@ function rp_estadisticas (){
         <br>
         <br>
         <div>
-        <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
+        <label for="tipo_reporte">Tipo de reporte:</label>
+            <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" >
+             <!-- onchange="this.form.submit()"> -->
+               <?php echo get_options($selectedTipo); ?>
+            </select>
+            
+                                <!-- <noscript> -->
+                                <!-- <input type="submit" name="Selection" value="view" /> -->
+                                <!-- </noscript> -->
+                                <!-- <?php $URL_TIPOREP =  esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"; ?> -->
+                                <input type="button" value="Tipo reporte" onclick="window.location.href='<?php echo $URL_TIPOREP ?>'" />
+        <!-- <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
             <select name="SelTipRep" id="SelTipRep">
                 <option value="0">Estadísticas de Harina de Pescado</option>
                 <option value="1">Reporte de pesca Anchoveta – Perú</option>
                 <option value="2">Reporte desenvolvimiento Anual de Captura – Anchoveta</option>
-            </select>
+            </select> -->
         </div>
         <br>
         <div>        
