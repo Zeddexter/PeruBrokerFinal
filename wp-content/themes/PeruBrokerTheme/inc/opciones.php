@@ -342,14 +342,14 @@ function rp_estadisticas (){
                         id, descripcion
                         from $tbl_tipo_reporte order by id",ARRAY_A);
                    //$tipo_reportes = array('Estadísticas de Harina de Pescado','Reporte de pesca Anchoveta – Perú','Reporte desenvolvimiento Anual de Captura – Anchoveta');
-                         $conta_rep = 0;
+                        // $conta_rep = 0;
                          foreach ($opciones as $reporte) {
                             
                              ?>
-                            <option value="<?php echo $conta_rep;?>" 
-                            <?php if($conta_rep ==$registro["typerep_id"]){ echo "selected";} ?>
-                            ><?php echo $reporte; ?></option>
-                            <?php $conta_rep++;
+                            <option value="<?php echo $reporte["id"];?>" 
+                            <?php  if($registro["typerep_id"] == $reporte["id"]){ echo "selected";} ?>
+                            ><?php echo $reporte["descripcion"]; ?></option>
+                            <?php // $conta_rep++;
                          } ?>
                        
                    </select>
