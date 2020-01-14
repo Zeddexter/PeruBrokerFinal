@@ -2,10 +2,10 @@
 <?php
 
 function perubroker_reportes(){
- add_menu_page('PeruBroker','Reportes','editor','rp_estadisticas','rp_estadisticas','',5);
-add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','editor','rp_estadisticas','rp_estadisticas');
-add_submenu_page('rp_estadisticas','Nuevo reporte','Nuevo reporte','editor','rp_nuevos_registros','rp_nuevos_registros');
-add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','editor','rp_tipo_reportes','rp_tipo_reportes');
+ add_menu_page('PeruBroker','Reportes','manage_options','rp_estadisticas','rp_estadisticas','',5);
+add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','manage_options','rp_estadisticas','rp_estadisticas');
+add_submenu_page('rp_estadisticas','Nuevo reporte','Nuevo reporte','manage_options','rp_nuevos_registros','rp_nuevos_registros');
+add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','manage_options','rp_tipo_reportes','rp_tipo_reportes');
 // add_submenu_page('rp_estadisticas','Modificar Tipo','Modificar Tipo','administrator','rp_edit_tipo_reportes','rp_edit_tipo_reportes');
 }
 
