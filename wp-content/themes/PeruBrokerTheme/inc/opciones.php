@@ -19,7 +19,9 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','edit
 add_action('admin_menu','perubroker_reportes');
 function rp_tipo_reportes(){
     ?>
-    <div id="wpwrap"></div>
+    <div id="wpwrap">
+    <h4>Nuevo tipo reporte</h4>
+    </div>
     
     <form action="" method= "POST">
     <div>

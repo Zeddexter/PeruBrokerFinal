@@ -141,7 +141,7 @@
                                                    
                                                 }
                                                 ?>
-                                               
+                                               <a href="<?php echo $registro["route_file"]; ?>">Visualizar</a>
                                                 <button id="Ver" <?php echo $descarga; ?>>Ver PDF</button>
                                                    <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
