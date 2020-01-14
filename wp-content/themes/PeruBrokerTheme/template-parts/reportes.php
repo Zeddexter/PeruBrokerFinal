@@ -142,7 +142,7 @@
                                                 }
                                                 ?>
                                                <a href="<?php echo site_url()."/reportes/".$registro["files"]; ?>">Visualizar</a>
-                                                <button id="Ver" <?php echo $descarga; ?>>Ver PDF</button>
+                                                <!-- <button id="Ver" <?php // echo $descarga; ?>>Ver PDF</button> -->
                                                    <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
                                                      > Descargar</button>
