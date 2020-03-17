@@ -192,7 +192,61 @@ function mostrar_servicios(){ ?>
 <?php
     }
 ?>
-
+<?php function mostrar_productos(){ ?>
+    <?php 
+            $args = array(
+                    'post_type' => 'broker_productos',
+                    'posts_per_page' => -1,   //-1 te trae todos
+                     'orderby' => 'meta_value_num',
+                    'order' => 'ASC'
+            );
+           
+            $clases = new WP_Query($args);
+            while ($clases->have_posts() ): $clases -> the_post();
+            
+            ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3><?php the_title(); ?></h3>
+                    <p><?php the_content();?>  </p>
+                            
+                   
+                    <figure class="productos">       
+                    <img src="<?php 
+                    //the_field('imagen_1');
+                    $attachment_id = get_field('imagen_1');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                    <img src="<?php 
+                    //the_field('imagen_2');
+                    $attachment_id = get_field('imagen_2');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                    <img src="<?php 
+                    //the_field('imagen_3');
+                    $attachment_id = get_field('imagen_3');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                         <img src="<?php 
+                    //the_field('imagen_3');
+                    $attachment_id = get_field('imagen_4');
+                    $size = "medium"; // (thumbnail, medium, large, full or custom size)
+                    $image = wp_get_attachment_image_src( $attachment_id, $size );
+                    echo $image[0];
+                    ?>" alt="">
+                    </figure>    
+                </div>
+            </div>     
+        <?php endwhile; wp_reset_postdata(); ?> 
+<?php
+    }
+?>
 
 <?php 
 function mostrar_clientes(){ ?>
