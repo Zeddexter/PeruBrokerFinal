@@ -23,12 +23,12 @@ h1{
 h2
 {
     font-family: 'Raleway', sans-serif;
-    color:red;
+    color:rgb(13, 119, 36);;
     text-transform:uppercase;
 }
 h3{
     font-family: 'Raleway', sans-serif;
-    color:red;
+    color:rgb(13, 119, 36);;
     text-transform:uppercase;
 }
 header a{
@@ -94,26 +94,27 @@ header .menu .content-menu{
     height: inherit;
 }
 header .menu .logo{
-    width: 233px;
+    width: 280px;
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    margin-left: 14px;
 }
 header .menu .logo .img-logo{
     margin: 0;
-    width: 53px;
+    width: 60px;
     display: inline-block;
     
 }
 header .menu .logo .img-logo img{
-width: 53px;
+width: 80px;
+/*height: 150px; */
 }
 header .menu .logo .text-logo{
     display: inline-block;
     margin-left: 14px;
 }
 header .menu .logo .text-logo h1{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     /* text-transform: uppercase; */
     color: white;
@@ -128,7 +129,7 @@ header .menu .logo .text-logo h1{
 nav.lista-menu{
   margin: 0 20px 0 0;
   width: 35px;
-  height: 75px;
+  height: 80px;
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -210,7 +211,7 @@ width: 250px;
 text-align: center;
 padding: 10px;
 text-transform: uppercase;
-color:red;
+color:rgb(13, 119, 36);;
 }
 
 nav.lista-menu ul li:first-child{
@@ -261,6 +262,9 @@ section.hero .switcher-list li{
 section.hero .switcher-list .active{
     font-weight: bold;
     opacity: 1;
+}
+section.hero .switcher-list .active a{
+    color: green!important;
 }
 
 section.hero .switcher-list li:last-child::before{
@@ -378,19 +382,19 @@ section.nosotros .contenido-item{
     }
     .tabs-buttons .active-tab {
         opacity: 1;
-        color: red;
+        /* color: rgb(13, 119, 36); */
         text-transform: uppercase;
-        
-        border-bottom: 1px solid red;
+        color: green!important;
+        border-bottom: 1px solid rgb(13, 119, 36);
         /* background: blue; */
         
         opacity: 1!important;
     }
     .tabs-buttons .swiper-wrapper .swiper-slide a{
         color: red;
-        opacity: .25;
+        /* color: rgb(13, 119, 36); */
+        opacity: .60;
         padding: 10px 22.5px;
-        /* background: green; */
     }
     /*FIN TABS*/
     .nosotros ul.swiper-wrapper li{
@@ -400,7 +404,7 @@ section.nosotros .contenido-item{
         font-size: 22px;
         font-weight: medium;
         margin: 0 auto;
-        color: red; 
+        color:rgb(13, 119, 36);
     }
     .nosotros .swiper-container .swiper-wrapper .swiper-slide p{
        text-align: justify;
@@ -711,7 +715,7 @@ section.noticias .content .item-noticia a{
     color: black;
 }
 section.noticias .content .item-noticia a.item:hover{
-    background:red;
+    background:rgb(13, 119, 36);;
 }
 section.noticias .content .item-noticia .img-noticia{
 width: 100%;
@@ -1043,7 +1047,7 @@ section.page-noticia .item-otras-noticias .extracto p{
         margin-top: 10px;
     }
     .active-menu{
-        border-bottom: 2px solid red!important;
+        border-bottom: 2px solid rgb(13, 119, 36)!important;
     }
     .content{
         padding: 0;
@@ -1080,13 +1084,13 @@ section.page-noticia .item-otras-noticias .extracto p{
         
     }
     header .menu .logo figure.img-logo img{
-        width: 100px;
+        width: 150px;
     }
     header .menu .logo .text-logo{
-     margin-left: 40px; 
+     margin-left: 80px; 
     }
     header .menu .logo .text-logo h1{
-        font-size: 24px;
+        font-size: 36px;
         margin-left: 18px;
     }
     
@@ -1145,7 +1149,7 @@ nav.lista-menu{
   }
   nav.lista-menu ul li a:hover{
      
-      border-bottom: 2px solid rgba(226, 0, 26, 0.5);
+      border-bottom: 2px solid rgb(13, 119, 36);
   }
     section.hero .idioma{
         top: 30px;
