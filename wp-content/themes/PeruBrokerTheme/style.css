@@ -393,6 +393,7 @@ section.nosotros .contenido-item{
     .tabs-buttons .swiper-wrapper .swiper-slide a{
         color: red;
         /* color: rgb(13, 119, 36); */
+        font-weight: bold;
         opacity: .60;
         padding: 10px 22.5px;
     }
