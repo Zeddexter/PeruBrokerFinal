@@ -101,7 +101,7 @@ header .menu .logo{
 }
 header .menu .logo .img-logo{
     margin: 0;
-    width: 60px;
+    width: 70px;
     display: inline-block;
     
 }
@@ -1191,7 +1191,7 @@ nav.lista-menu{
          top: 0!important;
     }
     .fixed .logo figure img{
-        width: 50px!important;
+        width: 70px!important;
     }
     .fixed .logo .text-logo{
         margin-left: 10px!important;
