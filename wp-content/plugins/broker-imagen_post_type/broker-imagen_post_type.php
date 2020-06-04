@@ -63,7 +63,8 @@ function broker_imagen_post_type() {
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'capability_type'       => 'page',
-        'show_admin_column'     => true,
+		'show_admin_column'     => true,
+		
 	);
 	register_post_type( 'broker-imagen', $args );
 
