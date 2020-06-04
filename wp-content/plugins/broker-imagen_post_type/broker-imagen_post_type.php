@@ -3,7 +3,7 @@
     Plugin Name: Broker Imagen Principal - Post Types
     Plugin URI: 
     Description: Añade Post Types al sitio PeruBroker
-    Version: 1.0.0
+    Version: 1.1.0
     Author: Joel Torres / Joan Torres
     Author URI: https://www.facebook.com/cyberzsoft/
     Text Domain: PeruBroker
