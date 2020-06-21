@@ -69,4 +69,5 @@ function broker_imagen_post_type() {
 	register_post_type( 'broker-imagen', $args );
 
 }
-add_action( 'init', 'broker_imagen_post_type',0);
+add_action( 'init', 'broker_imagen_post_type','my_admin_menu');
+//add_action( 'init', 'broker_imagen_post_type',0);
