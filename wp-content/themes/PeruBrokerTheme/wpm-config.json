@@ -2,6 +2,12 @@
     "post_types": {
     "broker_seccion": {},
     "broker_servicios": {},
-    "broker_contacto": {}
+    "broker_contacto": {},
+    "broker-imagen":{},
+    "broker_productos":{},
+    "fishing_report":{},
+    "estadisticas":{},
+    "seccion_reportes":{},
+    "reportes":{}
     }
 }
