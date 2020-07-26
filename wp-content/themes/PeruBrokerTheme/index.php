@@ -43,7 +43,17 @@
     <div class="content">
         <div class="row">
             <div class="col-12">
-                <h2>Noticias</h2>
+            <?php 
+                if (wpm_get_language() == 'en')
+                { 
+                    echo " <h2>News</h2>";
+                }
+                else
+                {
+                    echo " <h2>Noticias</h2>";
+                }
+            ?>
+               
             </div>
         </div>
         <div class="row">
