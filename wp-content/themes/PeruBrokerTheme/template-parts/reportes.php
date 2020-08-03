@@ -71,7 +71,17 @@
                             foreach($rows as $row){ ?>
                                 <table class="table">
                                                 <thead>
-                                                <tr>
+                                                <tr> <?php
+                                                if (wpm_get_language() == 'en')
+                { ?>
+                         <th class="manage-column">Year</th>
+                                        <th class="manage-column">Month</th>
+                                <?php if($row["Col_Quincena"]!="0"){?> <th class="manage-column">Fortnight</th><?php } ?>
+                                <?php if($row["Col_Sem"]!="0"){?> <th class="manage-column">Number Week</th><?php } ?>
+                                        <th class="manage-column">Description</th>
+                                        <th class="manage-column">Attached</th>
+                    </tr>  </thead>
+                <?php } else { ?>
                                         <th class="manage-column">Año</th>
                                         <th class="manage-column">Mes</th>
                                 <?php if($row["Col_Quincena"]!="0"){?> <th class="manage-column">Quincena</th><?php } ?>
@@ -79,8 +89,7 @@
                                         <th class="manage-column">Descripción</th>
                                         <th class="manage-column">Adjunto</th>
                     </tr>  </thead> 
-                    
-                    <?php
+                    <?php }
                  
                     global $wpdb;
                                         $tbl_estadisticas = $wpdb->prefix.'reportespb';     
