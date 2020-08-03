@@ -25,7 +25,12 @@
     <!-- data-aos="flip-right" data-aos-duration="1000" -->
 
             <div class="col-md-8 col-lg-7 "  >
-            <div> <?php echo  "<label for='anio'><b>Año</b></label>";  ?>
+            <?php if (wpm_get_language() == 'en')
+                { ?>
+            <div> <?php echo  "<label for='anio'><b>Year</b></label>";  ?>
+                <?php } else { ?>
+                    <div> <?php echo  "<label for='anio'><b>Año</b></label>";  ?>
+              <?php  } ?>
             <form name="myform" action="#reportes" method="post">
             <select name="anio" onchange="this.form.submit()">
             <?php  global $wpdb;
