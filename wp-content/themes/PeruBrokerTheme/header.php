@@ -25,7 +25,7 @@
 <body>
 <!-- TOP - BARRA DE ARRIBA -->
    <header  id="inicio">
-  
+  <img src="<?php echo get_template_directory_uri(); ?>/img/Construccion.png"/>
        <div class="menu" id="menu">
            <div class="content-menu" >
 
