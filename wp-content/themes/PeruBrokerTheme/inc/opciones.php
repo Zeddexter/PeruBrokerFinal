@@ -291,11 +291,10 @@ function rp_estadisticas (){
   // {
   //   echo "<br>Idioma: Español";
   // }
-  echo "
-  <input type="radio" id="Español" name="idioma" value="0">
-<label for="Español">Español</label><br>
-<input type="radio" id="Ingles" name="idioma" value="1">
-<label for="Ingles">Ingles</label><br>
+  echo "<input type='radio' id='Español' name='idioma' value='0'>
+<label for='Español'>Español</label><br>
+<input type='radio' id='Ingles' name='idioma' value='1'>
+<label for='Ingles'>Ingles</label><br>
   ";
     $selectedTipo = 0;
     function get_options($select){
