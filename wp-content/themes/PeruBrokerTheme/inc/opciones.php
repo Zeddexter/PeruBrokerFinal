@@ -180,7 +180,7 @@ function rp_estadisticas (){
                              else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = $selectedTipo and idioma =  $idioma   order by years,
+                        from $tbl_estadisticas where typerep = $selectedTipo  order by years,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
@@ -350,7 +350,7 @@ function rp_estadisticas (){
              else weeknumbers end  as weeknumbers,
         title,
         files, route_file 
-        from $tbl_estadisticas where idioma = $idioma and id = ".$_GET['id'] ."",ARRAY_A);
+        from $tbl_estadisticas where id = ".$_GET['id'] ."",ARRAY_A);
       foreach($registros as $registro){ 
            ?>
             <form action="" method= "POST" enctype="multipart/form-data">
