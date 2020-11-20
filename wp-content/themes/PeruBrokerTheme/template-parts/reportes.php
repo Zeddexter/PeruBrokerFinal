@@ -67,7 +67,7 @@
                         global $wpdb;
                         $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
                       $opciones = $wpdb->get_results("
-                      SELECT t1.id,t1.descripcion FROM wp_tipo_reportes t1 inner join wp_reportespb t2 on t1.id=t2.typerep and t1.idioma = ".$idioma." group by t1.id,t1.descripcion order by t1.id
+                      SELECT t1.id,t1.descripcion FROM wp_tipo_reportes t1 inner join wp_reportespb t2 on t1.id=t2.typerep and t2.idioma = ".$idioma." group by t1.id,t1.descripcion order by t1.id
                       ",ARRAY_A);
                         $options = '';
                         //echo $select ;
