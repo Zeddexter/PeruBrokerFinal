@@ -79,7 +79,7 @@
                             global $wpdb;
                             $tbl_rep = $wpdb->prefix.'reportespb';
                             $rows = $wpdb->get_results("select typerep,sum(biweeklys) as Col_Quincena,sum(weeknumbers) as Col_Sem 
-                            FROM $tbl_rep where typerep ='".$registro["id"]."' and idioma = $idioma  group by typerep",ARRAY_A); 
+                            FROM $tbl_rep where typerep ='".$registro["id"]."'   group by typerep",ARRAY_A); 
                             foreach($rows as $row){ ?>
                                 <table class="table">
                                                 <thead>
