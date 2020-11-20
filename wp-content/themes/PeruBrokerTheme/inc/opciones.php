@@ -19,11 +19,6 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','mana
 
 add_action('admin_menu','perubroker_reportes');
 function rp_tipo_reportes(){
-  $idioma = 0;
-if (wpm_get_language() == 'en')
-{
-  $idioma = 1;
-}
     ?>
     <div id="wpwrap">
     <h4>Nuevo tipo reporte</h4>
@@ -85,11 +80,7 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 }
 
 function rp_estadisticas (){
-  $idioma = 0;
-if (wpm_get_language() == 'en')
-{
-  $idioma = 1;
-}
+
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
@@ -119,6 +110,11 @@ if (wpm_get_language() == 'en')
  elseif(isset($_GET["tipo_rep"]))
      {
         $selectedTipo = $_GET["tipo_rep"];
+     }
+     $idioma = 0;
+     if (wpm_get_language() == 'en')
+     {
+       $idioma = 1;
      }
 ?><div id="wpwrap"></div>
         <div><h1>Reportes</h1></div> 

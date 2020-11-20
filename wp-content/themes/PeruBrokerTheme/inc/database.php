@@ -20,6 +20,7 @@ function  perubroker_database()
             title varchar(150) NOT NULL,
             route_file varchar(400) ,
             files   varchar(200),
+            idioma int,
             PRIMARY KEY (id)
             )
             $charset_collate;
@@ -44,6 +45,7 @@ function  perubroker_database()
             title varchar(150) NOT NULL,
             route_file varchar(400) ,
             files   varchar(200),
+            idioma int,
             PRIMARY KEY (id)
             )
             $charset_collate;
