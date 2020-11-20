@@ -279,6 +279,11 @@ function rp_estadisticas (){
   if (wpm_get_language() == 'en')
   {
     $idioma = 1;
+    echo "Idioma: Ingles"
+  }
+  else
+  {
+    echo "Idioma: Español"
   }
     $selectedTipo = 0;
     function get_options($select){
