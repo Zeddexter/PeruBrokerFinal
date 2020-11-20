@@ -276,15 +276,15 @@ function rp_estadisticas (){
  }
  function rp_nuevos_registros(){
   $idioma = 0;
-  if (wpm_get_language() == 'en')
-  {
-    $idioma = 1;
-    echo "Idioma: Ingles";
-  }
-  else
-  {
-    echo "Idioma: Español";
-  }
+  // if (wpm_get_language() == 'en')
+  // {
+  //   $idioma = 1;
+  //   echo "<br>Idioma: Ingles";
+  // }
+  // else
+  // {
+  //   echo "<br>Idioma: Español";
+  // }
     $selectedTipo = 0;
     function get_options($select){
         global $wpdb;
