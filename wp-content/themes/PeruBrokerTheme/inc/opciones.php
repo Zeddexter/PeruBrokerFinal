@@ -81,11 +81,16 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 
 function rp_estadisticas (){
 
-$idioma = 0;
-if (wpm_get_language() == 'en')
-{
-  $idioma = 1;
-}
+  $idioma = 0;
+  if (wpm_get_language() == 'en')
+  {
+    $idioma = 1;
+    echo "<br>Idioma: Ingles";
+  }
+  else
+  {
+    echo "<br>Idioma: Español";
+  }
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
