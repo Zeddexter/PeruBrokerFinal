@@ -82,15 +82,15 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 function rp_estadisticas (){
 
   $idioma = 0;
-  if (wpm_get_language() == 'en')
-  {
-    $idioma = 1;
-    echo "<br>Idioma: Ingles";
-  }
-  else
-  {
-    echo "<br>Idioma: Español";
-  }
+  // if (wpm_get_language() == 'en')
+  // {
+  //   $idioma = 1;
+  //   echo "<br>Idioma: Ingles";
+  // }
+  // else
+  // {
+  //   echo "<br>Idioma: Español";
+  // }
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
@@ -282,15 +282,21 @@ function rp_estadisticas (){
 }
  function rp_nuevos_registros(){
   $idioma = 0;
-  if (wpm_get_language() == 'en')
-  {
-    $idioma = 1;
-    echo "<br>Idioma: Ingles";
-  }
-  else
-  {
-    echo "<br>Idioma: Español";
-  }
+  // if (wpm_get_language() == 'en')
+  // {
+  //   $idioma = 1;
+  //   echo "<br>Idioma: Ingles";
+  // }
+  // else
+  // {
+  //   echo "<br>Idioma: Español";
+  // }
+  echo "
+  <input type="radio" id="Español" name="idioma" value="0">
+<label for="Español">Español</label><br>
+<input type="radio" id="Ingles" name="idioma" value="1">
+<label for="Ingles">Ingles</label><br>
+  ";
     $selectedTipo = 0;
     function get_options($select){
         global $wpdb;
