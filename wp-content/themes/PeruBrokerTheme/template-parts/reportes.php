@@ -25,8 +25,12 @@
     <!-- data-aos="flip-right" data-aos-duration="1000" -->
 
             <div class="col-md-8 col-lg-7 "  >
-            <?php if (wpm_get_language() == 'en')
-                { ?>
+            <?php
+                $idioma = 0;
+            if (wpm_get_language() == 'en')
+                { 
+                    $idioma = 1;
+                    ?>
             <div> <?php echo  "<label for='anio'><b>Year</b></label>";  ?>
                 <?php } else { ?>
                     <div> <?php echo  "<label for='anio'><b>Año</b></label>";  ?>
@@ -36,7 +40,8 @@
             <?php  global $wpdb;
             $contador_year = 0;
                             $tbl_rep = $wpdb->prefix.'reportespb';
-                            $rows = $wpdb->get_results("select years FROM $tbl_rep where typerep is not null  group by years order by years",ARRAY_A); 
+                            $rows = $wpdb->get_results("select years FROM $tbl_rep where typerep is not null and idioma = ".$idioma."  
+                              group by years order by years",ARRAY_A); 
                             
                             foreach($rows as $row){ 
                                 if($contador_year == 0 )
@@ -62,7 +67,7 @@
                         global $wpdb;
                         $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
                       $opciones = $wpdb->get_results("
-                      SELECT t1.id,t1.descripcion FROM wp_tipo_reportes t1 inner join wp_reportespb t2 on t1.id=t2.typerep group by t1.id,t1.descripcion order by t1.id
+                      SELECT t1.id,t1.descripcion FROM wp_tipo_reportes t1 inner join wp_reportespb t2 on t1.id=t2.typerep and t1.idioma = ".$idioma." group by t1.id,t1.descripcion order by t1.id
                       ",ARRAY_A);
                         $options = '';
                         //echo $select ;
@@ -72,7 +77,7 @@
                             global $wpdb;
                             $tbl_rep = $wpdb->prefix.'reportespb';
                             $rows = $wpdb->get_results("select typerep,sum(biweeklys) as Col_Quincena,sum(weeknumbers) as Col_Sem 
-                            FROM $tbl_rep where typerep ='".$registro["id"]."'  group by typerep",ARRAY_A); 
+                            FROM $tbl_rep where typerep ='".$registro["id"]."' and idioma = ".$idioma."  group by typerep",ARRAY_A); 
                             foreach($rows as $row){ ?>
                                 <table class="table">
                                                 <thead>
@@ -124,7 +129,8 @@
                                             else weeknumbers end  as weeknumbers,
                                         title,
                                         files, route_file 
-                                        from $tbl_estadisticas where typerep = ".$registro["id"]." and years = '".$anio_seleccionado."' 
+                                        from $tbl_estadisticas where typerep = ".$registro["id"]." and years = '".$anio_seleccionado."'
+                                        and idioma = ".$idioma." 
                                           order by years,months,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 

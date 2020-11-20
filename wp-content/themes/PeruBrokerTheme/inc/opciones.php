@@ -15,6 +15,11 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','mana
 //    
 
 // }
+$idioma = 0;
+if (wpm_get_language() == 'en')
+{
+  $idioma = 1;
+}
 
 add_action('admin_menu','perubroker_reportes');
 function rp_tipo_reportes(){
@@ -86,7 +91,7 @@ function rp_estadisticas (){
        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
      $opciones = $wpdb->get_results("select 
        id, descripcion
-       from $tbl_tipo_reporte order by id",ARRAY_A);
+       from $tbl_tipo_reporte where idioma =  $idioma order by id",ARRAY_A);
        $options = '';
        echo $select ;
        foreach($opciones as $registro){ 
@@ -168,7 +173,7 @@ function rp_estadisticas (){
                              else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = $selectedTipo  order by years,
+                        from $tbl_estadisticas where typerep = $selectedTipo and idioma =  $idioma   order by years,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
@@ -274,7 +279,7 @@ function rp_estadisticas (){
         $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
       $opciones = $wpdb->get_results("select 
         id, descripcion
-        from $tbl_tipo_reporte order by id",ARRAY_A);
+        from $tbl_tipo_reporte  order by id",ARRAY_A);
         $options = '';
         echo $select ;
         foreach($opciones as $registro){ 
@@ -322,7 +327,7 @@ function rp_estadisticas (){
              else weeknumbers end  as weeknumbers,
         title,
         files, route_file 
-        from $tbl_estadisticas where id = ".$_GET['id'] ."",ARRAY_A);
+        from $tbl_estadisticas where idioma = $idioma and id = ".$_GET['id'] ."",ARRAY_A);
       foreach($registros as $registro){ 
            ?>
             <form action="" method= "POST" enctype="multipart/form-data">
@@ -514,7 +519,8 @@ function rp_estadisticas (){
                'months' => $_POST["Selmes"],
                'biweeklys'=> $quincena,
                'weeknumbers' => sanitize_text_field($num_semana),
-               'title' => sanitize_text_field($_POST["titulo"])
+               'title' => sanitize_text_field($_POST["titulo"]),
+               'idioma' => $idioma
              ),array('id'=>$_GET["id"]));
               $url = esc_url(home_url( '/' ));
                Header("Location: ".$url."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
@@ -769,7 +775,8 @@ function rp_estadisticas (){
                       'months' => $_POST["Selmes"],
                       'biweeklys'=> $quincena,
                       'weeknumbers' => $num_semana,
-                      'title' => sanitize_text_field($_POST["titulo"])
+                      'title' => sanitize_text_field($_POST["titulo"]),
+                      'idioma'=>$idioma
                     );
         $wpdb->insert($table,$data);
         $my_id = $wpdb->insert_id;
