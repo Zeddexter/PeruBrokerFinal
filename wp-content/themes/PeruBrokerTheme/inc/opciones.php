@@ -97,7 +97,7 @@ if (wpm_get_language() == 'en')
        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
      $opciones = $wpdb->get_results("select 
        id, descripcion
-       from $tbl_tipo_reporte where idioma =  $idioma order by id",ARRAY_A);
+       from $tbl_tipo_reporte  order by id",ARRAY_A);
        $options = '';
        echo $select ;
        foreach($opciones as $registro){ 
