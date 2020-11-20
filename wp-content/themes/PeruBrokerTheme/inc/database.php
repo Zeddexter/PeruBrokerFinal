@@ -4,7 +4,7 @@ function  perubroker_database()
     global $wpdb;
     global $perubroker_dbversion;
     //Agregamos una version
-    $perubroker_dbversion = '0.2';
+    $perubroker_dbversion = '0.3';
 
     $tabla = $wpdb->prefix. "reportespb";
     $charset_collate = $wpdb->get_charset_collate();
@@ -20,7 +20,7 @@ function  perubroker_database()
             title varchar(150) NOT NULL,
             route_file varchar(400) ,
             files   varchar(200),
-            idioma int,
+            idioma int default 0,
             PRIMARY KEY (id)
             )
             $charset_collate;
@@ -45,7 +45,7 @@ function  perubroker_database()
             title varchar(150) NOT NULL,
             route_file varchar(400) ,
             files   varchar(200),
-            idioma int,
+            idioma int default 0,
             PRIMARY KEY (id)
             )
             $charset_collate;
