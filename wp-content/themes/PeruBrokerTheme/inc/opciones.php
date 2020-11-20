@@ -278,7 +278,8 @@ function rp_estadisticas (){
         </table>
    
     <?php
- }
+   }
+}
  function rp_nuevos_registros(){
   $idioma = 0;
   if (wpm_get_language() == 'en')
