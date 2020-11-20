@@ -4,7 +4,7 @@ function  perubroker_database()
     global $wpdb;
     global $perubroker_dbversion;
     //Agregamos una version
-    $perubroker_dbversion = '0.1';
+    $perubroker_dbversion = '0.2';
 
     $tabla = $wpdb->prefix. "reportespb";
     $charset_collate = $wpdb->get_charset_collate();
