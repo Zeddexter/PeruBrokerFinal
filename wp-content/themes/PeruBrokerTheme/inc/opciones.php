@@ -15,14 +15,15 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','mana
 //    
 
 // }
-$idioma = 0;
+
+
+add_action('admin_menu','perubroker_reportes');
+function rp_tipo_reportes(){
+  $idioma = 0;
 if (wpm_get_language() == 'en')
 {
   $idioma = 1;
 }
-
-add_action('admin_menu','perubroker_reportes');
-function rp_tipo_reportes(){
     ?>
     <div id="wpwrap">
     <h4>Nuevo tipo reporte</h4>
@@ -84,6 +85,11 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 }
 
 function rp_estadisticas (){
+  $idioma = 0;
+if (wpm_get_language() == 'en')
+{
+  $idioma = 1;
+}
     $selectedTipo = 0;
         ?>
  <?php function get_options($select){
@@ -273,6 +279,11 @@ function rp_estadisticas (){
     <?php
  }
  function rp_nuevos_registros(){
+  $idioma = 0;
+  if (wpm_get_language() == 'en')
+  {
+    $idioma = 1;
+  }
     $selectedTipo = 0;
     function get_options($select){
         global $wpdb;
