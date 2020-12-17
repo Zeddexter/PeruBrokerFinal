@@ -5,6 +5,13 @@
 // if(isset($_POST['anio'])){
 //     $anio_seleccionado = $_POST['anio'];
 // }
+// header( 'Cache-Control: no-store, no-cache, must-revalidate' ); 
+// header( 'Cache-Control: post-check=0, pre-check=0', false ); 
+// header( 'Pragma: no-cache' ); 
+
+
+
+
 ?>
 <section class=" reportes tables-page-section" ="service" id="reportes" >
     <div class="content content-reportes">
@@ -41,6 +48,7 @@
             $contador_year = 0;
                             $tbl_rep = $wpdb->prefix.'reportespb';
                             $rows = $wpdb->get_results("select years FROM $tbl_rep where typerep is not null  
+                            and idioma = $idioma
                               group by years order by years",ARRAY_A); 
                             
                             foreach($rows as $row){ 
@@ -69,6 +77,8 @@
                       $opciones = $wpdb->get_results("
                       SELECT t1.id,t1.descripcion FROM wp_tipo_reportes t1 inner join
                        wp_reportespb t2 on t1.id=t2.typerep 
+                       and t2.idioma = t1.idioma
+                       where t1.idioma = $idioma
                        group by t1.id,t1.descripcion order by t1.id
                       ",ARRAY_A);
                         $options = '';
@@ -79,7 +89,7 @@
                             global $wpdb;
                             $tbl_rep = $wpdb->prefix.'reportespb';
                             $rows = $wpdb->get_results("select typerep,sum(biweeklys) as Col_Quincena,sum(weeknumbers) as Col_Sem 
-                            FROM $tbl_rep where typerep ='".$registro["id"]."'   group by typerep",ARRAY_A); 
+                            FROM $tbl_rep where typerep ='".$registro["id"]."' and idioma = $idioma   group by typerep",ARRAY_A); 
                             foreach($rows as $row){ ?>
                                 <table class="table">
                                                 <thead>
@@ -112,20 +122,34 @@
                                             when typerep = 1 then 'Reporte de pesca Anchoveta – Perú'
                                             when typerep = 2 then 'Reporte desenvolvimiento Anual de Captura – Anchoveta' end as typerep,
                                             typerep as typerep_id,
-                                        case when months = 1 then 'Enero'
-                                            when months = 2 then 'Febrero'
-                                            when months = 3 then 'Marzo'
-                                            when months = 4 then 'Abril'
-                                            when months = 5 then 'Mayo'
-                                            when months = 6 then 'Junio'
-                                            when months = 7 then 'Julio'
-                                            when months = 8 then 'Agosto'
-                                            when months = 9 then 'Septiembre'
-                                            when months = 10 then 'Octubre'
-                                            when months = 11 then 'Noviembre'
-                                            when months = 12 then 'Diciembre' end as months ,
-                                        case when biweeklys  = 1 then 'Primera Quincena'
-                                            when biweeklys = 2 then 'Segunda Quincena'
+                                        case when months = 1  and idioma = 0 then 'Enero'
+                                             when months = 1 and idioma = 1 then 'January'
+                                            when months = 2 and idioma = 0 then 'Febrero'
+                                            when months = 2 and idioma = 1 then 'Febrary'
+                                            when months = 3 and idioma = 0 then 'Marzo'
+                                            when months = 3 and idioma = 1 then 'March'
+                                            when months = 4 and idioma = 0 then 'Abril'
+                                            when months = 4 and idioma = 1 then 'April'
+                                            when months = 5 and idioma = 0 then 'Mayo'
+                                            when months = 5 and idioma = 1 then 'May'
+                                            when months = 6 and idioma = 0 then 'Junio'
+                                            when months = 6 and idioma = 1 then 'June'
+                                            when months = 7 and idioma = 0 then 'Julio'
+                                            when months = 7 and idioma = 1 then 'July'
+                                            when months = 8 and idioma = 0 then 'Agosto'
+                                            when months = 8 and idioma = 1 then 'August'
+                                            when months = 9 and idioma = 0 then 'Septiembre'
+                                            when months = 9 and idioma = 1 then 'September'
+                                            when months = 10 and idioma = 0 then 'Octubre'
+                                            when months = 10 and idioma = 1 then 'October'
+                                            when months = 11  and idioma = 0 then 'Noviembre'
+                                            when months = 11  and idioma = 1 then 'November'
+                                            when months = 12 and idioma = 0 then 'Diciembre'
+                                            when months = 12 and idioma = 1 then 'December' end as months ,
+                                        case when biweeklys  = 1 and idioma = 0 then 'Primera Quincena'
+                                            when biweeklys  = 1 and idioma = 1 then 'First fortnight'
+                                            when biweeklys = 2 and idioma = 0  then 'Segunda Quincena'
+                                            when biweeklys = 2 and idioma = 1  then 'Second fortnight'
                                             else '' end biweeklys,
                                         case when weeknumbers = 0 then ''
                                             else weeknumbers end  as weeknumbers,
@@ -133,7 +157,7 @@
                                         files, route_file 
                                         from $tbl_estadisticas where typerep = ".$registro["id"]." 
                                         and years = '".$anio_seleccionado."'
-                                         
+                                         and idioma = $idioma
                                           order by years,months,
                                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                                         ?> 

@@ -1,6 +1,8 @@
 
+
 <?php
 
+ global  $idioma;
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','manage_options','rp_estadisticas','rp_estadisticas','',5);
 add_submenu_page('rp_estadisticas','Todos los reportes','Todos los reportes','manage_options','rp_estadisticas','rp_estadisticas');
@@ -10,16 +12,33 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','mana
 }
 
 
-// function rp_edit_tipo_reportes()
-// {
-//    
-
-// }
-
-
 add_action('admin_menu','perubroker_reportes');
 function rp_tipo_reportes(){
-    ?>
+ ?>
+      <br><br>
+  <form method='post' action='' id='myform'>
+  Seleccione Idioma : <select name='lang' id='lang' > 
+   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0){ echo 'selected'; } ?> >Español</option> 
+   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){ echo 'selected'; } ?> >Ingles</option> 
+  </select> 
+  <?php 
+   if(isset($_POST['lang'])){
+      $idioma =  $_POST['lang'];
+   }else
+   {
+    $idioma = 0;
+   }
+  ?>
+ </form>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript'> 
+$(document).ready(function(){
+  $('#lang').change(function(){
+    // Call submit() method on <form id='myform'>
+    $('#myform').submit();
+  });
+});
+</script>
     <div id="wpwrap">
     <h4>Nuevo tipo reporte</h4>
     </div>
@@ -29,6 +48,7 @@ function rp_tipo_reportes(){
         <!-- <label for="CodigoTip">Código
         <input type="text" name="" id="CodigoTip"></label> -->
         <label for="DescripcionTip">Descripción
+        <input type="hidden" name="idioma" value="<?php echo $idioma; ?>">
         <input type="text" name="DescripcionTip" id="DescripcionTip"></label>
         <input type="submit" id="Nuevo_Tip" value="Registrar">
     </div>
@@ -50,7 +70,8 @@ function rp_tipo_reportes(){
                       $registros = $wpdb->get_results("select 
                         id,
                         descripcion
-                        from $tbl_tipo_reportes",ARRAY_A);
+                        from $tbl_tipo_reportes
+                        where idioma = $idioma ",ARRAY_A);
                        $_url_adm =  esc_url(home_url( '/' ))."wp-admin/";
 
                       foreach($registros as $registro){ 
@@ -69,10 +90,9 @@ function rp_tipo_reportes(){
     <?php
 if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 {
-    echo "Paso";
     global $wpdb;
     $table = $wpdb->prefix.'tipo_reportes';
-    $wpdb->insert($table, array('descripcion' => sanitize_text_field($_POST["DescripcionTip"]))); 
+    $wpdb->insert($table, array('descripcion' => sanitize_text_field($_POST["DescripcionTip"]),'idioma'=>$idioma)); 
     
     header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 }
@@ -80,27 +100,56 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 }
 
 function rp_estadisticas (){
-
-  $idioma = 0;
-  // if (wpm_get_language() == 'en')
-  // {
-  //   $idioma = 1;
-  //   echo "<br>Idioma: Ingles";
-  // }
-  // else
-  // {
-  //   echo "<br>Idioma: Español";
-  // }
+  if (!isset($_SESSION)){
+    session_start(); 
+$idioma =0;
+  }
+  else
+    {
+        session_destroy();
+        session_start(); 
+    }
+ if ( $_SESSION['idioma']!= $idioma)
+ {
+   $idioma = $_SESSION['idioma'];
+ }
+  echo $_SESSION['idioma'].' >>X '.$idioma;
+  ?>
+  <br><br>
+  <form method='post' action='' id='myform'>
+  Seleccione Idioma : <select name='lang' id='lang' > 
+   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0 && $_SESSION['idioma'] == $_POST['lang'] ){ echo 'selected'; } ?> >Español</option> 
+   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1 && $_SESSION['idioma'] == $_POST['lang'] ){ echo 'selected'; } ?> >Ingles</option> 
+  </select> 
+  <?php 
+   if(isset($_POST['lang'])){
+      $idioma =  $_POST['lang'];
+      
+   }
+  ?>
+ </form>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript'> 
+$(document).ready(function(){
+  $('#lang').change(function(){
+    // Call submit() method on <form id='myform'>
+    $('#myform').submit();
+  });
+});
+</script>
+<?php  
     $selectedTipo = 0;
-        ?>
- <?php function get_options($select){
+    echo 'Idioma: '.$idioma; 
+    echo $_SESSION['idioma'];
+ function get_options($select,$idioma){
        global $wpdb;
        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
      $opciones = $wpdb->get_results("select 
        id, descripcion
-       from $tbl_tipo_reporte  order by id",ARRAY_A);
+       from $tbl_tipo_reporte 
+       where idioma = $idioma
+       order by id",ARRAY_A);
        $options = '';
-       echo $select ;
        foreach($opciones as $registro){ 
         if($select ==$registro["id"])
         {
@@ -113,21 +162,23 @@ function rp_estadisticas (){
        }
      return $options;
  }
+
  if(isset($_POST['tipo_reporte']))
  {
         $selectedTipo = $_POST['tipo_reporte'];
  }
- elseif(isset($_GET["tipo_rep"]))
-     {
-        $selectedTipo = $_GET["tipo_rep"];
- 
-?><div id="wpwrap"></div>
+//  if(isset($_GET["tipo_rep"]))
+//      {
+//         $selectedTipo = $_GET["tipo_rep"];
+//      }
+?>
+<div id="wpwrap"></div>
         <div><h1>Reportes</h1></div> 
         <div>
         <form id="category-select" class="category-select" action="" method="post">
         <label for="tipo_reporte">Tipo de reporte:</label>
             <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" onchange="this.form.submit()">
-               <?php echo get_options($selectedTipo); ?>
+               <?php echo get_options($selectedTipo,$idioma);   ?>
             </select>
             
                                 <noscript>
@@ -152,6 +203,7 @@ function rp_estadisticas (){
             </thead>
             <tbody> 
                 <?php 
+            
                         global $wpdb;
                         $tbl_estadisticas = $wpdb->prefix.'reportespb';     
                       $registros = $wpdb->get_results("select 
@@ -180,7 +232,7 @@ function rp_estadisticas (){
                              else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = $selectedTipo  order by years,
+                        from $tbl_estadisticas where typerep = $selectedTipo and idioma = $idioma order by years,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
@@ -215,7 +267,7 @@ function rp_estadisticas (){
                             </tr>
                       <?php }
                       
-                      session_start();
+                      // session_start();
                       $message = ''; 
                       $paso1 = '0';
                       $paso2 = '';
@@ -278,31 +330,40 @@ function rp_estadisticas (){
         </table>
    
     <?php
-   }
+  // }
 }
  function rp_nuevos_registros(){
-  $idioma = 0;
-  // if (wpm_get_language() == 'en')
-  // {
-  //   $idioma = 1;
-  //   echo "<br>Idioma: Ingles";
-  // }
-  // else
-  // {
-  //   echo "<br>Idioma: Español";
-  // }
-//   echo "<br><br><input type='radio' id='Español' name='idioma' value='0'>
-// <label for='Español'>Español</label><br>
-// <input type='radio' id='Ingles' name='idioma' value='1'>
-// <label for='Ingles'>Ingles</label><br>
-//   ";
+  $idioma =0;
+  ?>
+  <br><br>
+  <form method='post' action='' id='myform'>
+  Seleccione Idioma : <select name='lang' id='lang' > 
+   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0){ echo 'selected'; } ?> >Español</option> 
+   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){ echo 'selected'; } ?> >Ingles</option> 
+  </select> 
+  <?php 
+   if(isset($_POST['lang'])){
+      $idioma =  $_POST['lang'];
+   }
+  ?>
+ </form>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript'> 
+$(document).ready(function(){
+  $('#lang').change(function(){
+    // Call submit() method on <form id='myform'>
+    $('#myform').submit();
+  });
+});
+</script>
+<?php
     $selectedTipo = 0;
-    function get_options($select){
+    function get_options($select,$idioma){
         global $wpdb;
         $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
       $opciones = $wpdb->get_results("select 
         id, descripcion
-        from $tbl_tipo_reporte  order by id",ARRAY_A);
+        from $tbl_tipo_reporte where idioma = $idioma order by id",ARRAY_A);
         $options = '';
         echo $select ;
         foreach($opciones as $registro){ 
@@ -350,7 +411,7 @@ function rp_estadisticas (){
              else weeknumbers end  as weeknumbers,
         title,
         files, route_file 
-        from $tbl_estadisticas where id = ".$_GET['id'] ."",ARRAY_A);
+        from $tbl_estadisticas where id = ".$_GET['id'] ." and idioma = $idioma",ARRAY_A);
       foreach($registros as $registro){ 
            ?>
             <form action="" method= "POST" enctype="multipart/form-data">
@@ -370,14 +431,14 @@ function rp_estadisticas (){
                         $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
                       $opciones = $wpdb->get_results("select 
                         id, descripcion
-                        from $tbl_tipo_reporte order by id",ARRAY_A);
+                        from $tbl_tipo_reporte where idioma = $idioma order by id",ARRAY_A);
                    //$tipo_reportes = array('Estadísticas de Harina de Pescado','Reporte de pesca Anchoveta – Perú','Reporte desenvolvimiento Anual de Captura – Anchoveta');
                         // $conta_rep = 0;
                          foreach ($opciones as $reporte) {
                             
                              ?>
                             <option value="<?php echo $reporte["id"];?>" 
-                            <?php  if($registro["typerep_id"] == $reporte["id"]){ echo "selected";} ?>
+                            <?php  if($registro["typerep_id"] == $reporte["id"]){ echo "selected";  } ?>
                             ><?php echo $reporte["descripcion"]; ?></option>
                             <?php // $conta_rep++;
                          } ?>
@@ -505,6 +566,8 @@ function rp_estadisticas (){
                                     <!-- <form action="" method="post" enctype="multipart/form-data"> -->
                             <input type="file" name="uploadedFile"  class="custom-file-input" accept=".xls,.xlsx,.pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
                             <input type="hidden" name="IdKey" value="<?php echo $registro['id']; ?>"  >
+                            <input type="hidden" name="Idioma" value="<?php echo $idioma; ?>"  >
+                            <input type="hidden" name="TipoReporte" value="<?php echo $_POST["SelTipRep"]; ?>"  >
                             <input type="hidden" name="Nombre" value="<?php echo $registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']; ?>"  >
                             <input type="submit" value="Adjuntar" name="uploadBtn" class="button button primary">
                             <!-- </form> -->
@@ -537,13 +600,13 @@ function rp_estadisticas (){
                // Insertar registros
                global $wpdb;
                $table = $wpdb->prefix.'reportespb';
-               $wpdb->update( $table,array('typerep' => $_POST["SelTipRep"], 
+               $wpdb->update( $table,array('typerep' => $_POST['SelTipRep'] , 
                'years' =>  $_POST["anio"],
                'months' => $_POST["Selmes"],
                'biweeklys'=> $quincena,
                'weeknumbers' => sanitize_text_field($num_semana),
                'title' => sanitize_text_field($_POST["titulo"]),
-               'idioma' => $idioma
+               'idioma' => $_POST['Idioma']
              ),array('id'=>$_GET["id"]));
               $url = esc_url(home_url( '/' ));
                Header("Location: ".$url."wp-admin/admin.php?page=rp_estadisticas&tipo_rep=".$_POST["SelTipRep"]);
@@ -654,20 +717,8 @@ function rp_estadisticas (){
         <label for="tipo_reporte">Tipo de reporte:</label>
             <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" >
              <!-- onchange="this.form.submit()"> -->
-               <?php echo get_options($selectedTipo); ?>
+               <?php echo get_options($selectedTipo,$idioma); ?>
             </select>
-            
-                                <!-- <noscript> -->
-                                <!-- <input type="submit" name="Selection" value="view" /> -->
-                                <!-- </noscript> -->
-                                <!-- <?php $URL_TIPOREP =  esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"; ?> -->
-                                <input type="button" value="Tipo reporte" onclick="window.location.href='<?php echo $URL_TIPOREP ?>'" />
-        <!-- <label for="SelTipRep" style="font-weight: bold;">Tipo reporte: </label>
-            <select name="SelTipRep" id="SelTipRep">
-                <option value="0">Estadísticas de Harina de Pescado</option>
-                <option value="1">Reporte de pesca Anchoveta – Perú</option>
-                <option value="2">Reporte desenvolvimiento Anual de Captura – Anchoveta</option>
-            </select> -->
         </div>
         <br>
         <div>        
@@ -691,6 +742,8 @@ function rp_estadisticas (){
         <ul>
           <li>
                 <label for="titulo" style="font-weight: bold;">Descripción:</label>
+                <input type="hidden" name="Idioma" value="<?php echo $idioma; ?>"  >
+                <input type="hidden" name="TipoReporte" value="<?php echo $_POST["tipo_reporte"]; ?>"  >
                 <input type="text" name="titulo" id="titulo"  style="width:250px;" >
           </li>
           </ul>
@@ -769,6 +822,7 @@ function rp_estadisticas (){
             </ul>  
             </div>
           <hr>
+          
                 <input type="submit" name ="registrar" value="Registrar" class="button button-primary button-large">
           <hr>
         </form>
@@ -793,13 +847,13 @@ function rp_estadisticas (){
         // Insertar registros
         global $wpdb;
         $table = $wpdb->prefix.'reportespb';
-        $data = array('typerep' => $_POST["SelTipRep"], 
+        $data = array('typerep' => $_POST['tipo_reporte'] , 
                       'years' =>  $_POST["anio"],
                       'months' => $_POST["Selmes"],
                       'biweeklys'=> $quincena,
                       'weeknumbers' => $num_semana,
                       'title' => sanitize_text_field($_POST["titulo"]),
-                      'idioma'=>$idioma
+                      'idioma'=>$_POST['Idioma']
                     );
         $wpdb->insert($table,$data);
         $my_id = $wpdb->insert_id;
