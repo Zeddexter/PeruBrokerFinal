@@ -102,6 +102,7 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 function rp_estadisticas (){
   if (!isset($_SESSION)){
     session_start(); 
+    $_SESSION['idioma'] = 0;
 $idioma =0;
   }
   else
