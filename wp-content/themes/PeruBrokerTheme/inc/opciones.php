@@ -100,35 +100,38 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 }
 
 function rp_estadisticas (){
-  if (!isset($_SESSION)){
-    session_start(); 
-    $_SESSION['idioma'] = 0;
-$idioma =0;
+  session_start(); 
+
+  if (isset($_SESSION['idioma'])){
+    echo "ingresa".$_SESSION['idioma']."<br>";
+    
+    $idioma =0;
   }
   else
-    {
-        session_destroy();
-        session_start(); 
-    }
- if ( $_SESSION['idioma']!= $idioma)
- {
-   $idioma = $_SESSION['idioma'];
- }
+  {
+    $_SESSION['idioma'] = 0;
+  }
+    //$_idioma = $_SESSION['idioma'];
+//  if ( $_SESSION['idioma']!= $idioma)
+//  {
+//    $idioma = $_SESSION['idioma'];
+//  }
   echo $_SESSION['idioma'].' >>X '.$idioma;
   ?>
   <br><br>
   <form method='post' action='' id='myform'>
   Seleccione Idioma : <select name='lang' id='lang' > 
-   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0 && $_SESSION['idioma'] == $_POST['lang'] ){ echo 'selected'; } ?> >Español</option> 
-   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1 && $_SESSION['idioma'] == $_POST['lang'] ){ echo 'selected'; } ?> >Ingles</option> 
+   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0){ echo 'selected'; }  elseif  ( $_SESSION['idioma']  == 0 ){ echo 'selected'; } ?> >Español</option> 
+   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){echo 'selected';} elseif ( $_SESSION['idioma']  == 1 ){ echo 'selected';  } ?> >Ingles</option> 
   </select> 
-  <?php 
+ </form>
+ <?php 
    if(isset($_POST['lang'])){
       $idioma =  $_POST['lang'];
-      
+     $_SESSION['idioma']  = $idioma;
    }
+   
   ?>
- </form>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script type='text/javascript'> 
 $(document).ready(function(){
@@ -143,7 +146,8 @@ $(document).ready(function(){
     echo 'Idioma: '.$idioma; 
     echo $_SESSION['idioma'];
  function get_options($select,$idioma){
-       global $wpdb;
+  
+  global $wpdb;
        $tbl_tipo_reporte = $wpdb->prefix.'tipo_reportes';     
      $opciones = $wpdb->get_results("select 
        id, descripcion
@@ -179,15 +183,20 @@ $(document).ready(function(){
         <form id="category-select" class="category-select" action="" method="post">
         <label for="tipo_reporte">Tipo de reporte:</label>
             <select name="tipo_reporte" data-native-menu="false" id="tipo_reporte" onchange="this.form.submit()">
-               <?php echo get_options($selectedTipo,$idioma);   ?>
+               <?php echo get_options($selectedTipo,$_SESSION['idioma']);  ?>
             </select>
-            
+            <input type="hidden" name="language" value = "<?php echo $idioma ?>">
                                 <noscript>
                                 <input type="submit" name="Selection" value="view" />
                                 </noscript>
                                 <?php $URL_TIPOREP =  esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"; ?>
                                 <input type="button" value="Tipo reporte" onclick="window.location.href='<?php echo $URL_TIPOREP ?>'" />
         </form> 
+       <?php if(isset($_POST['language'])){
+            $idioma = $_POST['language'];
+           // $_SESSION['idioma'] = $_POST['language'];
+            echo "idioma 2: ".$_SESSION['idioma'];
+        } ?>
           </div>
         <br> <table class= "wp-list-table widefat striped">
             <thead>
@@ -233,7 +242,7 @@ $(document).ready(function(){
                              else weeknumbers end  as weeknumbers,
                         title,
                         files, route_file 
-                        from $tbl_estadisticas where typerep = $selectedTipo and idioma = $idioma order by years,
+                        from $tbl_estadisticas where typerep = $selectedTipo and idioma = ".$_SESSION['idioma']." order by years,
                         case when weeknumbers >0 then 9999 else typerep end,biweeklys,weeknumbers",ARRAY_A);
                       foreach($registros as $registro){ ?>
                         <tr>
