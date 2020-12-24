@@ -1,7 +1,7 @@
 
 
 <?php
-
+session_start(); 
  global  $idioma;
 function perubroker_reportes(){
  add_menu_page('PeruBroker','Reportes','manage_options','rp_estadisticas','rp_estadisticas','',5);
@@ -100,7 +100,7 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 }
 
 function rp_estadisticas (){
-  session_start(); 
+  
 
   if (isset($_SESSION['idioma'])){
     echo "ingresa".$_SESSION['idioma']."<br>";
@@ -343,7 +343,17 @@ $(document).ready(function(){
   // }
 }
  function rp_nuevos_registros(){
-  $idioma =0;
+  //$idioma =0;
+  if (isset($_SESSION['idioma'])){
+    echo "ingresa".$_SESSION['idioma']."<br>";
+    
+    $idioma =0;
+  }
+  else
+  {
+    $_SESSION['idioma'] = 0;
+  }
+  
   ?>
   <br><br>
   <form method='post' action='' id='myform'>
@@ -648,7 +658,6 @@ $(document).ready(function(){
             Header("Location: ".$url."wp-admin/admin.php?page=rp_nuevos_registros&id=".$_GET["id"]);
             
            }
-           session_start();
                       $message = ''; 
                       $paso1 = '0';
                       $paso2 = '';
