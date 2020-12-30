@@ -7,10 +7,8 @@ $id = $_GET['codigo'];
 
 echo $id;
 global $wpdb;
-$wpdb->query(
-    'DELETE  FROM '.$wpdb->prefix.'tipo_reportes
-     WHERE id = "'.$id.'"'
-);
+$wpdb->delete('wp_tipo_reportes',array('id'=>$id));
+    
 header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 //Connect DB
 //Create query based on the ID passed from you table
