@@ -81,7 +81,7 @@ $(document).ready(function(){
                         id,
                         descripcion
                         from $tbl_tipo_reportes
-                        where idioma = $idioma ",ARRAY_A);
+                        where idioma = ".$_SESSION['idioma']." ",ARRAY_A);
                        $_url_adm =  esc_url(home_url( '/' ))."wp-admin/";
 
                       foreach($registros as $registro){ 
@@ -102,7 +102,7 @@ if(isset($_POST["DescripcionTip"]) && !empty($_POST["DescripcionTip"]) )
 {
     global $wpdb;
     $table = $wpdb->prefix.'tipo_reportes';
-    $wpdb->insert($table, array('descripcion' => sanitize_text_field($_POST["DescripcionTip"]),'idioma'=>$idioma)); 
+    $wpdb->insert($table, array('descripcion' => sanitize_text_field($_POST["DescripcionTip"]),'idioma'=>$_SESSION['idioma'])); 
     
     header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 }
