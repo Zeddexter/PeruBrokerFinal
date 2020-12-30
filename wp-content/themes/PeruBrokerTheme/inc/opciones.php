@@ -32,11 +32,9 @@ function rp_tipo_reportes(){
    <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){echo 'selected';} elseif ( $_SESSION['idioma']  == 1 ){ echo 'selected';  } ?> >Ingles</option> 
   </select> 
   <?php 
-   if(isset($_POST['lang'])){
+    if(isset($_POST['lang'])){
       $idioma =  $_POST['lang'];
-   }else
-   {
-    $idioma = 0;
+     $_SESSION['idioma']  = $idioma;
    }
   ?>
  </form>
