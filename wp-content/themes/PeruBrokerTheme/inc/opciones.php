@@ -13,13 +13,23 @@ add_submenu_page('rp_estadisticas','Tipos de reportes','Tipos de reportes','mana
 
 
 add_action('admin_menu','perubroker_reportes');
+
 function rp_tipo_reportes(){
+  if (isset($_SESSION['idioma'])){
+    echo "ingresa".$_SESSION['idioma']."<br>";
+    
+    $idioma =0;
+  }
+  else
+  {
+    $_SESSION['idioma'] = 0;
+  }
  ?>
       <br><br>
   <form method='post' action='' id='myform'>
   Seleccione Idioma : <select name='lang' id='lang' > 
-   <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0){ echo 'selected'; } ?> >Español</option> 
-   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){ echo 'selected'; } ?> >Ingles</option> 
+  <option value=0 <?php if(isset($_POST['lang']) && $_POST['lang'] == 0){ echo 'selected'; }  elseif  ( $_SESSION['idioma']  == 0 ){ echo 'selected'; } ?> >Español</option> 
+   <option value=1 <?php if(isset($_POST['lang']) && $_POST['lang'] == 1){echo 'selected';} elseif ( $_SESSION['idioma']  == 1 ){ echo 'selected';  } ?> >Ingles</option> 
   </select> 
   <?php 
    if(isset($_POST['lang'])){
