@@ -90,7 +90,7 @@ $(document).ready(function(){
                            <td><?php echo $registro['descripcion']; ?></td>
                            <input type="hidden" name="id_tip" value="<?php echo $registro['id']; ?>">
                            <td><a href="<?php echo esc_url(home_url( '/' )) ?>wp-admin/edit_tiporeporte.php?codigo=<?php echo $registro['id']; ?>"> <span class="fa fa-trash"></span>Editar</a></td>
-                           <td><a href="<?php echo esc_url(home_url( '/' )) ?>wp-admin/delete_tiporeporte.php?codigo=<?php echo $registro['id']; ?>"> <span class="fa fa-trash"></span>Eliminar</a></td>
+                           <td><a href="<?php echo esc_url(home_url( '/' )) ?>wp-admin/Eliminatiporeporte.php?codigo=<?php echo $registro['id']; ?>"> <span class="fa fa-trash"></span>Eliminar</a></td>
                            <!-- <td><input type="submit" name ="Eliminar" value="Eliminar" id="BtnEliminar"></td> -->
                     </tr>
                       <?php } ?>     
