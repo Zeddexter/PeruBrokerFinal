@@ -3,10 +3,13 @@
 echo $_SERVER['DOCUMENT_ROOT'];
 require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerFinal/wp-config.php' );
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerFinal/wp-includes/wp-db.php' );
+echo "<br>";
 echo $_GET["codigo"];
 
 if(isset($_GET["codigo"]))
 {
+
+    echo "<br>paso";
     $id = $_GET['codigo'];
     echo $id;
     global $wpdb;
