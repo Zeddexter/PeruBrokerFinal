@@ -2,8 +2,8 @@
 // require get_template_directory().'/wp-config.php';
 // require get_template_directory().'//wp-includes/wp-db.php';
 echo $_SERVER['DOCUMENT_ROOT'];
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerFinal/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerFinal/wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php' );
 echo $_GET["codigo"];
 
 ?>
