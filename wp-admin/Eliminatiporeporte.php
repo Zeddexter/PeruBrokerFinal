@@ -1,14 +1,18 @@
 <?php
 //echo $_SERVER['DOCUMENT_ROOT'];
+echo $_SERVER['DOCUMENT_ROOT'];
 require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerFinal/wp-config.php' );
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerFinal/wp-includes/wp-db.php' );
+echo $_GET["codigo"];
 
-$id = $_GET['codigo'];
-
-echo $id;
-global $wpdb;
-$wpdb->delete('wp_tipo_reportes',array('id'=>$id));
-    
+if(isset($_GET["codigo"]))
+{
+    $id = $_GET['codigo'];
+    echo $id;
+    global $wpdb;
+    $wpdb->delete('wp_tipo_reportes',array('id'=>$id));
+}
+   
 header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 //Connect DB
 //Create query based on the ID passed from you table
