@@ -13,7 +13,13 @@ if(isset($_GET["codigo"]))
     $id = $_GET['codigo'];
     echo $id;
     global $wpdb;
-    $wpdb->delete('wp_tipo_reportes',array('id'=>$id));
+    // $wpdb->delete('wp_tipo_reportes',array('id'=>$id));
+
+    if (!empty($_GET['codigo'])) {
+        $wpdb->delete( $wpdb->prefix . 'tipo_reportes',
+                       [ 'ID' => $_GET['codigo'] ],
+                       [ '%d' ] );
+      }
 }
    
 header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
