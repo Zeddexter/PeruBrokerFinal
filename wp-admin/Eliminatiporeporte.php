@@ -17,14 +17,11 @@ if(isset($_GET["codigo"]))
     
     $table = $wpdb->prefix.'tipo_reportes';
 
-    if (!empty($_GET['codigo'])) {
-
-    
         $wpdb->show_errors(); 
         $wpdb->delete( $table, array('id' => $id) );
         $wpdb->print_error();
         echo "<br>final";
-      }
+
 }
 wp_redirect(admin_url(esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"));   
 //header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
