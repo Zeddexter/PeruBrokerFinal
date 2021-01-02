@@ -14,15 +14,18 @@ if(isset($_GET["codigo"]))
     echo $id;
     global $wpdb;
     // $wpdb->delete('wp_tipo_reportes',array('id'=>$id));
+    global $wpdb;
+    $table = $wpdb->prefix.'tipo_reportes';
 
     if (!empty($_GET['codigo'])) {
-        $wpdb->delete( $wpdb->prefix . 'tipo_reportes',
-                       [ 'ID' => $_GET['codigo'] ],
-                       [ '%d' ] );
+
+        global $wpdb;
+        $wpdb->delete( $table, array('id' => $id) );
+        
       }
 }
-   
-header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
+wp_redirect(admin_url(esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes"));   
+//header("Location: ".esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_tipo_reportes");
 //Connect DB
 //Create query based on the ID passed from you table
 //query : delete where Staff_id = $id
