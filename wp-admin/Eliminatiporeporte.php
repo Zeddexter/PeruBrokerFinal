@@ -1,8 +1,8 @@
 <?php
 //echo $_SERVER['DOCUMENT_ROOT'];
 echo $_SERVER['DOCUMENT_ROOT'];
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerFinal/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerFinal/wp-includes/wp-db.php' );
+// require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerFinal/wp-config.php' );
+// require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerFinal/wp-includes/wp-db.php' );
 echo "<br>";
 echo $_GET["codigo"];
 
