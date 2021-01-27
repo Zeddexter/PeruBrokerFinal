@@ -68,7 +68,7 @@ $html = "";
                                     }else {
                                         $html.=  "
                             </form>
-                                            <form action='' method='post' enctype='multipart/form-data'>
+                                            <form action='". esc_url( admin_url('lista_reportes.php') ). "' method='post' enctype='multipart/form-data'>
                                     <input type='file' name='uploadedFile'  class='custom-file-input' accept='.xls,.xlsx,.pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'/>
                                     <input type='hidden' name='IdKey' value=".$registro['id']."  >
                                     <input type='hidden' name='Nombre' value=".$registro['years']."-".$registro["typerep"].$registro['months']."-".$registro['id']."  >
