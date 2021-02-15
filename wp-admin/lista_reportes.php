@@ -1,6 +1,6 @@
 <?php 
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerfinal/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerfinal/wp-includes/wp-db.php' );
 
 $idioma = $_POST['idioma'];
 $tipo_reporte = $_POST['tiporeporte'];
@@ -63,8 +63,9 @@ $html = "";
                                     <td>   
                                     ";
                                     if(isset($registro['files'])){
-                                        $html.=  "<a href='download_files.php?files=".$registro["files"]."&route_file=".$registro['route_file']." 
+                                        $html.=  "<a href='".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file']." 
                                         name='link'>Descargar</a>";
+                                        echo "console.log(".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file'].")";
                                     }else {
                                         $html.=  "
                             </form>
@@ -113,6 +114,7 @@ $html = "";
                                         // directory in which the uploaded file will be moved
                                         
                                                 $uploadFileDir =  WP_CONTENT_DIR.'/uploaded_files/'; //'./uploaded_files/';
+                                               
                                                 $dest_path = $uploadFileDir . $newFileName;
                                                 if(move_uploaded_file($fileTmpPath, $dest_path)) 
                                                 {
