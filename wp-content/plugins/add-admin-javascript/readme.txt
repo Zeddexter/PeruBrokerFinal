@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: admin, javascript, js, script, admin theme, customization, coffee2code
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.7
-Tested up to: 5.1
-Stable tag: 1.7
+Requires at least: 4.9
+Tested up to: 5.5
+Stable tag: 1.9.1
 
 Interface for easily defining additional JavaScript (inline and/or by URL) to be added to all administration pages.
 
@@ -17,14 +17,14 @@ Ever want to introduce custom dynamic functionality to your WordPress admin page
 
 Using this plugin you'll easily be able to define additional JavaScript (inline and/or by URL) to be added to all administration pages. You can define JavaScript to appear inline in the admin head, admin footer (recommended), or in the admin footer within a jQuery `jQuery(document).ready(function($)) {}` section, or reference JavaScript files to be linked in the page header. The referenced JavaScript files will appear in the admin head first, listed in the order defined in the plugin's settings. Then any inline admin head JavaScript is added to the admin head. All values can be filtered for advanced customization (see Filters section).
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/add-admin-javascript/) | [Plugin Directory Page](https://wordpress.org/plugins/add-admin-javascript/) | [GitHub](https://github.com/coffee2code/add-admin-javascript/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/add-admin-javascript/) | [Plugin Directory Page](https://wordpress.org/plugins/add-admin-javascript/) | [GitHub](https://github.com/coffee2code/add-admin-javascript/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
 
 1. Install via the built-in WordPress plugin installer. Or download and unzip `add-admin-javascript.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Go to "Appearance" -> "Admin JavaScript" and add some JavaScript to be added into all admin pages.
+1. Go to "Settings" -> "Admin JavaScript" and add some JavaScript to be added into all admin pages. (You can also use the "Settings" link in the plugin's entry on the admin "Plugins" page).
 
 
 == Frequently Asked Questions ==
@@ -80,7 +80,7 @@ Yes.
 
 == Hooks ==
 
-The plugin exposes four filters for hooking. Typically, these customizations would be put into your active theme's functions.php file, or used by another plugin.
+The plugin exposes four filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain). Bear in mind that most of the features controlled by these filters are configurable via the plugin's settings page. These filters are likely only of interest to advanced users able to code.
 
 **c2c_add_admin_js_files (filter)**
 
@@ -182,106 +182,70 @@ add_filter( 'c2c_add_admin_js_jq', 'my_add_jq' );
 
 == Changelog ==
 
-= 1.7 (2019-04-09) =
+= 1.9.1 (2020-09-26) =
+* Change: Update plugin framework to 051
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
+* Change: Note compatibility through WP 5.5+
+* Change: Restructure unit test file structure
+    * New: Create new subdirectory `phpunit/` to house all files related to unit testing
+    * Change: Move `bin/` to `phpunit/bin/`
+    * Change: Move `tests/bootstrap.php` to `phpunit/`
+    * Change: Move `tests/` to `phpunit/tests/`
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* Change: Add missing changelog entry for v1.9 release into readme.txt
 
-Highlights:
+= 1.9 (2020-06-26) =
 
-* This release adds a recovery mode to disable output of JavaScript via the plugin (and an admin notice when it is active), replace code input fields with code editor (with syntax highlight, syntax checking, code completion, and more), improves documentation, updates the plugin framework, notes compatibility through WP 5.1+, drops compatibility with versions of WP older than 4.7, and more documentation and code improvements.
+### Highlights:
 
-Details:
+This minor release updates its plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
 
-* New: Add syntax highlighting to JavaScript input fields
-    * Adds code highlighting, syntax checking, and other features
-* New: Add recovery mode to be able to disable output of JavaScript via the plugin
-    * Add support for `c2c-no-js` query parameter for enabling recovery mode
-    * Add support for `C2C_ADD_ADMIN_JAVASCRIPT_DISABLED` constant for enabling recovery mode
-    * Display admin notice when recovery mode is active
-    * Add `can_show_js()`, `remove_query_param_from_redirects()`, `recovery_mode_notice()`
-* Change: Initialize plugin on `plugins_loaded` action instead of on load
-* Change: Update plugin framework to 049
-    * 049:
-    * Correct last arg in call to `add_settings_field()` to be an array
-    * Wrap help text for settings in `label` instead of `p`
-    * Only use `label` for help text for checkboxes, otherwise use `p`
-    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
-    * Note compatibility through WP 5.1+
-    * Update copyright date (2019)
-    * 048:
-    * When resetting options, delete the option rather than setting it with default values
-    * Prevent double "Settings reset" admin notice upon settings reset
-    * 047:
-    * Don't save default setting values to database on install
-    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
-    * Note compatibility through WP 4.9+
-    * Drop compatibility with version of WP older than 4.7
-* Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tags
-* New: Add README.md file
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* New: Add FAQ entry describing ways to fix having potentially crippled the admin
-* New: Add inline documentation for hooks
-* New: Add GitHub link to readme
+### Details:
+* Change: Change class names used for admin notice to match current WP convention
+* Change: Update plugin framework to 050
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to it)
+* Change: Tweak help text for 'files' setting for better phrasing and to remove extra sentence spaces
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility for version of WP older than 4.9
+* Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
-    * Change: Improve tests for settings handling
-    * Change: Update `set_option()` to accept an array of setting values to use
-    * New: Add unit tests for `add_js_to_head()`, `add_js_to_foot()`
-    * New: Add unit test for defaults for settings
-    * Remove: Delete `setUp()` and invoke `setup_options()` within each test as needed
-    * Remove: Delete private object variable for storing setting name
-* Change: Store setting name in constant
-* Change: Improve documentation for hooks within readme.txt
-* Change: Use alternative example remote JS library to the defunct Yahoo UI library
-* Change: Note compatibility through WP 5.1+
-* Change: Drop compatibility with version of WP older than 4.7
-* Change: Rename readme.txt section from 'Filters' to 'Hooks'
-* Change: Modify formatting of hook name in readme to prevent being uppercased when shown in the Plugin Directory
-* Change: Update installation instruction to prefer built-in installer over .zip file
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
+    * New: Add tests for `options_page_description()`
+    * New: Add test for default hooks
+    * New: Add tests for setting and query param names
+    * New: Label groupings of tests
+    * Change: Remove unnecessary unregistering of hooks in `tearDown()`
+    * Change: Move `test_turn_on_admin()` until just before first needed now that other tests can run before it
+    * Change: Store plugin instance in class variable to simplify referencing it
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 
-= 1.6 (2017-11-03) =
-* Change: Update plugin framework to 046
-    * 046:
-    * Fix `reset_options()` to reference instance variable `$options`.
-	* Note compatibility through WP 4.7+.
-	* Update copyright date (2017)
-    * 045:
-    * Ensure `reset_options()` resets values saved in the database.
-    * 044:
-    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
-    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
-    * Add `add_option()` to add a new option to the plugin's configuration.
-    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
-    * Change: Refactor `get_option_names()`.
-    * 043:
-    * Disregard invalid lines supplied as part of hash option value.
-    * 042:
-    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
-    * Translate "Donate" in footer message.
-* Change: Update unit test bootstrap
-    * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
-    * Enable more error output for unit tests
-* Change: Align config array elements
-* Change: Note compatibility through WP 4.9+
-* Change: Remove support for WordPress older than 4.6
-* Change: Update copyright date (2018)
-
-= 1.5 (2016-04-22) =
-* Change: Declare class as final.
-* Change: Update plugin framework to 041:
-    * For a setting that is of datatype array, ensure its default value is an array.
-    * Make `verify_config()` public.
-    * Use `<p class="description">` for input field help text instead of custom styled span.
-    * Remove output of markup for adding icon to setting page header.
-    * Remove styling for .c2c-input-help.
-    * Add braces around the few remaining single line conditionals.
-* Change: Note compatibility through WP 4.5+.
-* Change: Remove 'Domain Path' from plugin header.
-* New: Add LICENSE file.
+= 1.8.1 (2019-12-07) =
+* Fix: Fix typo causing PHP warning. Props jhogervorst.
 
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-javascript/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.9.1 =
+Trivial update: Updated plugin framework to version 051, restructured unit test file structure, and noted compatibility through WP 5.5+.
+
+= 1.9 =
+Minor update: updated plugin framework, added a TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, updated compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
+
+= 1.8.1 =
+Minor bugfix release: Fixes typo causing PHP warning.
+
+= 1.8 =
+Minor update: added non-HTML5 support when not supported by the theme, modernized and fixed unit tests, noted compatibility through WP 5.3+, and updated copyright date (2020).
 
 = 1.7 =
 Recommended update: added recovery mode, added code editor inputs, tweaked plugin initialization process, updated plugin framework, compatibility is now WP 4.7 through WP 5.1+, updated copyright date (2019), and more documentation and code improvements.

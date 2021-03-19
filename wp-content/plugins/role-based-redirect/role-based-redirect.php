@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Role Based Redirect
  * Description: Redirect users to specific page after login, based on their the role and also option for hide adminbar and restrict dashboard access.
- * Author: Yasir Khalifa
+ * Author: MohammedYasar Khalifa
  * Author URI: https://myasark.wordpress.com/
- * Version: 1.2
+ * Version: 1.3
  * License: GPLv2
  */
 // Exit if accessed directly.
@@ -79,7 +79,7 @@ class RBRurls {
         foreach ($results as $result) {
             if ($result->adminbar == 'yes') {
                 if (current_user_can($result->role_type)) {
-                    show_admin_bar(false);
+                    add_filter( 'show_admin_bar', '__return_false', PHP_INT_MAX );
                 }
             }
         }

@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: Add Admin JavaScript
- * Version:     1.7
- * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-javascript/
+ * Version:     1.9.1
+ * Plugin URI:  https://coffee2code.com/wp-plugins/add-admin-javascript/
  * Author:      Scott Reilly
- * Author URI:  http://coffee2code.com/
+ * Author URI:  https://coffee2code.com/
  * Text Domain: add-admin-javascript
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Interface for easily defining additional JavaScript (inline and/or by URL) to be added to all administration pages.
  *
- * Compatible with WordPress 4.7+ through 5.1+.
+ * Compatible with WordPress 4.9+ through 5.5+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -18,16 +18,11 @@
  *
  * @package Add_Admin_JavaScript
  * @author  Scott Reilly
- * @version 1.7
+ * @version 1.9.1
 */
 
 /*
- * TODO:
- * - Improve documentation within the help pane.
- */
-
-/*
-	Copyright (c) 2010-2019 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -46,11 +41,11 @@
 
 defined( 'ABSPATH' ) or die();
 
-if ( is_admin() && ! class_exists( 'c2c_AddAdminJavaScript_Plugin_049' ) ) :
+if ( ! class_exists( 'c2c_AddAdminJavaScript_Plugin_051' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-final class c2c_AddAdminJavaScript extends c2c_AddAdminJavaScript_Plugin_049 {
+final class c2c_AddAdminJavaScript extends c2c_AddAdminJavaScript_Plugin_051 {
 
 	/**
 	 * Name of plugin's setting.
@@ -99,7 +94,7 @@ final class c2c_AddAdminJavaScript extends c2c_AddAdminJavaScript_Plugin_049 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.7', 'add-admin-javascript', 'c2c', __FILE__, array() );
+		parent::__construct( '1.9.1', 'add-admin-javascript', 'c2c', __FILE__, array() );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -147,7 +142,7 @@ final class c2c_AddAdminJavaScript extends c2c_AddAdminJavaScript_Plugin_049 {
 				'default'          => '',
 				'datatype'         => 'array',
 				'label'            => __( 'Admin JavaScript Files', 'add-admin-javascript' ),
-				'help'             => __( 'List one URL per line.  The reference can be relative to the root of your site, or a full, absolute URL.  These will be listed in the order listed, and appear in the &lt;head&gt; before the JS defined below.', 'add-admin-javascript' ),
+				'help'             => __( 'List one file per line. The reference can be relative to the root of your site or a full, absolute URL. These will be output in the order listed above and appear before the footer JS defined below.', 'add-admin-javascript' ),
 				'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="8" cols="40"'
 			),
 			'js_head' => array(
@@ -181,6 +176,10 @@ final class c2c_AddAdminJavaScript extends c2c_AddAdminJavaScript_Plugin_049 {
 	 * Override the plugin framework's register_filters() to register actions and filters.
 	 */
 	public function register_filters() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		add_action( 'admin_enqueue_scripts',      array( $this, 'enqueue_js' ) );
 		add_action( 'admin_enqueue_scripts',      array( $this, 'add_codemirror' ) );
 		add_action( 'admin_head',                 array( $this, 'add_js_to_head' ) );
@@ -275,7 +274,7 @@ HTML;
 			}
 
 			echo <<<HTML
-				<div class="error">
+				<div class="notice notice-error">
 					<p>{$msg}</p>
 				</div>
 HTML;
@@ -393,6 +392,21 @@ HTML;
 	}
 
 	/**
+	 * Returns the appropriate 'type' attribute, if needed, for a `script` tag.
+	 *
+	 * If the theme claims support for 'html5', then an empty string is returned
+	 * (since no 'type' attribute is necessary). Otherwise, the 'text/javascript'
+	 * value is supplied for the 'type' attribute.
+	 *
+	 * @since 1.8
+	 *
+	 * @return string The attribute string for the `script` tag.
+	 */
+	public function get_script_attr() {
+		return current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/javascript"';
+	}
+
+	/**
 	 * Outputs JavaScript as header links and/or inline header code.
 	 */
 	public function add_js_to_head() {
@@ -411,9 +425,11 @@ HTML;
 		 */
 		$js = trim( apply_filters( 'c2c_add_admin_js_head', $options['js_head'] . "\n" ) );
 
+		$type_attr = $this->get_script_attr();
+
 		if ( ! empty( $js ) ) {
 			echo "
-			<script>
+			<script{$type_attr}>
 			$js
 			</script>
 			";
@@ -441,9 +457,11 @@ HTML;
 		 */
 		$js = trim( apply_filters( 'c2c_add_admin_js_footer', $options['js_foot'] . "\n" ) );
 
+		$type_attr = $this->get_script_attr();
+
 		if ( ! empty( $js ) ) {
 			echo "
-			<script>
+			<script{$type_attr}>
 			$js
 			</script>
 			";
@@ -452,7 +470,7 @@ HTML;
 		$js = $this->get_jq();
 		if ( ! empty( $js ) ) {
 			echo "
-			<script>
+			<script{$type_attr}>
 				jQuery(document).ready(function($) {
 					$js
 				});

@@ -56,7 +56,7 @@
                     '[leaflet-marker draggable]',
                     ),
                 __("Marker Icon", 'leaflet-map') => array(
-                    '[leaflet-map zoom=14 address="Ha Ling, canmore" scrollwheel]',
+                    '[leaflet-map zoom=14 address="Ha Ling, canmore" scrollwheel !detect-retina show_scale]',
                     '[leaflet-marker iconUrl="https://i.imgur.com/Q54ueuO.png" iconSize="80,50" iconAnchor="40,60"]'
                     ),
                 __("SVG Marker Icon", 'leaflet-map') => array(
@@ -64,7 +64,7 @@
                     '[leaflet-marker svg background="#777" iconClass="dashicons dashicons-star-filled" color="gold"]My Favorite Place in the World[/leaflet-marker]'
                     ),
                 __("Zoom Buttons", 'leaflet-map') => array(
-                    '[leaflet-map zoom=9 lat=48.855 lng=2.35 zoomcontrol]',
+                    '[leaflet-map zoom=10 lat=48.855 lng=2.35 zoomcontrol !detect-retina]',
                     ),
                 __("Alternate Map Tiles w/scrollwheel", 'leaflet-map') => array(
                     '[leaflet-map zoom=2 scrollwheel lat=-2.507 lng=32.902 tileurl=https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg subdomains=abcd attribution="Map tiles by Stamen Design, under CC BY 3.0."]',
@@ -74,7 +74,7 @@
                     '[leaflet-marker]OSLO![/leaflet-marker]',
                     ),
                 __("Links In Marker Messages (visible)", 'leaflet-map') => array(
-                    '[leaflet-map lat=28.41 lng=-81.58 zoom=15]',
+                    '[leaflet-map lat=28.41 lng=-81.58 zoom=15 detect-retina]',
                     '[leaflet-marker visible] Disney World! <a href="https://disneyworld.disney.go.com">Link</a> [/leaflet-marker]',
                     ),
                 __("Basic Lines w/Scrollwheel", 'leaflet-map') => array(
@@ -86,8 +86,9 @@
                     '[leaflet-polygon addresses="Miami; San Juan; Bermuda" color="green" fillColor="yellow"]<a href="https://en.wikipedia.org/wiki/Bermuda_Triangle" target="_blank">Bermuda Triangle</a>[/leaflet-polygon]'
                     ),
                 __("Basic Circle", 'leaflet-map') => array(
-                    '[leaflet-map lat=52 lng=5 zoom=9]',
-                    '[leaflet-circle lat=52 lng=5 radius=17500]'
+                    '[leaflet-map lat=52 lng=5 zoom=8.2 zoomcontrol !show_scale]',
+                    '[leaflet-circle lat=52 lng=5 radius=17500]',
+                    '[leaflet-scale position=topright]'
                     ),
                 __("Fitted Colored Line on Addresses", 'leaflet-map') => array(
                     '[leaflet-map fitbounds]',
@@ -98,11 +99,15 @@
                     '[leaflet-line color="red" weight=10 dasharray="2,15" addresses="Halifax, Nova Scotia; Tanzania" classname=marching-ants]'
                     ),
                 __("Disable all Interaction", 'leaflet-map') => array(
-                    '[leaflet-map address="las vegas" !boxZoom !doubleClickZoom !dragging !keyboard !scrollwheel !attribution !touchZoom]',
+                    '[leaflet-map address="las vegas" !boxZoom !doubleClickZoom !dragging !keyboard !scrollwheel !attribution !touchZoom !show_scale]',
                     ),
-                __("Add GeoJSON by URL (with popups)", 'leaflet-map') => array(
-                    '[leaflet-map fitbounds doubleClickZoom scrollwheel]',
-                    '[leaflet-geojson src=https://gist.githubusercontent.com/bozdoz/064a7101b95a324e8852fe9381ab9a18/raw/03f4f54b13a3a7e256732760a8b679818d9d36fc/map.geojson]{popup-text}[/leaflet-geojson]'
+                __("Add GeoJSON by URL", 'leaflet-map') => array(
+                    '[leaflet-map fitbounds scrollwheel]',
+                    '[leaflet-geojson src=https://gist.githubusercontent.com/bozdoz/064a7101b95a324e8852fe9381ab9a18/raw/ee100561f5a0a8cf55430e9f2157e4a1e2560a2e/map.geojson]'
+                    ),
+                __("Add GeoJSON with circle markers and popups", 'leaflet-map') => array(
+                    '[leaflet-map fitbounds scrollwheel]',
+                    '[leaflet-geojson circleMarker radius=10 src=https://gist.githubusercontent.com/bozdoz/064a7101b95a324e8852fe9381ab9a18/raw/ee100561f5a0a8cf55430e9f2157e4a1e2560a2e/map.geojson]{popup-text}[/leaflet-geojson]'
                     ),
                 __("Add KML by URL", 'leaflet-map') => array(
                     '[leaflet-map fitbounds]',

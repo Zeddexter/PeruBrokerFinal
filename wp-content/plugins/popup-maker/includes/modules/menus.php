@@ -41,8 +41,8 @@ class PUM_Modules_Menu {
 				'id'   => 'disabled_menu_editor',
 				'name' => __( 'Disable Popups Menu Editor', 'popup-maker' ),
 				'desc' => sprintf(
-					_x( 'Use this if there is a conflict with your theme or another plugin in the nav menu editor. %sSee Details%s', '%s represent opening and closing link html', 'popup-maker' ),
-					'<a href="https://docs.wppopupmaker.com/article/297-popup-maker-is-overwriting-my-menu-editor-functions-how-can-i-fix-this" target="_blank">',
+					esc_html_x( 'Use this if there is a conflict with your theme or another plugin in the nav menu editor. %sLearn more%s', '%s represent opening and closing link html', 'popup-maker' ),
+					'<a href="https://docs.wppopupmaker.com/article/297-popup-maker-is-overwriting-my-menu-editor-functions-how-can-i-fix-this?utm_campaign=contextual-help&utm_medium=inline-doclink&utm_source=settings-page&utm_content=disable-popup-menu-editor" target="_blank" rel="noreferrer noopener">',
 					'</a>'
 				),
 				'type' => 'checkbox',
@@ -67,14 +67,20 @@ class PUM_Modules_Menu {
 	public static function nav_menu_walker( $walker ) {
 		global $wp_version;
 
-		if ( doing_filter( 'plugins_loaded' ) ) {
+		$bail_early = [
+			// WP 5.4 adds support for custom fields, no need to do this hack at all.
+			version_compare( $wp_version, '5.4', '>=' ),
+			// not sure about this one, was part of the original solution.
+			doing_filter( 'plugins_loaded' ),
+			// No need if its already loaded by another plugin.
+			$walker === 'Walker_Nav_Menu_Edit_Custom_Fields',
+		];
+
+		if ( in_array( true, $bail_early ) ) {
 			return $walker;
 		}
 
-		if ( $walker == 'Walker_Nav_Menu_Edit_Custom_Fields' ) {
-			return $walker;
-		}
-
+		// Load custom nav menu walker class for custom field compatibility.
 		if ( ! class_exists( 'Walker_Nav_Menu_Edit_Custom_Fields' ) ) {
 			if ( version_compare( $wp_version, '3.6', '>=' ) ) {
 				require_once POPMAKE_DIR . '/includes/modules/menus/class-nav-menu-edit-custom-fields.php';
@@ -110,6 +116,19 @@ class PUM_Modules_Menu {
 
 		if ( isset( $item->popup_id ) ) {
 			$item->classes[] = 'popmake-' . $item->popup_id;
+		}
+
+		/**
+		 * Check menu item's classes for popmake-###. Do this after the above conditional to catch the class we add too.
+		 * Tested both using strpos followed by preg_match as well as just doing preg_match on all and this solution
+		 * was just a tiny bit faster. But, if a site has 100 menu items, that tiny difference will add up.
+		 */
+		foreach ( $item->classes as $class ) {
+			if ( strpos( $class, 'popmake-' ) !== false ) {
+				if ( 0 !== preg_match( '/popmake-(\d+)/', $class, $matches ) ) {
+					PUM_Site_Popups::preload_popup_by_id_if_enabled( $matches[1] );
+				}
+			}
 		}
 
 		return $item;

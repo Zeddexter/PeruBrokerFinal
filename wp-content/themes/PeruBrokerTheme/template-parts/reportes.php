@@ -179,20 +179,20 @@
                                                 $url_down2 = site_url()."/wp-admin/ViewPDF.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 $id_cookie
                                                  = '';
-                                                $descarga = "  onclick = \"window.open('". $url_down2."');\"";
+                                                $descarga = " ";// onclick = \"window.open('". $url_down."');\"";
                                                 if(isset($_COOKIE['pum-283'])) {
-                                                    $id = "id='ABC'  onclick = \"window.open('". $url_down."');\"";
+                                                    $id = "id='ABC' ";// onclick = \"window.open('". $url_down."');\"";
                                                 } 
                                                 else {
                                                     $id = "id='popup-informacion'";
                                                    
                                                 }
                                                 ?>
-                                               <a href="<?php echo site_url()."/reportes/".$registro["files"]; ?>">Visualizar</a>
+                                               <a class="LinkButton" <?php echo  $id; ?> href="<?php echo site_url()."/reportes/".$registro["files"]; ?>">Descargar</a>
                                                 <!-- <button id="Ver" <?php // echo $descarga; ?>>Ver PDF</button> -->
-                                                   <button <?php echo  $id; ?>
+                                                   <!-- <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
-                                                     > Descargar</button>
+                                                     > Descargar</button> -->
                                                   <?php } ?>
                                         </td>
                                             </tr>

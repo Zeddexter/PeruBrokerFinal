@@ -2,17 +2,17 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 049
+ * @version 051
  */
 /*
 Basis for other plugins.
 
-Compatible with WordPress 4.7 through 5.1+.
+Compatible with WordPress 4.9 through 5.4+.
 
 */
 
 /*
-	Copyright (c) 2010-2019 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -31,9 +31,9 @@ Compatible with WordPress 4.7 through 5.1+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_AddAdminJavaScript_Plugin_049' ) ) :
+if ( ! class_exists( 'c2c_AddAdminJavaScript_Plugin_051' ) ) :
 
-abstract class c2c_AddAdminJavaScript_Plugin_049 {
+abstract class c2c_AddAdminJavaScript_Plugin_051 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_AddAdminJavaScript_Plugin_049 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '049';
+		return '051';
 	}
 
 	/**
@@ -406,6 +406,9 @@ abstract class c2c_AddAdminJavaScript_Plugin_049 {
 							case 'checkbox':
 								break;
 							case 'int':
+								if ( $val && is_string( $val ) ) {
+									$val = str_replace( ',', '', $val );
+								}
 								if ( ! empty( $val ) && ( ! is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
 									$msg = sprintf( __( 'Expected integer value for: %s', 'add-admin-javascript' ), $this->config[ $opt ]['label'] );
 									$error = true;
@@ -423,7 +426,7 @@ abstract class c2c_AddAdminJavaScript_Plugin_049 {
 									$val = array_map( 'trim', explode( "\n", trim( $val ) ) );
 								break;
 							case 'hash':
-								if ( ! empty( $val ) && $input != 'select' && !is_array( $val ) ) {
+								if ( 'select' !== $input && ! is_array( $val ) && '' !== $val ) {
 									$new_values = array();
 									foreach ( explode( "\n", $val ) AS $line ) {
 										// TODO: It's possible to allow multi-line replacement text, in which case
@@ -432,9 +435,9 @@ abstract class c2c_AddAdminJavaScript_Plugin_049 {
 										if ( false === strpos( $line, '=>' ) ) {
 											continue;
 										}
-										list( $shortcut, $text ) = array_map( 'trim', explode( "=>", $line, 2 ) );
-										if ( $shortcut && $text ) {
-											$new_values[str_replace( '\\', '', $shortcut )] = str_replace( '\\', '', $text );
+										list( $shortcut, $text ) = array_map( 'trim', explode( '=>', $line, 2 ) );
+										if ( $shortcut && '' !== $text ) {
+											$new_values[ str_replace( '\\', '', $shortcut ) ] = str_replace( '\\', '', $text );
 										}
 									}
 									$val = $new_values;
@@ -912,6 +915,8 @@ HTML;
 				}
 				$value = $new_value;
 			}
+		} elseif ( $datatype === 'int' && is_numeric( $value ) ) {
+			$value = number_format_i18n( $value );
 		}
 		$attributes = $this->config[ $opt ]['input_attributes'];
 		$this->config[ $opt ]['class'][] = 'c2c-' . $input;
@@ -983,8 +988,6 @@ HTML;
 			echo "<div id='message' class='updated fade'><p><strong>" . $this->saved_settings_msg . '</strong></p></div>';
 		}
 
-		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
-
 		echo "<div class='wrap'>\n";
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
@@ -1001,13 +1004,19 @@ HTML;
 		do_action( $this->get_hook( 'after_settings_form' ), $this );
 
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
-		$c2c = '<a href="http://coffee2code.com" title="coffee2code.com">' . __( 'Scott Reilly, aka coffee2code', 'add-admin-javascript' ) . '</a>';
-		echo sprintf( __( 'This plugin brought to you by %s.', 'add-admin-javascript' ), $c2c );
-		echo '<span><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522" title="' . esc_attr__( 'Please consider a donation', 'add-admin-javascript' ) . '">' .
-		__( 'Did you find this plugin useful?', 'add-admin-javascript' ) . '</a></span>';
-		echo '</div>' . "\n";
+		printf(
+			__( 'This plugin brought to you by %s.', 'add-admin-javascript' ),
+			'<a href="https://coffee2code.com" title="' . esc_attr__( 'The plugin author homepage.', 'add-admin-javascript' ) . '">Scott Reilly (coffee2code)</a>'
+		);
+		printf(
+			'<span><a href="%1$s" title="%2$s">%3$s</span>',
+			esc_url( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522' ),
+			esc_attr__( 'Please consider a donation', 'add-admin-javascript' ),
+			__( 'Did you find this plugin useful?', 'add-admin-javascript' )
+		);
+		echo "</div>\n";
 
-		echo '</div>' . "\n";
+		echo "</div>\n";
 	}
 
 	/**
@@ -1029,7 +1038,7 @@ HTML;
 	 * @return string The URL
 	 */
 	public function readme_url() {
-		return 'https://wordpress.org/plugins/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
+		return 'https://plugins.svn.wordpress.org/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
 	}
 } // end class
 

@@ -41,33 +41,31 @@ class Leaflet_Image_Shortcode extends Leaflet_Map_Shortcode
         $source = empty($source) ? 'https://picsum.photos/1000/1000/' : $source;
         $source = empty($src) ? $source : $src;
 
-        ob_start();
-        ?>
-        <div 
-            id="leaflet-map-image-<?php echo $this->map_id; ?>" 
-            class="leaflet-map" 
+        ob_start(); ?>
+        <div class="leaflet-map WPLeafletMap"
             style="height:<?php 
                 echo $height; 
             ?>; width:<?php 
                 echo $width; 
             ?>;"></div>
         <script>
+        // push deferred map creation function
         window.WPLeafletMapPlugin = window.WPLeafletMapPlugin || [];
         window.WPLeafletMapPlugin.push(function () {
-            var map,
-                options = L.Util.extend({}, {
+            var options = L.Util.extend({}, {
                     maxZoom: <?php echo $max_zoom; ?>,
                     minZoom: <?php echo $min_zoom; ?>,
                     zoomControl: <?php echo $zoomcontrol; ?>,
                     scrollWheelZoom: <?php echo $scrollwheel; ?>,
                     doubleClickZoom: <?php echo $doubleclickzoom; ?>,
                     attributionControl: false
-                }, <?php echo $more_options; ?>, {
+                }, <?php echo $map_options; ?>, {
                     crs: L.CRS.Simple
-                }),
-                image_src = '<?php echo $source; ?>',
-                img = new Image(),
-                zoom = <?php echo $zoom; ?>;
+                });
+            var image_src = '<?php echo $source; ?>';
+            var img = new Image();
+            var zoom = <?php echo $zoom; ?>;
+            var map = window.WPLeafletMapPlugin.createImageMap(options).setView([0, 0], zoom);
             img.onload = function() {
                 var h = img.height,
                     w = img.width,
@@ -79,29 +77,7 @@ class Leaflet_Image_Shortcode extends Leaflet_Map_Shortcode
                 map.setMaxBounds(bounds);
             };
             img.src = image_src;
-            map = L.map('leaflet-map-image-<?php echo $this->map_id; ?>', options).setView([0, 0], zoom);
-            // make it known that it is an image map
-            map.is_image_map = true;
-            if (<?php echo $fitbounds; ?>) {
-                map._shouldFitBounds = true;
-            }
-            <?php
-            if ($attribution) {
-                /* add any attributions, semi-colon-separated */
-                $attributions = explode(';', $attribution);
-                ?>
-                var attControl = L.control.attribution({prefix:false}).addTo(map);
-                <?php
-                foreach ($attributions as $a) {
-                    ?>
-                    attControl.addAttribution('<?php echo trim($a); ?>');
-                    <?php
-                }
-            }
-            ?>
-            window.WPLeafletMapPlugin.maps.push( map );
-            window.WPLeafletMapPlugin.images.push( img );
-        }); // end add
+        });
         </script>
         <?php
         return ob_get_clean();

@@ -12,33 +12,6 @@
     padding: 10px;
 }
 
-@-webkit-keyframes webkit-animation {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(359deg);
-    }
-}
-
-@-moz-keyframes moz-animation {
-    from {
-        -moz-transform: rotate(0deg);
-    }
-    to {
-        -moz-transform: rotate(359deg);
-    }
-}
-
-@-o-keyframes o-animation {
-    from {
-        -o-transform: rotate(0deg);
-    }
-    to {
-        -o-transform: rotate(359deg);
-    }
-}
-
 @keyframes normal-animation {
     from {
         transform: rotate(0deg);
@@ -575,10 +548,14 @@ font-size: 12px !important;
     border: 2px solid #dddddd;
     border-radius: 3px;
     box-shadow: none;
-    height: 32px;
-    line-height: 32px;
+    line-height: 22px;
     font-weight: bold;    
    
+}
+
+#admin-menu-manager>li>div>input {
+    font-weight: 700;
+    border-color: #dddddd;
 }
 
 .duplication-error {
@@ -643,33 +620,6 @@ font-size: 12px !important;
 .remove-node-item {
     float: right;
     padding-top: 6px;
-}
-
-@-webkit-keyframes webkit-animation {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-    to {
-        -webkit-transform: rotate(359deg);
-    }
-}
-
-@-moz-keyframes moz-animation {
-    from {
-        -moz-transform: rotate(0deg);
-    }
-    to {
-        -moz-transform: rotate(359deg);
-    }
-}
-
-@-o-keyframes o-animation {
-    from {
-        -o-transform: rotate(0deg);
-    }
-    to {
-        -o-transform: rotate(359deg);
-    }
 }
 
 @keyframes normal-animation {

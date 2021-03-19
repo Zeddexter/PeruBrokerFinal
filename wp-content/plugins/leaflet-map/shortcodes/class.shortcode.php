@@ -16,6 +16,9 @@
  */
 abstract class Leaflet_Shortcode
 {
+    /**
+     * @var Leaflet_Map
+     */
     protected $LM;
 
     /**
@@ -39,10 +42,10 @@ abstract class Leaflet_Shortcode
     /**
      * Instantiate class and get HTML for shortcode
      *
-     * @param array  $atts    string|array
-     * @param string $content Optional
+     * @param array|string|null $atts    string|array
+     * @param string|null       $content Optional
      * 
-     * @return string (see above)
+     * @return string HTML
      */
     public static function shortcode($atts = '', $content = null)
     {
@@ -63,11 +66,19 @@ abstract class Leaflet_Shortcode
                     !!$v
                 ) {
                     // false if starts with !, else true
-                    if ($v[0] == '!') {
-                        $atts[substr($v, 1)] = 0;
+                    if ($v[0] === '!') {
+                        $k = substr($v, 1);
+                        $v = 0;
                     } else {
-                        $atts[$v] = 1;
+                        $k = $v;
+                        $v = 1;
                     }
+                    $atts[$k] = $v;
+                }
+                // change hyphens to underscores for `extract()`
+                if (strpos($k, '-')) {
+                    $k = str_replace('-', '_', $k);
+                    $atts[$k] = $v;
                 }
             }
         }

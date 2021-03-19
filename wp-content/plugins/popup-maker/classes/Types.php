@@ -31,7 +31,7 @@ class PUM_Types {
 				'exclude_from_search' => true,
 				'show_in_nav_menus'   => false,
 				'show_ui'             => true,
-				'menu_icon'           => POPMAKE_URL . '/assets/images/admin/dashboard-icon.png',
+				'menu_icon'           => pum_get_svg_icon( true ),
 				'menu_position'       => 20.292892729,
 				'supports'            => apply_filters( 'popmake_popup_supports', array(
 					'title',
@@ -84,8 +84,8 @@ class PUM_Types {
 		$labels = apply_filters( 'popmake_popup_labels', array(
 			'name'               => '%2$s',
 			'singular_name'      => '%1$s',
-			'add_new_item'       => _x( 'Add New %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
-			'add_new'            => _x( 'Add %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
+			'add_new_item'       => _x( 'Create New %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
+			'add_new'            => _x( 'Create %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
 			'edit_item'          => _x( 'Edit %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
 			'new_item'           => _x( 'New %1$s', 'Post Type Singular: "Popup", "Popup Theme"', 'popup-maker' ),
 			'all_items'          => _x( 'All %2$s', 'Post Type Plural: "Popups", "Popup Themes"', 'popup-maker' ),
