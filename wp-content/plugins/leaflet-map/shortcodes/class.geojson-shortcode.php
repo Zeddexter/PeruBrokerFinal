@@ -40,7 +40,7 @@ class Leaflet_Geojson_Shortcode extends Leaflet_Shortcode
      * Get Script for Shortcode
      * 
      * @param string $atts    could be an array
-     * @param string $content could be an array
+     * @param string $content
      * 
      * @return string HTML
      */
@@ -69,6 +69,7 @@ class Leaflet_Geojson_Shortcode extends Leaflet_Shortcode
         $style_json = $this->LM->get_style_json($atts);
 
         $fitbounds = empty($fitbounds) ? 0 : $fitbounds;
+        $circleMarker = empty($circleMarker) ? 0 : $circleMarker;
 
         // shortcode content becomes popup text
         $content_text = empty($content) ? '' : $content;
@@ -80,6 +81,8 @@ class Leaflet_Geojson_Shortcode extends Leaflet_Shortcode
         $popup_property = empty($popup_property) ? '' : $popup_property;
 
         $popup_text = trim($popup_text);
+
+        $table_view = filter_var(empty($table_view) ? 0 : $table_view, FILTER_VALIDATE_INT);
 
         ob_start();
         ?>
@@ -99,8 +102,10 @@ class Leaflet_Geojson_Shortcode extends Leaflet_Shortcode
                         type: '<?php echo $class::$type; ?>',
                         style : layerStyle,
                         onEachFeature : onEachFeature,
+                        pointToLayer: pointToLayer
                     }),
                     fitbounds = <?php echo $fitbounds; ?>,
+                    circleMarker = <?php echo $circleMarker; ?>,
                     popup_text = window.WPLeafletMapPlugin.unescape('<?php echo $popup_text; ?>'),
                     popup_property = '<?php echo $popup_property; ?>',
                     group = window.WPLeafletMapPlugin.getCurrentGroup();   
@@ -129,19 +134,31 @@ class Leaflet_Geojson_Shortcode extends Leaflet_Shortcode
                     }
                     style = L.Util.extend(style, default_style);
                     return style;
-                }      
+                }
                 function onEachFeature (feature, layer) {
                     var props = feature.properties || {};
-                    var text = popup_property
-                        ? props[ popup_property ]
-                        : window.WPLeafletMapPlugin.template(
-                            popup_text, 
-                            feature.properties
-                        );
+                    var text;
+                    if (<?php echo $table_view; ?>) {
+                        text = window.WPLeafletMapPlugin.propsToTable(props);
+                    } else {
+                        text = popup_property
+                            ? props[ popup_property ]
+                            : window.WPLeafletMapPlugin.template(
+                                popup_text, 
+                                feature.properties
+                            );
+                    }
                     if (text) {
                         layer.bindPopup( text );
                     }
-                }  
+                }
+                function pointToLayer (feature, latlng) {
+                    if (circleMarker) {
+                        return L.circleMarker(latlng);
+                    } else {
+                        return L.marker(latlng);
+                    }
+                }
             });
         </script>
         <?php

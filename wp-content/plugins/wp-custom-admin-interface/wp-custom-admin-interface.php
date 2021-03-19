@@ -4,12 +4,12 @@
 *		Plugin Name: WP Custom Admin Interface
 *		Plugin URI: https://www.northernbeacheswebsites.com.au
 *		Description: Customise the WordPress admin and login interfaces and customize the WordPress dashboard menu.  
-*		Version: 7.15
+*		Version: 7.24
 *		Author: Martin Gibson
 *		Developer: Northern Beaches Websites
 *		Developer URI:  https://www.northernbeacheswebsites.com.au
 *		Text Domain: wp-custom-admin-interface 
-*       Copyright: ©2019 Northern Beaches Websites.
+*       Copyright: ©2020 Northern Beaches Websites.
 *		Support: https://www.northernbeacheswebsites.com.au/contact
 *		Licence: GNU General Public License v3.0
 *       License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -127,7 +127,7 @@ function wp_custom_admin_interface_settings_page_content ($submenu) {
 
                 <p><h3><?php _e( 'A Message from the Developer', 'wp-custom-admin-interface' ); ?></h3><p><?php _e('Hi there! Thanks for using my plugin. I wrote this plugin because at the moment I use a few different little plugins to customise the admin interface and I thought it would be great to put it all into one and make things easy to use. I appreciate that customising the WordPress admin is a bit of a pandora\'s box as everyone has their own way they like to do things! If you like the plugin please consider rating it', 'wp-custom-admin-interface' ); ?> <a href="https://wordpress.org/support/plugin/wp-custom-admin-interface/reviews/?rate=5#new-post" target="_blank"><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></a>'s.</p>
 
-                <p><strong><?php _e( 'Want to customise the WordPress admin interface more. Check out <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a> to create multiple menus, toolbars, notices, admin/frontend code, dashboard widgets, hidden plugins, hidden metaboxes, hidden sidebars and hidden users and much more! Learn more <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">here</a>.', 'wp-custom-admin-interface' ); ?></strong></p>
+                <p><strong><?php // _e( 'Want to customise the WordPress admin interface more. Check out <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">Custom Admin Interface Pro</a> to create multiple menus, toolbars, notices, admin/frontend code, dashboard widgets, hidden plugins, hidden metaboxes, hidden sidebars and hidden users and much more! Learn more <a href="https://northernbeacheswebsites.com.au/custom-admin-interface-pro/">here</a>.', 'wp-custom-admin-interface' ); ?></strong></p>
 
             </div>
 
@@ -234,98 +234,86 @@ function wp_custom_admin_interface_settings_link( $links ) {
 }
 $plugin = plugin_basename( __FILE__ );
 add_filter( "plugin_action_links_$plugin", 'wp_custom_admin_interface_settings_link' );
+
 /**
 * 
 *
 *
 * Function to check whether the current user should be subjected to the custom admin menu
 */
-function wp_custom_admin_interface_admin_menu_exception_check($transientDefiner,$exceptionType,$exceptionCases)
-{
+function wp_custom_admin_interface_admin_menu_exception_check($transientDefiner,$exception_type,$exceptions){
     
     //current user
-    $currentUser = wp_get_current_user();
+    $current_user = wp_get_current_user();
     //current user ID
-    $currentUserId = $currentUser->ID;   
-    //create transient name    
-    $transientName = 'wpcai_'.$transientDefiner.'_'.$currentUserId;
-    //get transient
-    $getTransient = get_transient($transientName);   
+    $current_user_id = $current_user->ID;   
 
-    //if transient exists return this value otherwise do the check and create the transient
-    if($getTransient != false){
+    //get key variables
+    $current_user_roles = $current_user->roles; 
+    $current_user_roles = array_values($current_user_roles);
+    
+    //create an array from exception cases
+    $removeLastCharacterFromexceptionCases = substr($exceptions,0,-1);
 
-        return $getTransient;
+    //make array all lowercase
+    $removeLastCharacterFromexceptionCases = strtolower($removeLastCharacterFromexceptionCases);
 
-    } else {
+    //remove spaces
+    $removeLastCharacterFromexceptionCases = str_replace(' ', '_', $removeLastCharacterFromexceptionCases);
 
-        //get current user role    
-        $currentUserRole = strtoupper($currentUser->roles[0]); 
-        
-        $removeLastCharacterFromexceptionCases = substr($exceptionCases,0,-1);
-        //create an array from exception cases
-        $exceptionCasesArray = explode(",",$removeLastCharacterFromexceptionCases); 
+    $exceptions_array = explode(',',$removeLastCharacterFromexceptionCases);
+    
+    //start running through the exception rules    
+    if($exception_type == "Everyone"){
+        //here we are taking them away
+        $score = 1; 
 
-        //start running through the exception rules    
-        if($exceptionType == "Everyone"){
-            //here we are taking them away
-            $score = 1;  
-            foreach($exceptionCasesArray as $value){
+        foreach($exceptions_array as $value){
 
-                //now we need to check whether the value is an integer
-                if(is_numeric($value)) {
-                    //so the value is an integer which means we need to check against the user id    
-                    if($value == $currentUserId){
-                        $score--;      
-                    }
-                } else {
-                    //so the value isn't an integer which means we need to check against the user role
-                    $valueUpper = strtoupper($value);
-
-                    if($valueUpper == $currentUserRole){
-                        $score--;      
-                    } 
+            //now we need to check whether the value is an integer
+            if(is_numeric($value)) {
+                //so the value is an integer which means we need to check against the user id    
+                if($value == $current_user_id){
+                    $score--;      
                 }
-            }  
-
-
-        } else {
-            //here we are adding values
-            $score = 0;
-            foreach($exceptionCasesArray as $value){
-
-                //now we need to check whether the value is an integer
-                if(is_numeric($value)) {
-                    //so the value is an integer which means we need to check against the user id    
-                    if($value == $currentUserId){
-                        $score++;      
-                    }
-                } else {
-                    //so the value isn't an integer which means we need to check against the user role
-                    $valueUpper = strtoupper($value);
-
-                    if($valueUpper == $currentUserRole){
-                        $score++;      
-                    } 
-                }
+            } else {
+                //so the value isn't an integer which means we need to check against the user role
+                if(in_array($value,$current_user_roles)){
+                    $score--;      
+                } 
             }
+        }  
+    } else {
+        //here we are adding values
+        $score = 0;
+        foreach($exceptions_array as $value){
 
-        } 
+            //now we need to check whether the value is an integer
+            if(is_numeric($value)) {
+                //so the value is an integer which means we need to check against the user id    
+                if($value == $current_user_id){
+                    $score++;      
+                }
+            } else {
+                //so the value isn't an integer which means we need to check against the user role
+                if(in_array($value,$current_user_roles)){
+                    $score++;      
+                } 
+            }
+        }
 
-        if($score < 1){
-            //the menu wouldn't show for you
-            //set transient and return value
-            set_transient($transientName,false,0);
-            return false;    
-        } else {
-            //the menu would show for you
-            //set transient and return value
-            set_transient($transientName,true,0);
-            return true;     
-        }    
-    }
+    } 
 
-              
+    if($score < 1){
+        //the menu wouldn't show for you
+        //set transient and return value
+        return false;    
+    } else {
+        //the menu would show for you
+        //set transient and return value
+        return true;     
+    }  
+          
 }
 /**
 * 
@@ -770,8 +758,14 @@ function wp_custom_admin_interface_import_settings() {
     //get user input
     $settings = stripslashes($_POST['settings']); 
     
+    //we need to check whether the person is using the new or old export code
+    if (strpos($settings, ':') !== false) {
+        $extractedSettings = unserialize($settings);
+    } else {
+        $extractedSettings = unserialize(base64_decode($settings));
+    }
 
-    $extractedSettings = unserialize($settings);
+    
 
     foreach ($extractedSettings as $key => $value) {
 
@@ -824,7 +818,7 @@ function wp_custom_admin_interface_export_settings() {
     
     
     
-    $selectedOptionsEncoded = serialize($optionsOutput);
+    $selectedOptionsEncoded = base64_encode(serialize($optionsOutput));
     
     echo $selectedOptionsEncoded; 
     
@@ -2023,6 +2017,11 @@ function wp_custom_admin_interface_all_toolbar_nodes( $wp_admin_bar ) {
                         'group' => $item->group,
                         'meta'  => $item->meta
                     );
+
+                    if($item->id == 'logout'){
+                        $args['href'] = wp_login_url().'?action=logout&_wpnonce='. wp_create_nonce( 'log-out' );
+                    }
+
                     $wp_admin_bar->add_node( $args );     
                 }
                 
@@ -2222,7 +2221,7 @@ function wp_custom_admin_interface_custom_frontend_css() {
     
     if(isset($options['wp_custom_admin_interface_deactivate_frontend_code'])){} else {
         
-        if(strlen($options['wp_custom_admin_interface_custom_frontend_css_code'])>0){  
+        if(isset($options['wp_custom_admin_interface_custom_frontend_css_code']) && strlen($options['wp_custom_admin_interface_custom_frontend_css_code'])>0){  
             
             wp_enqueue_style( 'custom-frontend-style', plugins_url( '/inc/frontendstyle.css', __FILE__ ),array(),wp_custom_admin_interface_get_version() );    
             wp_add_inline_style( 'custom-frontend-style', $options['wp_custom_admin_interface_custom_frontend_css_code'] ); 
@@ -2230,7 +2229,7 @@ function wp_custom_admin_interface_custom_frontend_css() {
         }
         
         
-        if(strlen($options['wp_custom_admin_interface_custom_frontend_javascript_code'])>0){
+        if(isset($options['wp_custom_admin_interface_custom_frontend_javascript_code']) && strlen($options['wp_custom_admin_interface_custom_frontend_javascript_code'])>0){
             wp_enqueue_script( 'custom-frontend-script', plugins_url( '/inc/frontendscript.js', __FILE__ ), array( 'jquery'),wp_custom_admin_interface_get_version());
             
             $custom_code = "jQuery(document).ready(function ($) {

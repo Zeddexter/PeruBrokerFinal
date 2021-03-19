@@ -3,7 +3,7 @@ Contributors: yasirkhalifa
 Tags: User, Role, Redirection, Admin Bar
 Donate link: https://myasark.wordpress.com/
 Requires at least: 4
-Tested up to: 5.2.1
+Tested up to: 5.6
 License: GPLv2
 
 Redirect users to specific page after login, based on their the role and also option for hide adminbar and restrict dashboard access.
@@ -30,3 +30,7 @@ User redirect to his desire page after login logout. And also hide admin bar for
 == Changelog ==
 = 1.2 =
 * Remove Css Conflict
+
+== Changelog ==
+= 1.3 =
+* Minor Bug fix

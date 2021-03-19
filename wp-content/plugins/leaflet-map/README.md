@@ -1,7 +1,7 @@
 # Leaflet Map WordPress Plugin
 
-![Leaflet](https://img.shields.io/badge/leaflet-1.5.1-green.svg?style=flat)
-![WordPress](https://img.shields.io/badge/wordpress-5.2.2-green.svg?style=flat)
+![Leaflet](https://img.shields.io/badge/leaflet-1.7.1-green.svg?style=flat)
+![WordPress](https://img.shields.io/badge/wordpress-5.5.1-green.svg?style=flat)
 
 ![Header Image](https://ps.w.org/leaflet-map/assets/banner-1544x500.png?rev=1693083)
 
@@ -11,19 +11,36 @@ Add a map generated with [LeafletJS](http://leafletjs.com/): an open-source Java
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [General Usage](#general-usage)
-- [Developing](#developing)
-- [Available Shortcodes](#available-shortcodes)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Contributing](#contributing)
-- [Wish List](#wish-list)
+- [Leaflet Map WordPress Plugin](#leaflet-map-wordpress-plugin)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [General Usage](#general-usage)
+  - [Developing](#developing)
+  - [Available Shortcodes](#available-shortcodes)
+    - [[leaflet-map]](#leaflet-map)
+      - [[leaflet-map] Options:](#leaflet-map-options)
+    - [[leaflet-image]](#leaflet-image)
+      - [[leaflet-image] Options:](#leaflet-image-options)
+    - [[leaflet-marker]](#leaflet-marker)
+      - [[leaflet-marker] Options:](#leaflet-marker-options)
+    - [[leaflet-line]](#leaflet-line)
+      - [[leaflet-line] Options](#leaflet-line-options)
+    - [[leaflet-polygon]](#leaflet-polygon)
+    - [[leaflet-circle]](#leaflet-circle)
+      - [[leaflet-circle] Options](#leaflet-circle-options)
+    - [[leaflet-geojson]](#leaflet-geojson)
+      - [[leaflet-geojson] Options](#leaflet-geojson-options)
+    - [[leaflet-kml]](#leaflet-kml)
+    - [[leaflet-gpx]](#leaflet-gpx)
+    - [[leaflet-scale]](#leaflet-scale)
+  - [Frequently Asked Questions](#frequently-asked-questions)
+    - [How Can I Add another Leaflet Plugin?](#how-can-i-add-another-leaflet-plugin)
+  - [Contributing](#contributing)
+  - [Wish List](#wish-list)
 
 ## Installation
 
-- (simple) Install via the WordPress plugins page on your WordPress site: `/wp-admin/plugin-install.php` (search Leaflet)
-
-- (needlessly complicated) Copy this repo (or download a release of it) into your WordPress plugins directory: `/wp-content/plugins/`. You might also need to name the directory 'leaflet-map', like so: `git clone https://github.com/bozdoz/wp-plugin-leaflet-map.git leaflet-map`
+- Install via the WordPress plugins page on your WordPress site: `/wp-admin/plugin-install.php` (search Leaflet)
 
 ## General Usage
 
@@ -48,21 +65,14 @@ You can have SVG markers, add shapes, geojson, kml, images, and more! See availa
 This plugin uses Docker for development. Simply:
 
 1. [install Docker](https://www.docker.com/get-started)
-1. fork/clone the repo, and 
+1. fork/clone the repo, and
 1. execute this command from the repo's root directory in your terminal:
 
 ```bash
 docker-compose up
 ```
 
-You should also have node and NPM installed if you want to edit JavaScript files, and need to minify them:
-
-```bash
-npm install
-npm run minify
-```
-
-You can also use these NPM scripts to interact with Docker, if you make changes to Docker-related files:
+You can also use NPM scripts to interact with Docker, if you make changes to Docker-related files:
 
 To start:
 
@@ -98,26 +108,35 @@ However, you can also just give it an address, and the chosen geocoder (default:
 
 #### [leaflet-map] Options:
 
-| Option                       | Default                 |
-| ---------------------------- | ----------------------- |
-| `lat` and `lng` or `address` | lat: 44.67, lng: -63.61 |
-| `zoom`                       | 12                      |
-| `height`                     | 250                     |
-| `width`                      | 100%                    |
-| `fitbounds`                  | 0 (false)               |
-| `zoomcontrol`                | 0 (false)               |
-| `scrollwheel`                | 0 (false)               |
-| `doubleclickzoom`            | 0 (false)               |
-| `min_zoom`                   | 0                       |
-| `max_zoom`                   | 20                      |
-| `subdomains`                 | abc                     |
-| `attribution`                | ©Leaflet ©OpenStreetMap |
-| `closepopuponclick`          | false                   |
-| `trackresize`                | false                   |
-| `boxZoom`                    | true                    |
-| `dragging`                   | true                    |
-| `keyboard`                   | true                    |
-| `maxbounds`                  | null                    |
+| Option                       | Default                                              |
+| ---------------------------- | ---------------------------------------------------- |
+| `lat` and `lng` or `address` | lat: 44.67, lng: -63.61                              |
+| `zoom`                       | 12                                                   |
+| `height`                     | 250                                                  |
+| `width`                      | 100%                                                 |
+| `fitbounds`                  | 0 (false)                                            |
+| `zoomcontrol`                | 0 (false)                                            |
+| `scrollwheel`                | 0 (false)                                            |
+| `doubleclickzoom`            | 0 (false)                                            |
+| `min_zoom`                   | 0                                                    |
+| `max_zoom`                   | 20                                                   |
+| `subdomains`                 | abc                                                  |
+| `attribution`                | ©Leaflet ©OpenStreetMap                              |
+| `closepopuponclick`          | false                                                |
+| `trackresize`                | false                                                |
+| `boxZoom`                    | true                                                 |
+| `dragging`                   | true                                                 |
+| `keyboard`                   | true                                                 |
+| `maxbounds`                  | null                                                 |
+| `detect-retina`              | 0 (false)                                            |
+| `tileurl`                    | 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' |
+| `subdomains`                 | 'abc'                                                |
+| `tap`                        | true                                                 |
+| `tilesize`                   | 256                                                  |
+| `mapid`                      | null                                                 |
+| `accesstoken`                | null                                                 |
+| `zoomoffset`                 | 0                                                    |
+| `nowrap`                     | false                                                |
 
 ---
 
@@ -208,7 +227,7 @@ And the following Shape Options. See https://leafletjs.com/reference-1.3.4.html#
 
 ### [leaflet-polygon]
 
-Virtually the same as [leaflet-line] (above)
+Virtually the same as [leaflet-line](above)
 
 ---
 
@@ -242,16 +261,19 @@ Or you can add a geojson shape via a url:
 
 #### [leaflet-geojson] Options
 
-| Option           | Usage                      |
-| ---------------- | -------------------------- |
-| `src`            | Source of the geojson file |
-| `popup_text`     | Text for any popups when shapes are clicked |
-| `popup_property` | Name of the geojson property that contains popup content |
+| Option           | Usage                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| `src`            | Source of the geojson file                                                                       |
+| `popup_text`     | Text for any popups when shapes are clicked                                                      |
+| `popup_property` | Name of the geojson property that contains popup content                                         |
 | `fitbounds`      | Fit the map to the bounds of all shapes (instead of whatever center you gave the map originally) |
+| `circleMarker`   | Display circles instead of markers. Vastly improves performance on maps with a lot of points.    |
+| `radius`         | Radius of the circles, when `circleMarkers` is set                                               |
+| `table-view`     | Show all properties on each feature when clicked                                                 |
 
-Includes all style options: See https://leafletjs.com/reference-1.3.4.html#path.  Also, if you want to add feature
+Includes all style options: See https://leafletjs.com/reference-1.3.4.html#path. Also, if you want to add feature
 properties to the popups, use the inner content and curly brackets to substitute the values:
-`[leaflet-marker]Field A = {field_a}[/leaflet-marker]`.
+`[leaflet-geojson]Field A = {field_a}[/leaflet-geojson]`.
 
 ### [leaflet-kml]
 
@@ -260,6 +282,18 @@ Same idea as geojson (above), but takes KML files and loads [Mapbox's togeojson 
 ### [leaflet-gpx]
 
 Same idea as geojson and KML (above), but takes GPX files and also loads [Mapbox's togeojson library](https://github.com/mapbox/togeojson)
+
+### [leaflet-scale]
+
+Can be added after any map, or enabled for all maps in the admin. If you want to extend it, you can extend window.WPLeafletMapPlugin.createScale with custom JavaScript.
+
+| Option           | Default   |
+| ---------------- | --------- |
+| `maxWidth`       | 100       |
+| `metric`         | 1 (true)  |
+| `imperial`       | 1 (true)  |
+| `updateWhenIdle` | 0 (false) |
+| `position`       | topright  |
 
 ## Frequently Asked Questions
 
@@ -285,24 +319,26 @@ function fs_leaflet_loaded() {
 /js/full-screen.js
 
 ```js
-function main() {
-  if (!window.WPLeafletMapPlugin) {
-    console.log('no plugin found!')
-    return
+(function () {
+  function main() {
+    if (!window.WPLeafletMapPlugin) {
+      console.log('no plugin found!');
+      return;
+    }
+
+    // iterate any of these: `maps`, `markers`, `markergroups`, `lines`, `circles`, `geojsons`
+    var maps = window.WPLeafletMapPlugin.maps;
+
+    for (var i = 0, len = maps.length; i < len; i++) {
+      var map = maps[i];
+      map.whenReady(function () {
+        this.addControl(new L.Control.Fullscreen());
+      });
+    }
   }
 
-  // iterate any of these: `maps`, `markers`, `markergroups`, `lines`, `circles`, `geojsons`
-  var maps = window.WPLeafletMapPlugin.maps
-
-  for (var i = 0, len = maps.length; i < len; i++) {
-    var map = maps[i]
-    map.whenReady(function() {
-      this.addControl(new L.Control.Fullscreen())
-    })
-  }
-}
-
-window.addEventListener('load', main)
+  window.addEventListener('load', main);
+})();
 ```
 
 ## Contributing

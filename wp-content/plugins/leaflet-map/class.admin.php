@@ -81,7 +81,7 @@ class Leaflet_Map_Admin
         }
 
         add_menu_page("Leaflet Map", "Leaflet Map", $author, $main_link, $main_page, $leaf);
-        add_submenu_page("leaflet-map", "Default Values", "Default Values", $admin, "leaflet-map", array($this, "settings_page"));
+        add_submenu_page("leaflet-map", "Settings", "Settings", $admin, "leaflet-map", array($this, "settings_page"));
         add_submenu_page("leaflet-map", "Shortcode Helper", "Shortcode Helper", $author, "leaflet-shortcode-helper", array($this, "shortcode_page"));
     }
 
@@ -103,7 +103,14 @@ class Leaflet_Map_Admin
     public function shortcode_page()
     {
         wp_enqueue_style('leaflet_admin_stylesheet');
-        wp_enqueue_script('custom_plugin_js', plugins_url('scripts/shortcode-helper.min.js', LEAFLET_MAP__PLUGIN_FILE), Array('leaflet_js'), false);
+        
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            $minified = '';
+        } else {
+            $minified = '.min';
+        }
+
+        wp_enqueue_script('custom_plugin_js', plugins_url(sprintf('scripts/shortcode-helper%s.js', $minified), LEAFLET_MAP__PLUGIN_FILE), Array('leaflet_js'), false);
 
         include 'templates/shortcode-helper.php';
     }

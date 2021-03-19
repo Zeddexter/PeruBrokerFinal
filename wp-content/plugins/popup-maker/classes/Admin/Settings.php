@@ -45,7 +45,7 @@ class PUM_Admin_Settings {
 
 		if ( ! empty( self::$notices ) ) {
 			foreach ( self::$notices as $notice ) { ?>
-				<div class="notice notice-<?php esc_attr_e( $notice['type'] ); ?> is-dismissible">
+				<div class="notice notice-<?php echo esc_attr( $notice['type'] ); ?> is-dismissible">
 					<p><strong><?php esc_html_e( $notice['message'] ); ?></strong></p>
 					<button type="button" class="notice-dismiss">
 						<span class="screen-reader-text"><?php _e( 'Dismiss this notice.', 'popup-maker' ); ?></span>
@@ -244,14 +244,24 @@ class PUM_Admin_Settings {
 							'std'          => pum_get_default_theme_id(),
 						),
 						'gutenberg_support_enabled' => array(
-							'label' => __( 'Enable Gutenberg Support', 'popup-maker' ),
-							'desc'  => __( 'Enable experimental Gutenberg support for the popup editor.', 'popup-maker' ),
+							'label' => __( 'Enable Block Editor Support', 'popup-maker' ),
+							'desc'  => __( 'Enable experimental support for using the block editor to edit popups.', 'popup-maker' ),
 							'type'  => 'checkbox',
 						),
 						'google_fonts_api_key'      => array(
 							'type'  => 'text',
-							'label' => __( 'Google Fonts API Key', 'popup-maker' ),
+							'label' => __( 'Google Fonts API Key *optional', 'popup-maker' ),
 							'desc'  => __( 'Enter your own Google Fonts API key to always get the latest fonts available.', 'popup-maker' ),
+						),
+						'telemetry'      => array(
+							'type'  => 'checkbox',
+							'label' => __( 'Allow usage tracking?', 'popup-maker' ),
+							'desc'  => sprintf(
+								/* translators: 1 & 2 are opening and closing HTML of the link around "Learn more" */
+								esc_html__( 'Allow data sharing so that we can receive a little information on how it is used and help us make this plugin better? No user data is sent to our servers. No sensitive data is tracked. %1$sLearn more%2$s', 'popup-maker' ),
+								' <a target="_blank" rel="noreferrer noopener"  href="https://docs.wppopupmaker.com/article/528-the-data-the-popup-maker-plugin-collects?utm_campaign=contextual-help&utm_medium=inline-doclink&utm_source=settings-page&utm_content=telemetry-setting">',
+								'</a>'
+							),
 						),
 					),
 				),
@@ -419,12 +429,12 @@ class PUM_Admin_Settings {
 							'type'  => 'checkbox',
 						),
 						'adblock_bypass_url_method'            => array(
-							'label'        => __( 'Ad blocker: File Name Method', 'popup-maker' ),
-							'desc'         => __( 'This will help generate unique filenames for our JavaScript bypassing most ad blockers.', 'popup-maker' ),
+							'label'        => __( 'Ad blocker: Naming method', 'popup-maker' ),
+							'desc'         => __( 'This will help generate unique names for our JavaScript files and the analytics routes.', 'popup-maker' ),
 							'type'         => 'select',
 							'options'      => array(
-								'random' => __( 'Random File Names', 'popup-maker' ),
-								'custom' => __( 'Custom File Names', 'popup-maker' ),
+								'random' => __( 'Randomize Names', 'popup-maker' ),
+								'custom' => __( 'Custom Names', 'popup-maker' ),
 							),
 							'std'          => 'random',
 							'dependencies' => array(
@@ -434,12 +444,31 @@ class PUM_Admin_Settings {
 						'adblock_bypass_custom_filename'       => array(
 							'type'         => 'text',
 							'placeholder'  => 'my-awesome-popups',
-							'label'        => __( 'Ad blocker: Custom File Name', 'popup-maker' ),
-							'desc'         => __( 'A custom & recognizable file name to use for our assets.', 'popup-maker' ),
+							'label'        => __( 'Ad blocker: Custom Name', 'popup-maker' ),
+							'desc'         => __( 'A custom & recognizable name to use for our assets.', 'popup-maker' ),
 							'dependencies' => array(
 								'bypass_adblockers'         => true,
 								'adblock_bypass_url_method' => 'custom',
 							),
+						),
+						'adjust_body_padding'   => array(
+							'type'  => 'checkbox',
+							'label' => __( 'Adjust the right padding added to the body when popups are shown with an overlay.', 'popup-maker' ),
+							'desc'  => sprintf(
+								/* translators: 1 & 2 are opening and closing HTML of the link around "Learn more" */
+								esc_html__( 'Use this if your popups "jump" or "shift" when opened. %1$sLearn more%2$s', 'popup-maker' ),
+								'<a target="_blank" rel="noreferrer noopener" href="https://docs.wppopupmaker.com/article/314-why-does-my-site-shift-jump-or-skip-when-a-popup-is-triggered?utm_campaign=contextual-help&utm_medium=inline-doclink&utm_source=settings-page&utm_content=adjust-right-padding">',
+								'</a>'
+							),
+						),
+						'body_padding_override' => array(
+							'type'         => 'text',
+							'placeholder'  => '15px',
+							'label'        => __( 'Body Padding Override', 'popup-maker' ),
+							'dependencies' => array(
+								'adjust_body_padding' => true,
+							),
+							'std'          => '15px',
 						),
 						'disabled_admin_bar'                   => array(
 							'type'  => 'checkbox',
@@ -470,17 +499,21 @@ class PUM_Admin_Settings {
 							'type'  => 'checkbox',
 							'label' => __( 'Disable the Popup Maker shortcode button', 'popup-maker' ),
 						),
+						'disable_tips'                 => array(
+							'type'  => 'checkbox',
+							'label' => __( 'Disable Popup Maker occasionally showing random tips to improve your popups.', 'popup-maker' ),
+						),
 						'complete_uninstall'                   => array(
 							'type'     => 'checkbox',
-							'label'    => __( 'Complete Uninstall?', 'popup-maker' ),
-							'desc'     => __( 'Check this to completely uninstall all Popup Maker data on deactivation.', 'popup-maker' ),
+							'label'    => __( 'Delete all Popup Maker data on deactivation', 'popup-maker' ),
+							'desc'     => __( 'Check this to completely uninstall Popup Maker.', 'popup-maker' ),
 							'priority' => 1000,
 						),
 					),
 					'assets' => array(
 						'disable_google_font_loading'     => array(
 							'type'  => 'checkbox',
-							'label' => __( "'Don't Load Google Fonts", 'popup-maker' ),
+							'label' => __( "Don't Load Google Fonts", 'popup-maker' ),
 							'desc'  => __( 'Check this disable loading of google fonts, useful if the fonts you chose are already loaded with your theme.', 'popup-maker' ),
 						),
 						'disable_popup_maker_core_styles' => array(
@@ -517,7 +550,7 @@ class PUM_Admin_Settings {
 	 * @return string
 	 */
 	public static function field_pum_styles() {
-		$core_styles = file_get_contents( Popup_Maker::$DIR . 'assets/css/site' . PUM_Site_Assets::$suffix . '.css' );
+		$core_styles = file_get_contents( Popup_Maker::$DIR . 'assets/css/pum-site' . (is_rtl() ? '-rtl' : '') . PUM_Site_Assets::$suffix . '.css' );
 
 		$user_styles = PUM_AssetCache::generate_font_imports() . PUM_AssetCache::generate_popup_theme_styles() . PUM_AssetCache::generate_popup_styles();
 
@@ -577,11 +610,7 @@ class PUM_Admin_Settings {
 			<form id="pum-settings" method="post" action="">
 
 				<?php wp_nonce_field( basename( __FILE__ ), 'pum_settings_nonce' ); ?>
-
-				<button class="right top button-primary"><?php _e( 'Save', 'popup-maker' ); ?></button>
-
 				<h1><?php _e( 'Popup Maker Settings', 'popup-maker' ); ?></h1>
-
 				<div id="pum-settings-container" class="pum-settings-container">
 					<div class="pum-no-js" style="padding: 0 12px;">
 						<p><?php printf( __( 'If you are seeing this, the page is still loading or there are Javascript errors on this page. %sView troubleshooting guide%s', 'popup-maker' ), '<a href="https://docs.wppopupmaker.com/article/373-checking-for-javascript-errors" target="_blank">', '</a>' ); ?></p>
@@ -589,7 +618,7 @@ class PUM_Admin_Settings {
 				</div>
 
 				<script type="text/javascript">
-                    window.pum_settings_editor = <?php echo PUM_Utils_Array::safe_json_encode( apply_filters( 'pum_settings_editor_args', array(
+					window.pum_settings_editor = <?php echo PUM_Utils_Array::safe_json_encode( apply_filters( 'pum_settings_editor_args', array(
 						'form_args'      => array(
 							'id'       => 'pum-settings',
 							'tabs'     => self::tabs(),
@@ -607,7 +636,7 @@ class PUM_Admin_Settings {
 					) ) ); ?>;
 				</script>
 
-				<button class="button-primary bottom right"><?php _e( 'Save', 'popup-maker' ); ?></button>
+				<button class="button-primary bottom" style="margin-left: 156px;"><?php _e( 'Save', 'popup-maker' ); ?></button>
 
 			</form>
 
@@ -788,7 +817,7 @@ class PUM_Admin_Settings {
 					try {
 						$value = json_decode( stripslashes( $value ) );
 					} catch ( Exception $e ) {
-					};
+					}
 				}
 
 				$meta[ $key ] = PUM_Admin_Helpers::object_to_array( $value );
