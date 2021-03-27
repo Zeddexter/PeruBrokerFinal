@@ -1,6 +1,6 @@
 <?php 
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerfinal/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerfinal/wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubroker/perubrokerfinal/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubroker/perubrokerfinal/wp-includes/wp-db.php' );
 
 $idioma = $_POST['idioma'];
 $html = "";

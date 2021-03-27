@@ -1,6 +1,6 @@
 <?php 
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubrokerfinal/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubrokerfinal/wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'/perubroker/perubrokerfinal/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/perubroker/perubrokerfinal/wp-includes/wp-db.php' );
 
 $idioma = $_POST['idioma'];
 $tipo_reporte = $_POST['tiporeporte'];
@@ -66,6 +66,7 @@ $html = "";
                                         $html.=  "<a href='".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file']." 
                                         name='link'>Descargar</a>";
                                         echo "console.log(".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file'].")";
+                                        echo "console.log(".esc_url(home_url( '/' )).$registro["files"];
                                     }else {
                                         $html.=  "
                             </form>
