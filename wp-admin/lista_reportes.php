@@ -63,10 +63,9 @@ $html = "";
                                     <td>   
                                     ";
                                     if(isset($registro['files'])){
-                                        $html.=  "<a href='".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file']." 
-                                        name='link'>Descargar</a>";
-                                        echo "console.log(".esc_url( admin_url('download_files.php'))."?files=".$registro["files"]."&route_file=".$registro['route_file'].")";
-                                        echo "console.log(".esc_url(home_url( '/' )).$registro["files"];
+                                        $html.=  "<a href='".WP_CONTENT_URL."/uploaded_files/".$registro["files"]."'". 
+                                        " name='link'>Descargar</a>";
+                                        // echo "console.log(".WP_CONTENT_URL."/uploaded_files/".$registro["files"];
                                     }else {
                                         $html.=  "
                             </form>

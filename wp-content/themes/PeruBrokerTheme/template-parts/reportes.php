@@ -175,7 +175,8 @@
                                             <td>  
                                             <?php if(isset($registro['files'])){
                                                 //echo $registro['files'];
-                                                $url_down = site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
+                                                $url_down = "'".WP_CONTENT_URL."/uploaded_files/".$registro["files"]."'";
+                                               // " name='link'>Descargar</a>"; // site_url()."/wp-admin/download_files.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 $url_down2 = site_url()."/wp-admin/ViewPDF.php?files=".$registro['files']."&route_file=".$registro["route_file"]."";
                                                 $id_cookie
                                                  = '';
@@ -188,7 +189,7 @@
                                                    
                                                 }
                                                 ?>
-                                               <a class="LinkButton" <?php echo  $id; ?> href="<?php echo site_url()."/reportes/".$registro["files"]; ?>">Descargar</a>
+                                               <a class="LinkButton" <?php echo  $id; ?> href=<?php echo $url_down; ?>">Descargar</a>
                                                 <!-- <button id="Ver" <?php // echo $descarga; ?>>Ver PDF</button> -->
                                                    <!-- <button <?php echo  $id; ?>
                                                      style="cursor: pointer;" 
