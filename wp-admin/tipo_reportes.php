@@ -1,6 +1,6 @@
 <?php 
-require_once( $_SERVER['DOCUMENT_ROOT'] .'wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . 'wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/0wp-includes/wp-db.php' );
 
 $idioma = $_POST['idioma'];
 $html = "";
