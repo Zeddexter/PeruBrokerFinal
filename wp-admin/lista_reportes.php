@@ -1,6 +1,6 @@
 <?php 
-require_once( $_SERVER['DOCUMENT_ROOT'] .'/wp-config.php' );
-require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] .'wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . 'wp-includes/wp-db.php' );
 
 $idioma = $_POST['idioma'];
 $tipo_reporte = $_POST['tiporeporte'];
@@ -49,6 +49,7 @@ $html = "";
                                 <th class='manage-column'>adjunto</th>
                                 <th class='manage-column'></th>
                                 <th class='manage-columgit pn'></th>
+                                <th class='manage-columgit pn'></th>
                             </tr>
                             </thead>
                             <tbody > ";
@@ -78,9 +79,11 @@ $html = "";
                                     </form>
                                     ";
                                 } 
+                                //                   <td><a href=". esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_nuevos_registros&id=".$registro['id']."><span class='fa fa-trash'></span>Editar</a></td>  
                                 $html.="
                                </td>
-                               <td><a href=". esc_url(home_url( '/' ))."wp-admin/admin.php?page=rp_nuevos_registros&id=".$registro['id']."><span class='fa fa-trash'></span>Editar</a></td>                             
+            
+                               <td><a href=". esc_url(home_url( '/' ))."wp-admin/eliminar_reporte.php?files=".$registro['files']."&codigo=".$registro['id']."><span class='fa fa-trash'></span>Eliminar</a></td>                           
                                 </tr>";
                             }           
                             $html.= "</tbody>

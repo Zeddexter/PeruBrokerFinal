@@ -188,16 +188,20 @@ $(document).ready(function(){
   // }
 }
  function rp_nuevos_registros(){
+  global  $idioma;
   //$idioma =0;
-  if (isset($_SESSION['idioma'])){
+  // if (isset($_SESSION['idioma'])){
     
+  //   $idioma =0;
+  // }
+  // else
+  // {
+  //   $_SESSION['idioma'] = 0;
+  // }
+  if (isset($_SESSION['idioma'])){
     $idioma =0;
   }
-  else
-  {
-    $_SESSION['idioma'] = 0;
-  }
-  
+
   ?>
   <br><br>
   <form method='post' action='' id='myform'>
@@ -210,7 +214,23 @@ $(document).ready(function(){
       $idioma =  $_POST['lang'];
    }
   ?>
-  
+   <!-- <br><br>
+  <form method='post' action='' id='myform'>
+  Seleccione Idioma : <select name='lang' id='lang' > 
+  <option value =999>Seleccione idioma</option>
+   <option value=0  >Español</option> 
+   <option value=1 >Ingles</option> 
+  </select>  -->
+ 
+ <?php 
+   if(isset($_POST['lang'])  ){
+      $idioma =  $_POST['lang'];
+   
+     $_SESSION['idioma']  =  $_POST['lang'];
+
+   }
+   
+  ?>
  </form>
 
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
@@ -324,7 +344,10 @@ $(document).ready(function(){
                <div>  
                <label for="Selmes" style="font-weight: bold;">Seleccione mes: </label>
                    <select name="Selmes" id="Selmes">      
-             <?php   $meses = array(1=>"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"); 
+             <?php   
+             
+             $meses = array(1=>"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"); 
+             
              $contador =0;
              foreach ($meses as $mes ) {
                  $contador++;

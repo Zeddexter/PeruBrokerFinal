@@ -15,7 +15,8 @@
 ?>
 <section class=" reportes tables-page-section" ="service" id="reportes" >
     <div class="content content-reportes">
-                    <div class="section_title text-center">
+                    <div class="section_title
+                     text-center">
                     <?php
                                             $nav_menu_locations = get_nav_menu_locations();
                                             $menu_id = absint($nav_menu_locations["menu-principal"]);
@@ -181,13 +182,13 @@
                                                 $id_cookie
                                                  = '';
                                                 $descarga = " ";// onclick = \"window.open('". $url_down."');\"";
-                                                if(isset($_COOKIE['pum-283'])) {
-                                                    $id = "id='ABC' ";// onclick = \"window.open('". $url_down."');\"";
-                                                } 
-                                                else {
-                                                    $id = "id='popup-informacion'";
+                                                // if(isset($_COOKIE['pum-283'])) {
+                                                //     $id = "id='ABC' ";// onclick = \"window.open('". $url_down."');\"";
+                                                // } 
+                                                // else {
+                                                //     $id = "id='popup-informacion'";
                                                    
-                                                }
+                                                // }
                                                 ?>
                                                <a class="LinkButton" <?php echo  $id; ?> href=<?php echo $url_down; ?>">Descargar</a>
                                                 <!-- <button id="Ver" <?php // echo $descarga; ?>>Ver PDF</button> -->
